@@ -9,7 +9,7 @@ const Navbar = ({ title, icon, logoutIcon }) => {
     <ul>
       <li>Welcome Fella!</li>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/">Dashboard</Link>
       </li>
       <li>
         <Link to="/about">About</Link>

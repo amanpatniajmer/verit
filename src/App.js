@@ -7,6 +7,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import About from "./components/pages/About";
 import Footer from "./components/layout/Footer";
+import Admin from "./components/pages/admin/Admin";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path="/about" component={About} />
+            <Route exact path="/admin" component={Admin} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/sign-up" component={Register} />
           </Switch>
