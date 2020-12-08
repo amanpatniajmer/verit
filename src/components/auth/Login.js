@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import SVG from "../../img/2144242.png";
+import { useHistory } from "react-router-dom";
 
-const Login = () => {
+const Login = ({setauthenticated}) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  const history = useHistory();
 
   const { email, password } = user;
 
@@ -14,7 +18,9 @@ const Login = () => {
     if (email === "" || password === "") {
       alert("Please fill in all fields");
     } else {
-      console.log("Logged In");
+      // console.log("Logged In");
+      setauthenticated(true);
+      history.push('/');
       setUser({
         email: "",
         password: "",
@@ -25,7 +31,10 @@ const Login = () => {
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   return (
-    <div>
+    <div style={{ display: "flex", marginTop: "56px", justifyItems: "center", alignItems: "center", placeItems: "center"}}>
+
+      <img src={SVG} alt="" className="main-img"/>
+      
       <form onSubmit={onSubmit} className="form-container">
         <h1 className="text-primary">
           {" "}
