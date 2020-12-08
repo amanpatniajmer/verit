@@ -7,7 +7,7 @@ const Login = ({setauthenticated}) => {
     email: "",
     password: "",
   });
-
+  
   const history = useHistory();
 
   const { email, password } = user;
@@ -20,6 +20,7 @@ const Login = ({setauthenticated}) => {
     } else {
       // console.log("Logged In");
       setauthenticated(true);
+      /* window.location.href="/"; */
       history.push('/');
       setUser({
         email: "",

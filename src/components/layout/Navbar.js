@@ -9,7 +9,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
   const authLinks = (
     <ul>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/">Dashboard</Link>
       </li>
       <li>
         <Link to="/about">About</Link>
