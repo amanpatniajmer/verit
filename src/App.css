@@ -205,6 +205,7 @@ img {
   padding: 0.4rem 1.3rem;
   font-size: 1rem;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
@@ -374,12 +375,19 @@ h3 {
   text-align: center;
 }
 
+table{
+  border-collapse: collapse;
+}
+
 table th,
 table td {
   padding: 1rem;
   text-align: left;
 }
 
+table tr:hover{
+  background-color: #ccc;
+}
 table th {
   background: var(--light-color);
 }
