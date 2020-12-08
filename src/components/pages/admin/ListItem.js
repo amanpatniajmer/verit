@@ -34,11 +34,11 @@ const ListItem = ({data}) => {
                 ?<button className="btn btn-success" onClick={
                     ()=>{verify()}
                 }>Verify
-                {loading && <i class="fa fa-spinner fa-spin"/>}</button>
+                {loading && <i className="fa fa-spinner fa-spin"/>}</button>
                 :<button className="btn" onClick={
                     ()=>{unverify()}
                 }>Unverify
-                {loading && <i class="fa fa-spinner fa-spin"/>}</button>}</td>
+                {loading && <i className="fa fa-spinner fa-spin"/>}</button>}</td>
         </tr>
     )
 }

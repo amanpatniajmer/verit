@@ -20,13 +20,13 @@ const List = () => {
         roll:17173005,
         name:"Shreyash Baijal",
         club: "IMC",
-        event:"Aagman",
+        event:"Aagman NOT",
         session:"2020-21",
         status:"Unverified"
     }]
     var rows=[];
     for (let i = 0; i < data1.length; i++) {
-        rows.push(<ListItem data={data1[i]}/>)
+        rows.push(<ListItem data={data1[i]}  key={data1[i].roll+"_"+data1[i].event}/>)
     }
     return (
         <div>

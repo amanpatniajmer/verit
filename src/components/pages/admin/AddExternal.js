@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const AddExternal = ({click}) => {
+  const [loading, setLoading] = useState(false);
+  const add = (e) =>{
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      click(null);
+  }, 3000);
+  }
     return (
         <div>
-          <form className="form-container">
+          <form className="form-container" onSubmit={(e)=>{add(e)}}>
             <h1 className="text-primary">{" "}
             <span className="text-dark">Add an </span> External Event{" "}
             <span className="close" onClick={()=>click(null)}><i className="fa fa-times-circle"/></span></h1>
@@ -48,7 +57,9 @@ const AddExternal = ({click}) => {
                 <option>Quiz</option>
               </select>
             </div>
-            <input type="submit" value="Add" className="btn btn-block btn-success"/>
+            <button type="submit" className="btn btn-block btn-success">
+              Add{loading && <i className="fa fa-spinner fa-spin"/>}
+            </button>
             <input type="reset" value="Cancel" className="btn btn-block btn-danger" onClick={()=>click(null)}/>
           </form>
         </div>

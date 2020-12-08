@@ -5,7 +5,7 @@ import AddExternal from "./AddExternal";
 const AddEvent = () => {
     const [click, setClick] = useState("");
     const a=(
-        <div>
+        <div >
             <h1 className="text-center">Add an event of type:</h1>
             <div className="text-center">
                 <button className="btn-danger btn" onClick={()=>setClick("Internal")}>Internal Event</button>
