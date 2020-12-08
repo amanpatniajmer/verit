@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-const Login = () => {
+const Login = ({setauthenticated}) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  
+  const history = useHistory();
 
   const { email, password } = user;
 
@@ -14,7 +17,9 @@ const Login = () => {
     if (email === "" || password === "") {
       alert("Please fill in all fields");
     } else {
-      console.log("Logged In");
+      setauthenticated(true);
+      /* window.location.href="/"; */
+      history.push('/');
       setUser({
         email: "",
         password: "",

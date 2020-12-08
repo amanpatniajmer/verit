@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ title, icon, logoutIcon }) => {
-  let isAuthenticated = true;
-
+const Navbar = ({ title, icon, logoutIcon, isauthenticated,setauthenticated }) => {
   const authLinks = (
     <ul>
       <li>Welcome Fella!</li>
@@ -16,7 +14,7 @@ const Navbar = ({ title, icon, logoutIcon }) => {
       </li>
       <li>
         <i className={logoutIcon} />
-        <Link to="/login">Logout</Link>
+        <Link to="/login" onClick={()=>setauthenticated(false)}>Logout</Link>
       </li>
     </ul>
   );
@@ -27,7 +25,7 @@ const Navbar = ({ title, icon, logoutIcon }) => {
         <Link to="/sign-up">Sign Up</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link to="/login" params={{setauthenticated:{setauthenticated}}}>Login</Link>
       </li>
       <li>
         <Link to="/about">About</Link>
@@ -41,7 +39,7 @@ const Navbar = ({ title, icon, logoutIcon }) => {
         <i className={icon} />
         {title}
       </h1>
-      {isAuthenticated ? authLinks : guestLinks}
+      {isauthenticated ? authLinks : guestLinks}
     </nav>
   );
 };
@@ -50,6 +48,7 @@ Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   logoutIcon: PropTypes.string.isRequired,
+  setauthenticated:PropTypes.func.isRequired
 };
 
 Navbar.defaultProps = {

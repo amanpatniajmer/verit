@@ -6,11 +6,10 @@ const AddEvent = () => {
     const [click, setClick] = useState("");
     const a=(
         <div >
-            <h1 className="text-center">Add an event of type:</h1>
-            <div className="text-center">
+            <h1 className="text-center">Add an event of type:
                 <button className="btn-danger btn" onClick={()=>setClick("Internal")}>Internal Event</button>
                 <button className="btn-dark btn" onClick={()=>setClick("External")}>External Event</button>
-            </div>
+            </h1>
         </div>
     )
     if(click==="Internal") 

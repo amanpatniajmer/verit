@@ -30,7 +30,7 @@ const List = () => {
     }
     return (
         <div>
-            <h4 className="text-center">Here goes the list</h4>
+            {/* <h4 className="text-center">Here goes the list</h4> */}
             <Filters/>
             <table className="center">
                 <thead><tr>
