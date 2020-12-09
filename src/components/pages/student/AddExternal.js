@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import { useHistory } from "react-router-dom";
 
-const AddInternal = () => {
+
+const AddExternal = () => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
-  const add = (e) => {
+  const add = (e) =>{
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
@@ -17,8 +18,18 @@ const AddInternal = () => {
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
           <span className="close" onClick={()=>history.push('./')}><i className="fa fa-times-circle"/></span>
             <h1 className="text-primary">{" "}
-            <span className="text-dark">Add an </span> Internal Event{" "}
+            <span className="text-dark">Add an </span> External Event{" "}
             </h1>
+            <div className="form-group">
+              <label>Organizing Institute</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                autoComplete="off"
+                required
+              />
+            </div>
             <div className="form-group">
               <label>Event name</label>
               <input
@@ -51,11 +62,11 @@ const AddInternal = () => {
               </select>
             </div>
             <button type="submit" className="btn btn-block btn-success">
-               {loading ? <i className="fa fa-spinner fa-spin"/> : "Add"}
+              {loading ? <i className="fa fa-spinner fa-spin"/> : "Apply for Verification"}
             </button>
           </form>
         </div>
     )
 }
 
-export default AddInternal;
+export default AddExternal;

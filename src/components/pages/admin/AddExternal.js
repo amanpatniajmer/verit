@@ -64,7 +64,6 @@ const AddExternal = () => {
             <button type="submit" className="btn btn-block btn-success">
               {loading ? <i className="fa fa-spinner fa-spin"/> : "Add"}
             </button>
-            <input type="reset" value="Cancel" className="btn btn-block btn-danger" onClick={()=>history.push('./')}/>
           </form>
         </div>
     )

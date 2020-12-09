@@ -7,10 +7,12 @@ const AddEvent = () => {
         <div  className="add-event">
             <img src={cultLogo} alt="" style={{ height: "120px", width: "120px" }} />
             <h1 className="large text-primary text-center">Cultural Council: General Secretary</h1>
-            <h1 className="text-center" style={{ fontFamily: "Arial, Helvetica, sans-serif", margin: "20px 0px"}}>Add an event:{" "}
-                <Link to ="../admin/addinternal"><button className="btn-danger btn">Internal Event</button></Link>
-                <Link to ="../admin/addexternal"><button className="btn-dark btn">External Event</button></Link>
-                </h1>
+            
+            <h1 className="text-center" style={{ fontFamily: "Arial, Helvetica, sans-serif", margin: "20px 0px"}}>Add an event:{" "}</h1>
+            <div>
+            <Link to ="../admin/addinternal"><button className="event-btn">Internal <span>Event</span><span><i className="fa fa-plus-circle" style={{marginTop:"5px"}}/></span></button></Link>
+            <Link to ="../admin/addexternal"><button className="event-btn">External <span>Event</span><span><i className="fa fa-plus-circle" style={{marginTop:"5px"}}/></span></button></Link>
+            </div>
         </div>
     )
     return a;
