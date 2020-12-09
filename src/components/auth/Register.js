@@ -16,7 +16,7 @@ const Register = () => {
     if (name === "" || roll === "" || email === "" || password === "") {
       alert("Please fill in all fields");
     } else {
-      console.log("User Registered");
+      // console.log("User Registered");
       setUser({
         name: "",
         roll: "",

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SVG from "../../img/2144242.png";
 import { useHistory } from "react-router-dom";
 
 const Login = ({setauthenticated}) => {
@@ -17,6 +18,7 @@ const Login = ({setauthenticated}) => {
     if (email === "" || password === "") {
       alert("Please fill in all fields");
     } else {
+      // console.log("Logged In");
       setauthenticated(true);
       /* window.location.href="/"; */
       history.push('/');
@@ -30,7 +32,10 @@ const Login = ({setauthenticated}) => {
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   return (
-    <div>
+    <div style={{ display: "flex", marginTop: "56px", justifyItems: "center", alignItems: "center", placeItems: "center"}}>
+
+      <img src={SVG} alt="" className="main-img"/>
+      
       <form onSubmit={onSubmit} className="form-container">
         <h1 className="text-primary">
           {" "}

@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 
 const ListItem = ({data}) => {
-    const {roll,name,club,event,session, status}=data;
+    const {roll,name,club,event,session, status} = data;
     const [loading, setLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);
     const verify = () =>{
@@ -25,22 +25,22 @@ const ListItem = ({data}) => {
             <td>{club}</td>
             <td>{event}</td>
             <td>{session}</td>
-            <td>{newStatus==="Unverified"
-                ?<i className="fa fa-times-circle p text-danger"/>
-                :<i className="fa fa-check-circle p text-success"/>}
+            <td>{newStatus === "Unverified"
+                ? <i className="fa fa-times-circle p text-danger"/>
+                : <i className="fa fa-check-circle p text-success"/>}
                 {newStatus}</td>
             <td className="text-center">
-                {newStatus==="Unverified"
+                {newStatus === "Unverified"
                 ?<button className="btn btn-success" onClick={
-                    ()=>{verify()}
-                }>Verify
-                {loading && <i className="fa fa-spinner fa-spin"/>}</button>
-                :<button className="btn" onClick={
-                    ()=>{unverify()}
-                }>Unverify
-                {loading && <i className="fa fa-spinner fa-spin"/>}</button>}</td>
+                    () => {verify()}
+                }>
+                {loading ? <i className="fa fa-spinner fa-spin p text-danger"/> : "Verify"}</button>
+                :<button className="btn btn-danger" onClick={
+                    () => {unverify()}
+                }>
+                {loading ? <i className="fa fa-spinner fa-spin"/> : "Unverify"}</button>}</td>
         </tr>
     )
 }
 
-export default ListItem
+export default ListItem;

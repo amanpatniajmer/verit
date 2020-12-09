@@ -1,5 +1,4 @@
 import React, { Component, useState } from 'react'
-import './form.css'
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
