@@ -15,8 +15,9 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         <Link to="/admin/list">List</Link>
       </li>
       <li>
+        <Link to="/login" onClick={()=>setauthenticated(false)} >Logout {" "}
         <i className={logoutIcon} />
-        <Link to="/login" onClick={()=>setauthenticated(false)} >Logout</Link>
+        </Link>
       </li>
     </ul>
   );

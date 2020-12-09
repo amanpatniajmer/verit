@@ -51,7 +51,7 @@ const AddInternal = () => {
               </select>
             </div>
             <button type="submit" className="btn btn-block btn-success">
-               {loading ? <i className="fa fa-spinner fa-spin"/> : "Add"}
+               {loading ? <i className="fa fa-spinner fa-spin"/> : "Apply for Verification"}
             </button>
           </form>
         </div>
