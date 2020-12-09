@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const ListItem = ({data}) => {
+const ListItem = ({data,id,setdata}) => {
     const {roll,name,club,event,session, status} = data;
     const [loading, setLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);

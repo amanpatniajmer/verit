@@ -105,6 +105,20 @@ img {
   padding: 0 2rem;
 }
 
+.filter-container {
+  margin: 2rem 1rem;
+  overflow: hidden;
+  padding: 0rem 1rem;
+}
+
+.filter-container:hover {
+  box-shadow: 4px 4px 5px rgb(0 0 0 / 20%);
+}
+
+.filter-container label{
+  font-size: medium;
+}
+
 .close {
   float: right;
   padding: 2px 5px;

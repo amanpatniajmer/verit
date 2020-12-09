@@ -36,13 +36,10 @@ const List = () => {
             <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Verification List</h2>
             <table >
                 <thead><tr>
-                    <th className="text-center text-dark">Roll No</th>
-                    <th className="text-center text-dark">Name</th>
                     <th className="text-center text-dark">Club</th>
                     <th className="text-center text-dark">Event</th>
                     <th className="text-center text-dark">Session</th>
                     <th className="text-center text-dark">Status</th>
-                    <th className="text-center text-dark">Actions</th>
                 </tr></thead>
                 <tbody>
                     {rows}

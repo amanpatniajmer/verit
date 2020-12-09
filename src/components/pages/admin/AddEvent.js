@@ -1,11 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
-import AddInternal from "./AddInternal";
-import AddExternal from "./AddExternal";
 import cultLogo from "../../../img/small-logo.jpg"
 
 const AddEvent = () => {
-    const [click, setClick] = useState("");
     const a = (
         <div className="add-event">
             <img src={cultLogo} alt="" style={{ height: "120px", width: "120px" }} />
@@ -18,11 +15,7 @@ const AddEvent = () => {
             </div>
         </div>
     )
-    if(click === "Internal")
-        return <AddInternal click={setClick}/>
-    else if(click === "External")
-        return <AddExternal click={setClick}/>
-    else return a;
+    return a;
 }
 
 export default AddEvent;

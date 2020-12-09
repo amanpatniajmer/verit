@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ListItem from "./ListItem";
 import Filters from "./Filters";
-const List = () => {
-    const data1 = [{
+import queryString from "query-string";
+
+const List = ({location}) => {
+    function bool(val) { return val===true || val === "true" }
+    let query=queryString.parse(location.search)
+    let verifiedFilter=bool(query.verified);
+    let unverifiedFilter=bool(query.unverified);
+    let session=query.session;
+    let club=query.club;
+    const [data1,setData1] = useState([{
         roll: 17173004,
         name: "Aman Jain",
         club: "Indian Music Club",
@@ -23,16 +31,10 @@ const List = () => {
         event: "Aagman",
         session: "2020-21",
         status: "Unverified"
-    }]
-
-    var rows=[];
-    for (let i = 0; i < data1.length; i++) {
-        rows.push(<ListItem data={data1[i]}  key={data1[i].roll+"_"+data1[i].event}/>)
-    }
+    }])
     return (
         <div style={{ display:"grid", placeContent: "center", marginBottom: "16px" }}>
-            {/* <h4 className="text-center">Here goes the list</h4> */}
-            <Filters/>
+            <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter}/>
             <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Verification List</h2>
             <table >
                 <thead><tr>
@@ -45,7 +47,14 @@ const List = () => {
                     <th className="text-center text-dark">Actions</th>
                 </tr></thead>
                 <tbody>
-                    {rows}
+                    {data1.map((i,index) => {
+                        let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
+                        let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
+                        let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
+                        if(statusFilters && sessionFilters && clubFilters)
+                        return <ListItem data={i} id={index} setdata={setData1} key={i.roll+"_"+i.event}/>
+                        else return null;
+                    })}
                 </tbody>
             </table>
         </div>
