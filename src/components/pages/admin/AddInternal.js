@@ -1,9 +1,24 @@
 import React, {useState} from 'react'
 import { useHistory } from "react-router-dom";
+import SubEvent from './SubEvent';
 
 const AddInternal = () => {
   const history=useHistory();
+  const [children,addChildren]=useState([]);
+  const [count,increaseCount]=useState(0);
   const [loading, setLoading] = useState(false);
+  const delSubEvent = (key) =>{
+    let a=[];
+    for(let i=0;i<count;i++){
+      if(i!==key-1) a.push(children[i]);
+    }
+    addChildren(a);
+  }
+  const addSubEvents= ()=>{
+    increaseCount(count+1);
+    addChildren([...children,<SubEvent key={count+1} id={count+1} delSubEvent={delSubEvent}/>]);
+  }
+  
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -28,6 +43,11 @@ const AddInternal = () => {
                 autoComplete="off"
                 required
               />
+            </div>
+            
+            {children.map(child=>child)}
+            <div className="form-group text-center">
+            <button type="button" className="btn" onClick={()=>addSubEvents()}>Add Sub Event{" "}<span><i className="fa fa-plus-circle" style={{marginTop:"5px"}}/></span></button>
             </div>
             <div className="form-group">
               <label>Session</label>

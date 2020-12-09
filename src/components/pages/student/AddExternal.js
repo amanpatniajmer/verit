@@ -21,6 +21,16 @@ const AddExternal = () => {
             <span className="text-dark">Add an </span> External Event{" "}
             </h1>
             <div className="form-group">
+            <div className="form-group">
+              <label>Council</label>
+              <select required={true}>
+                <option>Cultural Council</option>
+                <option>Film and Media Council</option>
+                <option>Science and Technology Council</option>
+                <option>Social Service Council</option>
+                <option>Games and Sports Council</option>
+              </select>
+            </div>
               <label>Organizing Institute</label>
               <input
                 type="text"
@@ -31,7 +41,7 @@ const AddExternal = () => {
               />
             </div>
             <div className="form-group">
-              <label>Event name</label>
+              <label>Fest name</label>
               <input
                 type="text"
                 name="name"
@@ -49,16 +59,31 @@ const AddExternal = () => {
               </select>
             </div>
             <div className="form-group">
-              <label>Club/Council</label>
-              <select required={true}>
-                <option>Cultural Council</option>
-                <option>Indian Music Club</option>
-                <option>Western Music Club</option>
-                <option>Fine Arts Club</option>
-                <option>Theatre Club</option>
-                <option>Dance Club</option>
-                <option>The Literary Club</option>
-                <option>Quiz Club</option>
+              <label>Event name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                autoComplete="off"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Sub-Event name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                autoComplete="off"
+              />
+            </div>
+            <div className="form-group">
+              <label>Position</label>
+              <select>
+                <option>Participation</option>
+                <option>Winner</option>
+                <option>1st Runner Up</option>
+                <option>2nd Runner Up</option>
               </select>
             </div>
             <button type="submit" className="btn btn-block btn-success">

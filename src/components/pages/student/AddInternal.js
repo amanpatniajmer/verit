@@ -20,24 +20,6 @@ const AddInternal = () => {
             <span className="text-dark">Add an </span> Internal Event{" "}
             </h1>
             <div className="form-group">
-              <label>Event name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter name"
-                autoComplete="off"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Session</label>
-              <select required={true}>
-                <option>2020-21</option>
-                <option>2019-20</option>
-                <option>2018-19</option>
-              </select>
-            </div>
-            <div className="form-group">
               <label>Club/Council</label>
               <select required={true}>
                 <option>Cultural Council</option>
@@ -48,6 +30,39 @@ const AddInternal = () => {
                 <option>Dance Club</option>
                 <option>The Literary Club</option>
                 <option>Quiz Club</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Session</label>
+              <select required={true}>
+                <option>2020-21</option>
+                <option>2019-20</option>
+                <option>2018-19</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Select Event</label>
+              <select required={true}>
+                <option>Aagman</option>
+                <option>Kashiyatra</option>
+                <option>2018-19</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Select Sub-Event</label>
+              <select required={true}>
+                <option>Aagman</option>
+                <option>Kashiyatra</option>
+                <option>2018-19</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Position</label>
+              <select>
+                <option>Participation</option>
+                <option>Winner</option>
+                <option>1st Runner Up</option>
+                <option>2nd Runner Up</option>
               </select>
             </div>
             <button type="submit" className="btn btn-block btn-success">
