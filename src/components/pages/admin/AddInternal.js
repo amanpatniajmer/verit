@@ -8,11 +8,11 @@ const AddInternal = () => {
   const [keys,setKeys]=useState([]);
   const [loading, setLoading] = useState(false);
   const delSubEvent = (key) =>{
-    let a=[];
+    let newKeys=[];
     for(let i=0;i<keys.length;i++){
-      if(keys[i]!==key) a.push(keys[i]);
+      if(keys[i]!==key) newKeys.push(keys[i]);
     }
-    setKeys(a);
+    setKeys(newKeys);
   }
   const addSubEvents= ()=>{
     setKeys([...keys,count]);
