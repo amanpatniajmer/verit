@@ -4,19 +4,19 @@ import SubEvent from './SubEvent';
 
 const AddInternal = () => {
   const history=useHistory();
-  const [children,addChildren]=useState([]);
   const [count,increaseCount]=useState(0);
+  const [keys,setKeys]=useState([]);
   const [loading, setLoading] = useState(false);
   const delSubEvent = (key) =>{
-    let a=[];
-    for(let i=0;i<count;i++){
-      if(i!==key-1) a.push(children[i]);
+    let newKeys=[];
+    for(let i=0;i<keys.length;i++){
+      if(keys[i]!==key) newKeys.push(keys[i]);
     }
-    addChildren(a);
+    setKeys(newKeys);
   }
   const addSubEvents= ()=>{
+    setKeys([...keys,count]);
     increaseCount(count+1);
-    addChildren([...children,<SubEvent key={count+1} id={count+1} delSubEvent={delSubEvent}/>]);
   }
   
   const add = (e) => {
@@ -45,7 +45,9 @@ const AddInternal = () => {
               />
             </div>
             
-            {children.map(child=>child)}
+            {keys.map(i=>{
+              return <SubEvent key={i} id={i} delSubEvent={delSubEvent}/>
+              })}
             <div className="form-group text-center">
             <button type="button" className="btn" onClick={()=>addSubEvents()}>Add Sub Event{" "}<span><i className="fa fa-plus-circle" style={{marginTop:"5px"}}/></span></button>
             </div>
