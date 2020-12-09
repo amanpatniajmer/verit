@@ -10,7 +10,7 @@ const Navbar = ({ title, icon, logoutIcon, isauthenticated,setauthenticated }) =
         <Link to="/">Dashboard</Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to="/admin/list">List</Link>
       </li>
       <li>
         <i className={logoutIcon} />

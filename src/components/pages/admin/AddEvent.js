@@ -1,22 +1,16 @@
-import React, {useState} from 'react'
-import AddInternal from "./AddInternal";
-import AddExternal from "./AddExternal";
+import React from 'react'
+import { Link } from "react-router-dom";
 
 const AddEvent = () => {
-    const [click, setClick] = useState("");
     const a=(
         <div >
             <h1 className="text-center">Add an event of type:
-                <button className="btn-danger btn" onClick={()=>setClick("Internal")}>Internal Event</button>
-                <button className="btn-dark btn" onClick={()=>setClick("External")}>External Event</button>
+                <Link to ="./addinternal"><button className="btn-danger btn">Internal Event</button></Link>
+                <Link to ="./addexternal"><button className="btn-dark btn">External Event</button></Link>
             </h1>
         </div>
     )
-    if(click==="Internal") 
-        return <AddInternal click={setClick}/>
-    else if(click==="External")
-        return <AddExternal click={setClick}/>
-    else return a;
+    return a;
 }
 
 export default AddEvent

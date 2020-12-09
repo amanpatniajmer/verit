@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
+import { useHistory } from "react-router-dom";
 
-const AddInternal = ({click}) => {
+const AddInternal = () => {
+  const history=useHistory();
   const [loading, setLoading] = useState(false);
   const add = (e) =>{
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      click(null);
+      history.push('./');
   }, 3000);
   }
     return (
@@ -15,7 +17,7 @@ const AddInternal = ({click}) => {
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
             <h1 className="text-primary">{" "}
             <span className="text-dark">Add an </span> Internal Event{" "}
-            <span className="close" onClick={()=>click(null)}><i className="fa fa-times-circle"/></span></h1>
+            <span className="close" onClick={()=>history.push('./')}><i className="fa fa-times-circle"/></span></h1>
             <div className="form-group">
               <label>Event name:</label>
               <input
@@ -50,7 +52,7 @@ const AddInternal = ({click}) => {
             <button type="submit" className="btn btn-block btn-success">
               Add{loading && <i className="fa fa-spinner fa-spin"/>}
             </button>
-            <input type="reset" value="Cancel" className="btn btn-block btn-danger"  onClick={()=>click(null)}/>
+            <input type="reset" value="Cancel" className="btn btn-block btn-danger" onClick={()=>history.push('./')}/>
           </form>
         </div>
     )
