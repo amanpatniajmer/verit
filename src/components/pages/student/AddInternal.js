@@ -1,10 +1,16 @@
-import React, { useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
 const AddInternal = () => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
+  const [events,setEvents]=useState(null);
+  const [selections,setSelections]=useState({
+    organization:"Cultural Council",
+    club:"Cultural Council",
+    session:"2020-21"
+  })
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -13,10 +19,13 @@ const AddInternal = () => {
       history.push('./');
   }, 3000);
   }
-  const fetchfields = (council) => {
-    Axios.get(`http://localhost:5000/internalevents/${council}`)
-      .then((res)=>{return res})
+  const fetchfields = (selections) => {
+      Axios.get(`http://localhost:5000/fields/internalevents?organization=${selections.organization}&club=${selections.club}&session=${selections.session}`)
+      .then((res)=>setEvents(res.data))
   }
+  useEffect(()=>{
+    fetchfields(selections)
+  },[selections])
     return (
         <div>
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
@@ -25,9 +34,16 @@ const AddInternal = () => {
             <span className="text-dark">Add an </span> Internal Event{" "}
             </h1>
             <div className="form-group">
+              <label>Organization</label>
+              <input type="text" name="organization" value="Cultural Council" readOnly/>
+            </div>
+            <div className="form-group">
               <label>Club/Council</label>
-              <select name="club" required={true}>
-                <option value="Cultural Council" onChange={(e)=>{fetchfields(e.target.value)}}>Cultural Council</option>
+              <select name="club" value={selections.club} onChange={(e)=>{
+                const val=e.target.value;
+                setSelections((prev)=>({...prev,"club":val}))
+                }} required={true}>
+                <option value="Cultural Council">Cultural Council</option>
                 <option value="Indian Music Club">Indian Music Club</option>
                 <option value="Western Music Club">Western Music Club</option>
                 <option value="Fine Arts Club">Fine Arts Club</option>
@@ -39,7 +55,7 @@ const AddInternal = () => {
             </div>
             <div className="form-group">
               <label>Session</label>
-              <select name="session" required={true}>
+              <select name="session" onChange={(e)=>{fetchfields(e.target.value)}} required={true}>
                     <option value="2020-21">2020-21</option>
                     <option value="2019-20">2019-20</option>
                     <option value="2018-19">2018-19</option>
@@ -48,9 +64,7 @@ const AddInternal = () => {
             <div className="form-group">
               <label>Select Event</label>
               <select name="event"required={true}>
-                <option value="Aagman">Aagman</option>
-                <option value="Kashiyatra">Kashiyatra</option>
-                <option value="Cultural Weekend">Cultural Weekend</option>
+              {events && events.map((i)=> <option value={i} key={i}>{i}</option>)}
               </select>
             </div>
             <div className="form-group">

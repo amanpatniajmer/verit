@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react'
 import { useHistory } from "react-router-dom";
 import SubEvent from "./SubEvent";
 import Axios from 'axios';
@@ -34,10 +34,6 @@ const AddExternal = () => {
       .catch((res)=>{if(res.response.status===400) console.log('400')})
       .catch((e)=>console.log('Problem'+e.response))
   }, 3000);
-  const fetchfields = (council) => {
-    Axios.get(`http://localhost:5000/internalevents/${council}`)
-      .then((res)=>{return res})
-  }
   }
     return (
         <div>
