@@ -16,6 +16,7 @@ import StudentAddInternal from "./components/pages/student/AddInternal";
 import StudentAddExternal from "./components/pages/student/AddExternal";
 import StudentAddPor from "./components/pages/student/AddPor";
 import StudentList from "./components/pages/student/List";
+import EventsList from "./components/pages/admin/EventsList";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(true)
@@ -35,6 +36,7 @@ function App() {
             <Route exact path="/student/addexternal" component={StudentAddExternal} />
             <Route exact path="/student/addpor" component={StudentAddPor} />
             <Route exact path="/admin/list" component={AdminList} />
+            <Route exact path="/admin/eventslist" component={EventsList} />
             <Route exact path="/admin/addinternal" component={AdminAddInternal} />
             <Route exact path="/admin/addexternal" component={AdminAddExternal} />
             <Route path='/' component={Forbidden}/>

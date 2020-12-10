@@ -13,6 +13,9 @@ const AddEvent = () => {
             <Link to ="../admin/addinternal"><button className="event-btn">Internal <span>Event</span><span><i className="fa fa-plus-circle" style={{marginTop:"5px"}}/></span></button></Link>
             <Link to ="../admin/addexternal"><button className="event-btn">External <span>Event</span><span><i className="fa fa-plus-circle" style={{marginTop:"5px"}}/></span></button></Link>
             </div>
+            <h1 className="text-center" style={{ fontFamily: "Arial, Helvetica, sans-serif", margin: "20px 0px"}}>Event History:{" "}</h1>
+            <Link to ="../admin/eventslist?active=false&inactive=false&session=All"><button className="btn btn-success">Event History{" "}<i className="fa fa-history" style={{marginTop:"5px"}}/></button></Link>
+            
         </div>
     )
     return a;

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Logo from "../../img/logo.png";
 
 const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
-  isauthenticated = true;
 
   const authLinks = (
     <ul>
@@ -12,7 +11,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         <Link to="/">Dashboard</Link>
       </li>
       <li>
-        <Link to="/admin/list">List</Link>
+        <Link to="/admin/list?verified=false&unverified=false&session=All&club=Cultural%20Council">List</Link>
       </li>
       <li>
         <Link to="/login" onClick={()=>setauthenticated(false)} >Logout {" "}

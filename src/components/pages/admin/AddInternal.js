@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import { useHistory } from "react-router-dom";
 import SubEvent from './SubEvent';
+import Axios from 'axios';
 
 const AddInternal = () => {
   const history=useHistory();
-  const [count,increaseCount]=useState(0);
   const [keys,setKeys]=useState([]);
   const [loading, setLoading] = useState(false);
   const delSubEvent = (key) =>{
@@ -15,16 +15,24 @@ const AddInternal = () => {
     setKeys(newKeys);
   }
   const addSubEvents= ()=>{
-    setKeys([...keys,count]);
-    increaseCount(count+1);
+    setKeys([...keys,keys.length?keys[keys.length-1]+1:0]);
   }
   
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
+    let formdata=new FormData(e.target);
     setTimeout(() => {
       setLoading(false);
       history.push('./');
+      let object = {};
+      formdata.forEach(function(value, key){
+        object[key] = value;
+      });
+      Axios.post('http://localhost:5000/',object)
+      .then((res)=>console.log(res))
+      .catch((res)=>{if(res.response.status===400) console.log('400')})
+      .catch((e)=>console.log('Problem'+e.response))
   }, 3000);
   }
     return (
@@ -35,10 +43,14 @@ const AddInternal = () => {
             <span className="text-dark">Add an </span> Internal Event{" "}
             </h1>
             <div className="form-group">
+              <label>Organization</label>
+              <input type="text" name="organization" value="Cultural Council" readOnly/>
+            </div>
+            <div className="form-group">
               <label>Event name</label>
               <input
                 type="text"
-                name="name"
+                name="event"
                 placeholder="Enter name"
                 autoComplete="off"
                 required
@@ -53,23 +65,23 @@ const AddInternal = () => {
             </div>
             <div className="form-group">
               <label>Session</label>
-              <select required={true}>
-                <option>2020-21</option>
-                <option>2019-20</option>
-                <option>2018-19</option>
+              <select name="session" required={true}>
+                    <option value="2020-21">2020-21</option>
+                    <option value="2019-20">2019-20</option>
+                    <option value="2018-19">2018-19</option>
               </select>
             </div>
             <div className="form-group">
               <label>Club/Council</label>
-              <select required={true}>
-                <option>Cultural Council</option>
-                <option>Indian Music Club</option>
-                <option>Western Music Club</option>
-                <option>Fine Arts Club</option>
-                <option>Theatre Club</option>
-                <option>Dance Club</option>
-                <option>The Literary Club</option>
-                <option>Quiz Club</option>
+              <select name="club" required={true}>
+                <option value="Cultural Council">Cultural Council</option>
+                <option value="Indian Music Club">Indian Music Club</option>
+                <option value="Western Music Club">Western Music Club</option>
+                <option value="Fine Arts Club">Fine Arts Club</option>
+                <option value="Theatre Club">Theatre Club</option>
+                <option value="Dance Club">Dance Club</option>
+                <option value="The Literary Club">The Literary Club</option>
+                <option value="Quiz Club">Quiz Club</option>
               </select>
             </div>
             <button type="submit" className="btn btn-block btn-success">

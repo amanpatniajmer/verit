@@ -12,11 +12,16 @@ const Register = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     if (name === "" || roll === "" || email === "" || password === "") {
       alert("Please fill in all fields");
-    } else {
-      // console.log("User Registered");
+    }
+    else if(!roll.match(/[0-9]{8}/)){
+      alert("Roll not correct")
+    }
+    else if(!email.match(/[a-z0-9.]@i{1,2}tbhu\.ac\.in/)){
+      alert('Email not correct. Enter institute email address.')
+    }
+     else {
       setUser({
         name: "",
         roll: "",
@@ -25,7 +30,6 @@ const Register = () => {
       });
     }
   };
-
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   return (
@@ -37,7 +41,7 @@ const Register = () => {
         </h1>
 
         <div className="form-group">
-          <label>Username</label>
+          <label>Full Name</label>
           <input
             type="text"
             name="name"
@@ -65,7 +69,7 @@ const Register = () => {
         <div className="form-group">
           <label>Email Address</label>
           <input
-            type="email"
+            type="text"
             name="email"
             value={email}
             placeholder="Enter email"

@@ -8,7 +8,7 @@ const SubEvent = ({id,delSubEvent}) => {
               <div  style={{display:"flex", justifyContent:"stretch"}}>
               <input
                 type="text"
-                name="name"
+                name={"sub_event"+id}
                 placeholder="Enter name"
                 autoComplete="off"
                 style={{width:"95%"}}

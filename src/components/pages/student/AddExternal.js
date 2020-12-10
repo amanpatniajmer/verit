@@ -34,7 +34,7 @@ const AddExternal = () => {
               <label>Organizing Institute</label>
               <input
                 type="text"
-                name="name"
+                name="institute"
                 placeholder="Enter name"
                 autoComplete="off"
                 required
@@ -44,7 +44,7 @@ const AddExternal = () => {
               <label>Fest name</label>
               <input
                 type="text"
-                name="name"
+                name="fest"
                 placeholder="Enter name"
                 autoComplete="off"
                 required
@@ -52,17 +52,17 @@ const AddExternal = () => {
             </div>
             <div className="form-group">
               <label>Session</label>
-              <select required={true}>
-                <option>2020-21</option>
-                <option>2019-20</option>
-                <option>2018-19</option>
+              <select name="session" required={true}>
+                    <option value="2020-21">2020-21</option>
+                    <option value="2019-20">2019-20</option>
+                    <option value="2018-19">2018-19</option>
               </select>
             </div>
             <div className="form-group">
               <label>Event name</label>
               <input
                 type="text"
-                name="name"
+                name="event"
                 placeholder="Enter name"
                 autoComplete="off"
                 required
@@ -72,18 +72,18 @@ const AddExternal = () => {
               <label>Sub-Event name</label>
               <input
                 type="text"
-                name="name"
+                name="sub_event"
                 placeholder="Enter name"
                 autoComplete="off"
               />
             </div>
             <div className="form-group">
               <label>Position</label>
-              <select>
-                <option>Participation</option>
-                <option>Winner</option>
-                <option>1st Runner Up</option>
-                <option>2nd Runner Up</option>
+              <select name="position">
+                <option value="Participation">Participation</option>
+                <option value="1">Winner</option>
+                <option value="2">1st Runner Up</option>
+                <option value="3">2nd Runner Up</option>
               </select>
             </div>
             <button type="submit" className="btn btn-block btn-success">
