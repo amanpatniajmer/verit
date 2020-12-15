@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import Axios from 'axios';
 
 const Register = () => {
+  const history= useHistory();
   const [user, setUser] = useState({
-    name: "",
-    roll: "",
-    email: "",
-    password: "",
+    name: "Aman Jain",
+    roll: "17173004",
+    email: "aman.jain.phy17@itbhu.ac.in",
+    password: "amanjain",
   });
 
   const { name, roll, email, password } = user;
@@ -22,6 +25,17 @@ const Register = () => {
       alert('Email not correct. Enter institute email address.')
     }
      else {
+      let formdata=new FormData(e.target);
+      let object = {};
+      formdata.forEach(function(value, key){
+        object[key] = value;
+      });
+      Axios.post('http://localhost:5000/api/register',object)
+      .then((res)=>{
+        console.log(res.data)
+        history.push('./')
+        })
+      .catch((e,res)=>{console.log(e); console.log(res)})
       setUser({
         name: "",
         roll: "",

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SVG from "../../img/2144242.png";
 import { useHistory } from "react-router-dom";
+import Axios from 'axios';
 
-const Login = ({setauthenticated}) => {
+const Login = ({setauthenticated,setAdmin}) => {
+  useEffect(() => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('adminState');
+  }, [])
   const [user, setUser] = useState({
-    email: "student@gmail.com",
+    email: "aman.jain.phy17@itbhu.ac.in",
     password: "yobabe"
   });
   
@@ -17,9 +22,30 @@ const Login = ({setauthenticated}) => {
 
     if (email === "" || password === "") {
       alert("Please fill in all fields");
-    } else {
+    } 
+    else if(!email.match(/[a-z0-9.]@i{1,2}tbhu\.ac\.in/)){
+      alert('Email not correct. Enter institute email address.')
+    }
+    else {
       // console.log("Logged In");
-      setauthenticated(true);
+      let formdata=new FormData(e.target);
+      let object = {};
+      formdata.forEach(function(value, key){
+        object[key] = value;
+      });
+      Axios.post('http://localhost:5000/api/login',object)
+      .then((res)=>{
+        console.log(res.data)
+        localStorage.setItem("token",res.data.token);
+        res.data.admin===true ? localStorage.setItem("adminState","true")
+        :localStorage.setItem("adminState","false");
+        localStorage.setItem("name",res.data.name)
+        localStorage.setItem("email",res.data.email)
+        localStorage.setItem("roll",res.data.roll)
+        setauthenticated(true);
+        setAdmin(res.data.admin)
+      })
+      .catch((e)=>{console.log('Problem'+e.response);})
       /* window.location.href="/"; */
       history.push('/');
       setUser({

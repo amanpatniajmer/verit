@@ -71,6 +71,12 @@ img {
   align-items: center;
 }
 
+[readonly]{
+  cursor:default;
+  background-color:#ececec;
+  font-style: italic;
+}
+
 .add-event span {
   display: flex;
   flex-direction: column;

@@ -12,8 +12,8 @@ const EventsList = ({location}) => {
     let session=query.session;
     const [data1,setData1] = useState(null);
     const fetchList = (organization) =>{
-        Axios.get(`http://localhost:5000/internalevents/${organization}/`)
-        .then((res)=>{setData1(res.data)})
+        Axios.get(`http://localhost:5000/api/internalevents?organization=${organization}`)
+        .then((res)=>{console.log(res.data); setData1(res.data)})
     }
     useEffect(() => {
         let organization="Cultural Council"

@@ -17,23 +17,23 @@ const AddInternal = () => {
   const addSubEvents= ()=>{
     setKeys([...keys,keys.length?keys[keys.length-1]+1:0]);
   }
-  
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
     let formdata=new FormData(e.target);
-    setTimeout(() => {
-      setLoading(false);
-      history.push('./');
-      let object = {};
-      formdata.forEach(function(value, key){
-        object[key] = value;
-      });
-      Axios.post('http://localhost:5000/',object)
-      .then((res)=>console.log(res))
-      .catch((res)=>{if(res.response.status===400) console.log('400')})
-      .catch((e)=>console.log('Problem'+e.response))
-  }, 3000);
+    let object = {};
+    formdata.forEach(function(value, key){
+      object[key] = value;
+    });
+    setTimeout(()=>{
+      Axios.post('http://localhost:5000/api/internalevents',object,{
+      headers:{
+        'x-auth-token': localStorage.getItem('token')
+      }})
+      .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
+      .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
+    },1000)
+    
   }
     return (
         <div>

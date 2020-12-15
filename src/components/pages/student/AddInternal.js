@@ -20,7 +20,11 @@ const AddInternal = () => {
   }, 3000);
   }
   const fetchfields = (selections) => {
-      Axios.get(`http://localhost:5000/fields/internalevents?organization=${selections.organization}&club=${selections.club}&session=${selections.session}`)
+      Axios.get(`http://localhost:5000/api/internalevents?organization=${selections.organization}&club=${selections.club}&session=${selections.session}`,{
+        headers:{
+          'x-auth-token': localStorage.getItem('token')
+        }
+      })
       .then((res)=>setEvents(res.data))
   }
   useEffect(()=>{
