@@ -1,26 +1,71 @@
 import React, {useState} from 'react';
+import Axios from 'axios';
 
-const EventsListItem = ({data,id,setdata}) => {
-    const {event,session, status} = data;
+const EventsListItem = ({data,id,setdata, type}) => {
+    const {event,subevents,session, status,_id} = data;
     const [loading, setLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);
     const verify = () =>{
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
+        Axios.put('http://localhost:5000/api/internalevents/activate',{
+            id:_id
+        }).then(result=>{
+            if(result.status===200 && result.statusText==="OK")
             setNewStatus("Active");
-        }, 2000);
+            setLoading(false);
+        })
+        .catch(err=>{
+            console.log(err)
+            setLoading(false);
+        })
+    }
+    const externalActivate = () =>{
+        setLoading(true);
+        Axios.put('http://localhost:5000/api/externalevents/activate',{
+            id:_id
+        }).then(result=>{
+            if(result.status===200 && result.statusText==="OK")
+            setNewStatus("Active");
+            setLoading(false);
+        })
+        .catch(err=>{
+            console.log(err)
+            setLoading(false);
+        })
     }
     const unverify = () => {
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
+        Axios.put('http://localhost:5000/api/internalevents/inactivate',{
+            id:_id
+        }).then(result=>{
+            if(result.status===200 && result.statusText==="OK")
             setNewStatus("Inactive");
-        }, 2000);
+            setLoading(false);
+        })
+        .catch(err=>{
+            console.log(err)
+            setLoading(false);
+        })
+    }
+    const externalInactivate = () => {
+        setLoading(true);
+        Axios.put('http://localhost:5000/api/externalevents/inactivate',{
+            id:_id
+        }).then(result=>{
+            if(result.status===200 && result.statusText==="OK")
+            setNewStatus("Inactive");
+            setLoading(false);
+        })
+        .catch(err=>{
+            console.log(err)
+            setLoading(false);
+        })
     }
     return (
         <tr>
+            <td>{type}</td>
             <td>{event}</td>
+            <td>{subevents.join(", ")}</td>
             <td>{session}</td>
             <td>{newStatus === "Inactive"
                 ? <i className="fa fa-times-circle p text-danger"/>
@@ -29,11 +74,11 @@ const EventsListItem = ({data,id,setdata}) => {
             <td className="text-center">
                 {newStatus === "Inactive"
                 ?<button className="btn btn-success" onClick={
-                    () => {verify()}
+                    () => {type==="Internal"?verify():externalActivate()}
                 }>
                 {loading ? <i className="fa fa-spinner fa-spin p text-danger"/> : "Activate"}</button>
                 :<button className="btn btn-danger" onClick={
-                    () => {unverify()}
+                    () => {type==="Internal"?unverify():externalInactivate()}
                 }>
                 {loading ? <i className="fa fa-spinner fa-spin"/> : "Inactivate"}</button>}</td>
         </tr>

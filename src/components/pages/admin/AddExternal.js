@@ -18,27 +18,27 @@ const AddExternal = () => {
   const addSubEvents= ()=>{
     setKeys([...keys,keys.length?keys[keys.length-1]+1:0]);
   }
-  const add = (e) =>{
+  const add = (e) => {
     e.preventDefault();
     setLoading(true);
     let formdata=new FormData(e.target);
-    setTimeout(() => {
-      setLoading(false);
-      history.push('./');
-      let object = {};
-      formdata.forEach(function(value, key){
-        object[key] = value;
-      });
-      Axios.post('http://localhost:5000/',object)
-      .then((res)=>console.log(res))
-      .catch((res)=>{if(res.response.status===400) console.log('400')})
-      .catch((e)=>console.log('Problem'+e.response))
-  }, 3000);
+    let object = {};
+    formdata.forEach(function(value, key){
+      object[key] = value;
+    });
+  
+    Axios.post('http://localhost:5000/api/externalevents',object,{
+    headers:{
+      'x-auth-token': localStorage.getItem('token')
+    }})
+    .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
+    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
+    
   }
     return (
         <div>
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
-          <span className="close" onClick={()=>history.push('./')}><i className="fa fa-times-circle"/></span>
+          <span className="close" onClick={()=>history.push('../')}><i className="fa fa-times-circle"/></span>
             <h1 className="text-primary">{" "}
             <span className="text-dark">Add an </span> External Event{" "}
             </h1>

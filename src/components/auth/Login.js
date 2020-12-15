@@ -5,8 +5,7 @@ import Axios from 'axios';
 
 const Login = ({setauthenticated,setAdmin}) => {
   useEffect(() => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('adminState');
+    localStorage.clear();
   }, [])
   const [user, setUser] = useState({
     email: "aman.jain.phy17@itbhu.ac.in",

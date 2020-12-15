@@ -25,20 +25,19 @@ const AddInternal = () => {
     formdata.forEach(function(value, key){
       object[key] = value;
     });
-    setTimeout(()=>{
-      Axios.post('http://localhost:5000/api/internalevents',object,{
-      headers:{
-        'x-auth-token': localStorage.getItem('token')
-      }})
-      .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
-      .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
-    },1000)
+  
+    Axios.post('http://localhost:5000/api/internalevents',object,{
+    headers:{
+      'x-auth-token': localStorage.getItem('token')
+    }})
+    .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
+    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
     
   }
     return (
         <div>
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
-          <span className="close" onClick={()=>history.push('./')}><i className="fa fa-times-circle"/></span>
+          <span className="close" onClick={()=>history.push('../')}><i className="fa fa-times-circle"/></span>
             <h1 className="text-primary">{" "}
             <span className="text-dark">Add an </span> Internal Event{" "}
             </h1>
