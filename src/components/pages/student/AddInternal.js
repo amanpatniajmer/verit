@@ -5,22 +5,30 @@ import Axios from 'axios';
 const AddInternal = () => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
-  const [events,setEvents]=useState(null);
-  const [event,setEvent]=useState("");
-  const [subevents,setSubevents]=useState(null);
-  const [allsubevents,setAllsubevents]=useState(null);
   const [selections,setSelections]=useState({
     organization:"Cultural Council",
     club:"Cultural Council",
     session:"2020-21",
+    events:[],
+    subevents:[],
+    selectedEvent:'',
+    selectedSubevent:''
   })
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      history.push('./');
-  }, 3000);
+    let formdata=new FormData(e.target);
+    let object = {};
+    formdata.forEach(function(value, key){
+      object[key] = value;
+    });
+    console.log(object)
+    /* Axios.post('http://localhost:5000/api/internalevents',object,{
+    headers:{
+      'x-auth-token': localStorage.getItem('token')
+    }})
+    .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
+    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);}) */
   }
   const fetchfields = (selections) => {
       Axios.get(`http://localhost:5000/api/internalevents?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
@@ -31,18 +39,14 @@ const AddInternal = () => {
           arr.push(res.data[i].event);
           object[res.data[i].event]=res.data[i].subevents;
         }
-        setEvent(arr[0])
-        setEvents(arr)
-        setAllsubevents(object)
-        setSubevents(object[arr[0]])
+        setSelections((prev)=>({...prev,events:arr}))
+        setSelections((prev)=>({...prev,events:arr,selectedEvent:arr[0],subevents:object}))
         console.log(object)
       })
   }
   useEffect(()=>{
     fetchfields(selections)
-  },[selections])
-  useEffect(()=>{
-
+    //eslint-disable-next-line
   },[])
     return (
         <div>
@@ -55,6 +59,7 @@ const AddInternal = () => {
               <label>Organization</label>
               <select name="organization" value={selections.organization} onChange={(e)=>{
                 const val=e.target.value;
+                fetchfields(selections);
                 setSelections((prev)=>({...prev,"organization":val}))
                 }} required={true}>
                 <option value="Cultural Council">Cultural Council</option>
@@ -73,6 +78,7 @@ const AddInternal = () => {
               <select name="club" value={selections.club} onChange={(e)=>{
                 const val=e.target.value;
                 setSelections((prev)=>({...prev,"club":val}))
+                fetchfields(selections);
                 }} required={true}>
                 <option value="Cultural Council">Cultural Council</option>
                 <option value="Indian Music Club">Indian Music Club</option>
@@ -88,6 +94,7 @@ const AddInternal = () => {
               <label>Session</label>
               <select name="session" value={selections.session} onChange={(e)=>{
                 const val=e.target.value;
+                fetchfields(selections);
                 setSelections((prev)=>({...prev,"session":val}));
                 }} required={true}>
                     <option value="2020-21">2020-21</option>
@@ -97,17 +104,20 @@ const AddInternal = () => {
             </div>
             <div className="form-group">
               <label>Select Event</label>
-              <select name="event"required={true} value={event} onChange={(e)=>{
-                setEvent(e.target.value)
-                setSubevents(allsubevents[e.target.value])
+              <select name="event"required={true} value={selections.selectedEvent} onChange={(e)=>{
+                const val=e.target.value;
+                setSelections((prev)=>({...prev,selectedEvent:val}))
                 }}>
-              {events && events.map((i)=> <option value={i} key={i}>{i}</option>)}
+              {selections.events && selections.events.map((i)=> <option value={i} key={i}>{i}</option>)}
               </select>
             </div>
             <div className="form-group">
               <label>Select Sub-Event</label>
-              <select name="sub_event" required={true}>
-              {subevents && subevents.map((i)=> <option value={i} key={i} >{i}</option>)}
+              <select name="sub_event" value={selections.selectedSubevent} onChange ={(e)=>{
+                const val=e.target.value;
+                setSelections((prev)=>({...prev,selectedSubevent:val}))
+              }}required={true}>
+              {selections.subevents[selections.selectedEvent] && selections.subevents[selections.selectedEvent].map((i)=> <option value={i} key={i} >{i}</option>)}
               </select>
             </div>
             <div className="form-group">
@@ -119,7 +129,7 @@ const AddInternal = () => {
                 <option value="3">2nd Runner Up</option>
               </select>
             </div>
-            <button type="submit" className="btn btn-block btn-success">
+            <button type="submit" disabled={loading} className="btn btn-block btn-success">
                {loading ? <i className="fa fa-spinner fa-spin"/> : "Apply for Verification"}
             </button>
           </form>

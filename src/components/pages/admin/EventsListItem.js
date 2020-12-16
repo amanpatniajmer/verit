@@ -5,7 +5,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
     const {event,subevents,session, status,_id} = data;
     const [loading, setLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);
-    const verify = () =>{
+    const internalActivate = () =>{
         setLoading(true);
         Axios.put('http://localhost:5000/api/internalevents/activate',{
             id:_id
@@ -33,7 +33,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
             setLoading(false);
         })
     }
-    const unverify = () => {
+    const internalInactivate = () => {
         setLoading(true);
         Axios.put('http://localhost:5000/api/internalevents/inactivate',{
             id:_id
@@ -74,11 +74,11 @@ const EventsListItem = ({data,id,setdata, type}) => {
             <td className="text-center">
                 {newStatus === "Inactive"
                 ?<button className="btn btn-success" onClick={
-                    () => {type==="Internal"?verify():externalActivate()}
+                    () => {type==="Internal"?internalActivate():externalActivate()}
                 }>
                 {loading ? <i className="fa fa-spinner fa-spin p text-danger"/> : "Activate"}</button>
                 :<button className="btn btn-danger" onClick={
-                    () => {type==="Internal"?unverify():externalInactivate()}
+                    () => {type==="Internal"?internalInactivate():externalInactivate()}
                 }>
                 {loading ? <i className="fa fa-spinner fa-spin"/> : "Inactivate"}</button>}</td>
         </tr>
