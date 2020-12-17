@@ -23,12 +23,12 @@ const AddInternal = () => {
       object[key] = value;
     });
     console.log(object)
-    /* Axios.post('http://localhost:5000/api/internalevents',object,{
+    Axios.post(`http://localhost:5000/api/apply/${object.organization}/internal`,object,{
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
     .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
-    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);}) */
+    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
   }
   const fetchfields = (selections) => {
       Axios.get(`http://localhost:5000/api/internalevents?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)

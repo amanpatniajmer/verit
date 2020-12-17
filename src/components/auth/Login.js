@@ -43,14 +43,14 @@ const Login = ({setauthenticated,setAdmin}) => {
         localStorage.setItem("roll",res.data.roll)
         setauthenticated(true);
         setAdmin(res.data.admin)
+        setUser({
+          email: "",
+          password: "",
+        });
+        history.push('/');
       })
-      .catch((e)=>{console.log('Problem'+e.response);})
+      .catch((e)=>{console.log('Problem'+e);})
       /* window.location.href="/"; */
-      history.push('/');
-      setUser({
-        email: "",
-        password: "",
-      });
     }
   };
 
