@@ -1,29 +1,49 @@
 import React, {useState} from 'react';
+import Axios from 'axios';
 
-const ListItem = ({data,id,setdata}) => {
-    const {roll,name,club,event,session, status} = data;
+const ListItem = ({data,id,setdata,type}) => {
+    const {roll,name,club,event,session, status,_id} = data;
     const [loading, setLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);
     const verify = () =>{
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
+        Axios.put(`http://localhost:5000/api/apply/verify?token=${localStorage.getItem('token')}`,{
+            id:_id,
+            organization:localStorage.getItem('name'),
+            type:type
+        }).then(result=>{
             setNewStatus("Verified");
-        }, 2000);
-    }
-    const unverify = () => {
-        setLoading(true);
-        setTimeout(() => {
+            console.log(result.data)
             setLoading(false);
+        })
+        .catch(err=>{
+            console.log(err)
+            setLoading(false);
+        })
+    }
+    const unverify = () =>{
+        setLoading(true);
+        Axios.put(`http://localhost:5000/api/apply/unverify?token=${localStorage.getItem('token')}`,{
+            id:_id,
+            organization:localStorage.getItem('name'),
+            type:type
+        }).then(result=>{
             setNewStatus("Unverified");
-        }, 2000);
+            console.log(result.data)
+            setLoading(false);
+        })
+        .catch(err=>{
+            console.log(err)
+            setLoading(false);
+        })
     }
     return (
         <tr>
+            <td>{type}</td>
             <td>{roll}</td>
             <td>{name}</td>
             <td>{club}</td>
-            <td>{event}</td>
+            <td>{event || data.institute}</td>
             <td>{session}</td>
             <td>{newStatus === "Unverified"
                 ? <i className="fa fa-times-circle p text-danger"/>

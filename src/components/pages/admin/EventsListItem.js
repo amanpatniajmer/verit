@@ -7,7 +7,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
     const [newStatus, setNewStatus] = useState(status);
     const internalActivate = () =>{
         setLoading(true);
-        Axios.put('http://localhost:5000/api/internalevents/activate',{
+        Axios.put(`http://localhost:5000/api/internalevents/activate?token=${localStorage.getItem('token')}`,{
             id:_id
         }).then(result=>{
             if(result.status===200 && result.statusText==="OK")
@@ -21,7 +21,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
     }
     const externalActivate = () =>{
         setLoading(true);
-        Axios.put('http://localhost:5000/api/externalevents/activate',{
+        Axios.put(`http://localhost:5000/api/externalevents/activate?token=${localStorage.getItem('token')}`,{
             id:_id
         }).then(result=>{
             if(result.status===200 && result.statusText==="OK")
@@ -35,7 +35,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
     }
     const internalInactivate = () => {
         setLoading(true);
-        Axios.put('http://localhost:5000/api/internalevents/inactivate',{
+        Axios.put(`http://localhost:5000/api/internalevents/inactivate?token=${localStorage.getItem('token')}`,{
             id:_id
         }).then(result=>{
             if(result.status===200 && result.statusText==="OK")
@@ -49,7 +49,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
     }
     const externalInactivate = () => {
         setLoading(true);
-        Axios.put('http://localhost:5000/api/externalevents/inactivate',{
+        Axios.put(`http://localhost:5000/api/externalevents/inactivate?token=${localStorage.getItem('token')}`,{
             id:_id
         }).then(result=>{
             if(result.status===200 && result.statusText==="OK")

@@ -46,6 +46,7 @@ const List = () => {
                     <th className="text-center text-dark">Club</th>
                     <th className="text-center text-dark">Event</th>
                     <th className="text-center text-dark">Session</th>
+                    <th className="text-center text-dark">Applied on</th>
                     <th className="text-center text-dark">Status</th>
                     <th className="text-center text-dark">Action</th>
                 </tr></thead>

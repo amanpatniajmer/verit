@@ -46,8 +46,8 @@ const Login = ({setauthenticated,setAdmin}) => {
         setUser({
           email: "",
           password: "",
-        });
-        history.push('/');
+        },history.push('/'));
+        
       })
       .catch((e)=>{console.log('Problem'+e);})
       /* window.location.href="/"; */

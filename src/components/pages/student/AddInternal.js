@@ -47,7 +47,7 @@ const AddInternal = () => {
   useEffect(()=>{
     fetchfields(selections)
     //eslint-disable-next-line
-  },[])
+  },[selections.organization,selections.session,selections.club])
     return (
         <div>
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
@@ -59,8 +59,8 @@ const AddInternal = () => {
               <label>Organization</label>
               <select name="organization" value={selections.organization} onChange={(e)=>{
                 const val=e.target.value;
-                fetchfields(selections);
-                setSelections((prev)=>({...prev,"organization":val}))
+                setSelections((prev)=>({...prev,"organization":val}));
+                /* fetchfields(selections); */
                 }} required={true}>
                 <option value="Cultural Council">Cultural Council</option>
                 <option value="Film and Media Council">Film and Media Council</option>
@@ -78,7 +78,7 @@ const AddInternal = () => {
               <select name="club" value={selections.club} onChange={(e)=>{
                 const val=e.target.value;
                 setSelections((prev)=>({...prev,"club":val}))
-                fetchfields(selections);
+                /* fetchfields(selections); */
                 }} required={true}>
                 <option value="Cultural Council">Cultural Council</option>
                 <option value="Indian Music Club">Indian Music Club</option>
@@ -94,8 +94,8 @@ const AddInternal = () => {
               <label>Session</label>
               <select name="session" value={selections.session} onChange={(e)=>{
                 const val=e.target.value;
-                fetchfields(selections);
                 setSelections((prev)=>({...prev,"session":val}));
+                /* fetchfields(selections); */
                 }} required={true}>
                     <option value="2020-21">2020-21</option>
                     <option value="2019-20">2019-20</option>
