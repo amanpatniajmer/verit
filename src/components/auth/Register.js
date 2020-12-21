@@ -10,6 +10,11 @@ const Register = () => {
     email: "aman.jain.phy17@itbhu.ac.in",
     password: "amanjain",
   });
+  function togglePass() {
+    var a = document.getElementById('password');
+    if (a.type === "password") a.type = "text";
+    else a.type = "password";
+  }
 
   const { name, roll, email, password } = user;
 
@@ -95,7 +100,7 @@ const Register = () => {
 
         <div className="form-group">
           <label>Password</label>
-          <input
+          <input id="password"
             type="password"
             name="password"
             value={password}
@@ -107,6 +112,8 @@ const Register = () => {
             required
           />
         </div>
+        <label>Show Password{"  "}</label>
+        <input type="checkbox" style={{width:"auto"}} onClick={()=>togglePass()}/>
 
         <input
           type="submit"

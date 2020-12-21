@@ -10,6 +10,11 @@ const Login = ({setauthenticated,setAdmin}) => {
     email: "aman.jain.phy17@itbhu.ac.in",
     password: "yobabe"
   });
+  function togglePass() {
+    var a = document.getElementById('password');
+    if (a.type === "password") a.type = "text";
+    else a.type = "password";
+  }
 
   const { email, password } = user;
 
@@ -75,7 +80,7 @@ const Login = ({setauthenticated,setAdmin}) => {
 
         <div className="form-group">
           <label>Password</label>
-          <input
+          <input id="password"
             type="password"
             name="password"
             value={password}
@@ -87,6 +92,8 @@ const Login = ({setauthenticated,setAdmin}) => {
             required
           />
         </div>
+        <label>Show Password{"  "}</label>
+        <input type="checkbox" style={{width:"auto"}} onClick={()=>togglePass()}/>
 
         <input
           type="submit"
