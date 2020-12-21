@@ -1,17 +1,26 @@
 import React, {useState} from 'react'
 import { useHistory } from "react-router-dom";
+import Axios from 'axios';
 
 
 const AddPor = () => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
-  const add = (e) =>{
+  const add = (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      history.push('./');
-  }, 3000);
+    let formdata=new FormData(e.target);
+    let object = {};
+    formdata.forEach(function(value, key){
+      object[key] = value;
+    });
+    console.log(object)
+    Axios.post(`http://localhost:5000/api/apply/${object.organization}/por`,object,{
+    headers:{
+      'x-auth-token': localStorage.getItem('token')
+    }})
+    .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
+    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
   }
     return (
         <div>
@@ -22,20 +31,21 @@ const AddPor = () => {
             </h1>
             <div className="form-group">
               <label>Organization</label>
-              <select required={true}>
-                <option>Cultural Council</option>
-                <option>Film and Media Council</option>
-                <option>Science and Technology Council</option>
-                <option>Social Service Council</option>
-                <option>Games and Sports Council</option>
-                <option>Parliament</option>
-                <option>E-Cell</option>
-                <option>Training and Placement Cell</option>
+              <select required={true} name="organization">
+                <option value="Cultural Council">Cultural Council</option>
+                <option value="Film and Media Council">Film and Media Council</option>
+                <option value="Games and Sports Council">Games and Sports Council</option>
+                <option value="Social Service Council">Social Service Council</option>
+                <option value="Science and Technology Council">Science and Technology Council</option>
+                <option value="E-Cell">E-Cell</option>
+                <option value="Kashiyatra">Kashiyatra</option>
+                <option value="Technex">Technex</option>
+                <option value="Spardha">Spardha</option>
               </select>
             </div>
             <div className="form-group">
               <label>Committees</label>
-              <select required={true}>
+              <select name="club" required={true}>
                 <option>Indian Music Club</option>
                 <option>Kashiyatra</option>
                 <option>2018-19</option>
@@ -43,27 +53,26 @@ const AddPor = () => {
             </div>
             <div className="form-group">
               <label>Session</label>
-              <select required={true}>
-                <option>2020-21</option>
-                <option>2019-20</option>
-                <option>2018-19</option>
+              <select name="session" required={true}>
+                    <option value="2020-21">2020-21</option>
+                    <option value="2019-20">2019-20</option>
+                    <option value="2018-19">2018-19</option>
               </select>
             </div>
             <div className="form-group">
               <label>Event name</label>
               <input
                 type="text"
-                name="name"
+                name="event"
                 placeholder="Enter name"
                 autoComplete="off"
-                required
               />
             </div>
             <div className="form-group">
               <label>Sub-Event name</label>
               <input
                 type="text"
-                name="name"
+                name="sub_event"
                 placeholder="Enter name"
                 autoComplete="off"
               />
@@ -72,9 +81,10 @@ const AddPor = () => {
               <label>Position of Responsibility</label>
               <input
                 type="text"
-                name="name"
+                name="position"
                 placeholder="Enter name"
                 autoComplete="off"
+                required={true}
               />
             </div>
             <button type="submit" className="btn btn-block btn-success">

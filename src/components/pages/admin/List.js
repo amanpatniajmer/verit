@@ -52,6 +52,15 @@ const List = ({location}) => {
                         return <ListItem type="External" data={i} id={index} setdata={setData1} key={i._id}/>
                         else return null;
                     })}
+                    {data1 && data1['por'] && 
+                    data1['por'].map((i,index) => {
+                        let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
+                        let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
+                        let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
+                        if(statusFilters && sessionFilters && clubFilters)
+                        return <ListItem type="POR" data={i} id={index} setdata={setData1} key={i._id}/>
+                        else return null;
+                    })}
                 </tbody>
             </table>
         </div>

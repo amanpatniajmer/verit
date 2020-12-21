@@ -44,16 +44,25 @@ const List = ({location}) => {
                         if(statusFilters && sessionFilters && clubFilters)
                         return <ListItem type="Internal" data={i} key={i._id}/>
                         else return null;
-                    })}
-                    {data && data['external'] && 
-                    data['external'].map((i,index) => {
-                        let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
-                        let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
-                        let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
-                        if(statusFilters && sessionFilters && clubFilters)
-                        return <ListItem type="External" data={i} key={i._id}/>
-                        else return null;
-                    })}
+                })}
+                {data && data['external'] && 
+                data['external'].map((i,index) => {
+                    let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
+                    let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
+                    let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
+                    if(statusFilters && sessionFilters && clubFilters)
+                    return <ListItem type="External" data={i} key={i._id}/>
+                    else return null;
+                })}
+                {data && data['por'] && 
+                data['por'].map((i,index) => {
+                    let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
+                    let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
+                    let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
+                    if(statusFilters && sessionFilters && clubFilters)
+                    return <ListItem type="POR" data={i} key={i._id}/>
+                    else return null;
+                })}
                     {/* {data && data['internal'] && data['internal'].map((i)=><ListItem data={i} type="Internal" key={i._id}/>)}
                     {data && data['external'] && data['external'].map((i)=><ListItem data={i} type="External" key={i._id}/>)} */}
                 </tbody>
