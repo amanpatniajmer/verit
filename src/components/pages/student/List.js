@@ -2,30 +2,15 @@ import React, { useEffect,useState } from 'react'
 import ListItem from "./ListItem";
 import Filters from "./Filters";
 import Axios from 'axios';
-const List = () => {
+import queryString from "query-string";
+const List = ({location}) => {
+    function bool(val) { return val===true || val === "true" }
+    let query=queryString.parse(location.search)
+    let verifiedFilter=bool(query.verified);
+    let unverifiedFilter=bool(query.unverified);
+    let session=query.session;
+    let club=query.club;
     const [data,setData]=useState(null);
-    /* const data1 = [{
-        roll: 17173004,
-        name: "Aman Jain",
-        club: "Indian Music Club",
-        event: "Aagman",
-        session: "2019-20",
-        status: "Verified"
-    },{
-        roll: 17035047,
-        name: "Shreyash Baijal",
-        club: "Dance Club",
-        event: "Aagman",
-        session: "2020-21",
-        status: "Unverified"
-    },{
-        roll: 17045104,
-        name: "Shreyas Gupta",
-        club: "Western Music Club",
-        event: "Aagman",
-        session: "2020-21",
-        status: "Unverified"
-    }] */
     useEffect(() => {
         Axios.get(`http://localhost:5000/api/apply?token=${localStorage.getItem("token")}`)
         .then((res)=>{
@@ -38,7 +23,7 @@ const List = () => {
     
     return (
         <div style={{ display:"grid", placeContent: "center", marginBottom: "16px" }}>
-            <Filters/>
+            <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter}/>
             <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Verification List</h2>
             <table >
                 <thead><tr>
@@ -51,8 +36,26 @@ const List = () => {
                     <th className="text-center text-dark">Action</th>
                 </tr></thead>
                 <tbody>
-                    {data && data['internal'] && data['internal'].map((i)=><ListItem data={i} type="Internal" key={i._id}/>)}
-                    {data && data['external'] && data['external'].map((i)=><ListItem data={i} type="External" key={i._id}/>)}
+                {data && data['internal'] && 
+                    data['internal'].map((i,index) => {
+                        let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
+                        let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
+                        let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
+                        if(statusFilters && sessionFilters && clubFilters)
+                        return <ListItem type="Internal" data={i} key={i._id}/>
+                        else return null;
+                    })}
+                    {data && data['external'] && 
+                    data['external'].map((i,index) => {
+                        let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
+                        let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
+                        let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
+                        if(statusFilters && sessionFilters && clubFilters)
+                        return <ListItem type="External" data={i} key={i._id}/>
+                        else return null;
+                    })}
+                    {/* {data && data['internal'] && data['internal'].map((i)=><ListItem data={i} type="Internal" key={i._id}/>)}
+                    {data && data['external'] && data['external'].map((i)=><ListItem data={i} type="External" key={i._id}/>)} */}
                 </tbody>
             </table>
         </div>

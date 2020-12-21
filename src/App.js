@@ -47,9 +47,8 @@ function App() {
             </Switch>
             :
             <Switch>
-            <Route exact path="/" render={(props)=><Login {...props} setauthenticated={setAuthenticated}/>}/> 
+            <Route exact path="/" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin}/>}/> 
             <Route exact path="/about" component={About} />
-            <Route exact path="/login" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin}/>}/> 
             <Route exact path="/sign-up" component={Register} />
             <Route path='/' component={Forbidden}/>
             </Switch>

@@ -12,10 +12,10 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
       </li>
       <li>
         {localStorage.getItem('adminState')==="true"? <Link to="/admin/list?verified=false&unverified=false&session=All&club=Cultural%20Council&internal=false&external=false">List</Link>:
-        <Link to="/student/list?verified=false&unverified=false&session=All&club=Cultural%20Council&internal=false&external=false">List</Link>}
+        <Link to="/student/list?verified=false&unverified=false&session=All&club=Cultural%20Council">List</Link>}
       </li>
       <li>
-        <Link to="/login" onClick={()=>setauthenticated(false)} >Logout {" "}
+        <Link to="/" onClick={()=>setauthenticated(false)} >Logout {" "}
         <i className={logoutIcon} />
         </Link>
       </li>
@@ -28,7 +28,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         <Link to="/sign-up">Register</Link>
       </li>
       <li>
-        <Link to="/login" params={{setauthenticated:{setauthenticated}}} >Login</Link>
+        <Link to="/" params={{setauthenticated:{setauthenticated}}} >Login</Link>
       </li>
       <li>
         <Link to="/about">About</Link>
