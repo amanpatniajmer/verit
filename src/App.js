@@ -18,6 +18,8 @@ import StudentAddExternal from "./components/pages/student/AddExternal";
 import StudentAddPor from "./components/pages/student/AddPor";
 import StudentList from "./components/pages/student/List";
 import EventsList from "./components/pages/admin/EventsList";
+import ForgotPassword from "./components/auth/ForgotPassword";
+import EnterPassword from "./components/auth/EnterPassword";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("token"))
@@ -49,6 +51,8 @@ function App() {
             <Switch>
             <Route exact path="/" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin}/>}/> 
             <Route exact path="/about" component={About} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/enterpassword" component={EnterPassword} />
             <Route exact path="/sign-up" component={Register} />
             <Route path='/' component={Forbidden}/>
             </Switch>

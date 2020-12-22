@@ -38,15 +38,15 @@ const Register = () => {
       Axios.post('http://localhost:5000/api/register',object)
       .then((res)=>{
         console.log(res.data)
+        setUser({
+          name: "",
+          roll: "",
+          email: "",
+          password: "",
+        });
         history.push('./')
         })
       .catch((e,res)=>{console.log(e); console.log(res)})
-      setUser({
-        name: "",
-        roll: "",
-        email: "",
-        password: "",
-      });
     }
   };
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });

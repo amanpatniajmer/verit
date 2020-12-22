@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SVG from "../../img/2144242.png";
 import Axios from 'axios';
 
@@ -100,6 +101,7 @@ const Login = ({setauthenticated,setAdmin}) => {
           value="Log In"
           className="btn btn-block btn-primary"
         />
+        <Link to={`/forgotpassword?email=${email}`}>Forgot Password</Link>
       </form>
     </div>
   );
