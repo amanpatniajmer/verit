@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Axios from 'axios';
 
 const ListItem = ({data,id,setdata,type}) => {
-    const {roll,name,club,event,session, status,_id} = data;
+    const {roll,name,club,event,session, status,_id,subevent,position} = data;
     const [loading, setLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);
     const verify = () =>{
@@ -44,6 +44,8 @@ const ListItem = ({data,id,setdata,type}) => {
             <td>{name}</td>
             <td>{club}</td>
             <td>{event || data.institute}</td>
+            <td>{subevent}</td>
+            <td>{position}</td>
             <td>{session}</td>
             <td>{newStatus === "Unverified"
                 ? <i className="fa fa-times-circle p text-danger"/>

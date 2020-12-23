@@ -29,6 +29,8 @@ const List = ({location}) => {
                     <th className="text-center text-dark">Name</th>
                     <th className="text-center text-dark">Club</th>
                     <th className="text-center text-dark">Event</th>
+                    <th className="text-center text-dark">SubEvent</th>
+                    <th className="text-center text-dark">Position</th>
                     <th className="text-center text-dark">Session</th>
                     <th className="text-center text-dark">Status</th>
                     <th className="text-center text-dark">Actions</th>

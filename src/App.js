@@ -20,6 +20,7 @@ import StudentList from "./components/pages/student/List";
 import EventsList from "./components/pages/admin/EventsList";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import EnterPassword from "./components/auth/EnterPassword";
+import ResetPassword from "./components/auth/ResetPassword";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("token"))
@@ -37,7 +38,10 @@ function App() {
             <Route exact path="/admin/eventslist" component={EventsList} />
             <Route exact path="/admin/addinternal" component={AdminAddInternal} />
             <Route exact path="/admin/addexternal" component={AdminAddExternal} />
+            <Route exact path="/resetpassword" component={ResetPassword} />
+            <Route exact path="/enterpassword" component={EnterPassword} />
             <Route path='/' component={Forbidden}/>
+
             </Switch>
             :(authenticated?
               <Switch>
@@ -46,6 +50,9 @@ function App() {
             <Route exact path="/student/addinternal" component={StudentAddInternal} />
             <Route exact path="/student/addexternal" component={StudentAddExternal} />
             <Route exact path="/student/addpor" component={StudentAddPor} />
+            <Route exact path="/resetpassword" component={ResetPassword} />
+            <Route exact path="/enterpassword" component={EnterPassword} />
+            <Route path='/' component={Forbidden}/>
             </Switch>
             :
             <Switch>

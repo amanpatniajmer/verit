@@ -15,6 +15,10 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         <Link to="/student/list?verified=false&unverified=false&session=All&club=Cultural%20Council">List</Link>}
       </li>
       <li>
+        <Link to="/resetpassword">ResetPassword {" "}
+        </Link>
+      </li>
+      <li>
         <Link to="/" onClick={()=>setauthenticated(false)} >Logout {" "}
         <i className={logoutIcon} />
         </Link>
