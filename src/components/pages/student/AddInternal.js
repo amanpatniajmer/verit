@@ -31,7 +31,7 @@ const AddInternal = () => {
     .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
   }
   const fetchfields = (selections) => {
-      Axios.get(`http://localhost:5000/api/internalevents?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
+      Axios.get(`http://localhost:5000/api/internalevents/student?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}

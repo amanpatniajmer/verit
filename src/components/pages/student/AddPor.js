@@ -6,6 +6,75 @@ import Axios from 'axios';
 const AddPor = () => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
+  const [selections,setSelections]=useState({
+    selectedOrganization: "Cultural Council",
+    committees: {
+        "Cultural Council":
+        {
+          "Clubs": ["Dance Club", "Fine Arts Club", "Indian Music Club", "Literary Club", "Quiz Club", "Theatre Club", "Western Music Club"]
+        },
+    
+        "Kashiyatra":
+        {
+          "Clubs": ["KashiYatra"]
+        },
+    
+        "Film and Media Council":
+        {
+          "Clubs": ["Animation Club", "Cine Club", "Design Club", "Media Club", "Photography Club", "Social Outreach Club"]
+        },
+    
+        "FMC Weekend":
+        {
+          "Clubs": ["FMC Weekend"]
+        },
+    
+        "Games and Sports Council":
+        {
+          "Clubs": ["Aquatics", "Athletics", "Badminton", "Basketball", "Boxing", "Chess", "Cricket", "Football", "Handball", "Hockey", "Kabaddi", "Khokho", "Lawn Tennis", "Squash", "Table Tennis", "Taekwondo", "Volleyball", "Weightlifting"]
+        },
+    
+        "Spardha":
+        {
+          "Clubs": ["Spardha"]
+        },
+    
+        "Social Service Council":
+        {
+          "Clubs": ["Kashi Utkarsh", "Health and Hygiene Club", "Social Projects Club", "Sahyog"]
+        },
+    
+        "Jagriti":
+        {
+          "Clubs": ["Jagriti"]
+        },
+    
+        "Science and Technology Council":
+        {
+          "Clubs": ["Aero-Modelling Club", "Astronomy Club", "Business Club", "Club of Programmers", "Club of Sustainibility and Innovation", "Robotics Club", "Society of Automotive Engineers"]
+        },
+    
+        "Technex":
+        {
+          "Clubs": ["Technex"]
+        },
+    
+        "Students' Parliament":
+        {
+          "Clubs": ["Students' Parliament", "PG Affairs", "Web Committee", "Security Committee", "Festival Committee", "Training and Placement", "Grievance & Redressal Committee", "UG Affairs", "Hostel Affairs Committee", " Infrastructure Committee", "Public Relations Committee", " Finance Committee"]
+        },
+    
+        "E-Cell":
+        {
+          "Clubs": ["Startup Weekend"]
+        },
+    
+        "Training and Placement Cell":
+        {
+          "Clubs": ["Training and Placement Cell"]
+        }
+    }
+  })
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -31,7 +100,10 @@ const AddPor = () => {
             </h1>
             <div className="form-group">
               <label>Organization</label>
-              <select required={true} name="organization">
+              <select required={true} value={selections.selectedOrganization} onChange={(e)=>{
+                const val=e.target.value;
+                setSelections((prev)=>({...prev,selectedOrganization:val}));
+              }} name="organization">
                 <option value="Cultural Council">Cultural Council</option>
                 <option value="Film and Media Council">Film and Media Council</option>
                 <option value="Games and Sports Council">Games and Sports Council</option>
@@ -46,9 +118,8 @@ const AddPor = () => {
             <div className="form-group">
               <label>Committees</label>
               <select name="club" required={true}>
-                <option>Indian Music Club</option>
-                <option>Kashiyatra</option>
-                <option>2018-19</option>
+                {selections.committees[selections.selectedOrganization]["Clubs"]
+                 && selections.committees[selections.selectedOrganization]["Clubs"].map((i)=> <option value={i} key={i} >{i}</option>)}
               </select>
             </div>
             <div className="form-group">

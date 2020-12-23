@@ -5,6 +5,11 @@ import queryString from "query-string";
 const EnterPassword = ({ location }) => {
     let token = queryString.parse(location.search).token;
     const [password,setPassword] = useState("");
+    function togglePass() {
+        var a = document.getElementById('password');
+        if (a.type === "password") a.type = "text";
+        else a.type = "password";
+    }
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -31,7 +36,7 @@ const EnterPassword = ({ location }) => {
 
             <div className="form-group">
                 <label>Enter new Password</label>
-                <input
+                <input id="password"
                     type="password"
                     name="password"
                     value={password}
@@ -41,6 +46,8 @@ const EnterPassword = ({ location }) => {
                     required
                 />
             </div>
+            <label>Show Password{"  "}</label>
+            <input type="checkbox" style={{width:"auto"}} onClick={()=>togglePass()}/>
 
 
 
