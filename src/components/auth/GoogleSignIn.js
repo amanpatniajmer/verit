@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 const GoogleSignIn = ({setAuthenticated,showalert,setAdmin}) => {
     const [register,showRegister]=useState(false);
     useEffect(() => {
-        if(window.gapi.signin2)
+        if(window.gapi && window.gapi.signin2)
         window.gapi.signin2.render('my-signin2', {
             'scope': 'profile email',
             'width': 240,
