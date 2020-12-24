@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const SubEvent = ({id,delSubEvent}) => {
+const SubEvent = ({id, delSubEvent}) => {
     return (
         <div>
             <div className="form-group">
@@ -22,4 +22,4 @@ const SubEvent = ({id,delSubEvent}) => {
     )
 }
 
-export default SubEvent
+export default SubEvent;

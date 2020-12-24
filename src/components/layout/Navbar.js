@@ -8,19 +8,19 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
   const authLinks = (
     <ul>
       <li>
-        <Link to="/">Dashboard</Link>
+        <Link to = "/">Dashboard</Link>
       </li>
       <li>
-        {localStorage.getItem('adminState')==="true"? <Link to="/admin/list?verified=false&unverified=false&session=All&club=Cultural%20Council&internal=false&external=false">List</Link>:
-        <Link to="/student/list?verified=false&unverified=false&session=All&club=Cultural%20Council">List</Link>}
+        {localStorage.getItem('adminState') === "true"? <Link to = "/admin/list?verified=false&unverified=false&session=All&club=Cultural%20Council&internal=false&external=false">List</Link>:
+        <Link to = "/student/list?verified=false&unverified=false&session=All&club=Cultural%20Council">List</Link>}
       </li>
       <li>
-        <Link to="/resetpassword">ResetPassword {" "}
+        <Link to = "/resetpassword">ResetPassword {" "}
         </Link>
       </li>
       <li>
-        <Link to="/" onClick={()=>setauthenticated(false)} >Logout {" "}
-        <i className={logoutIcon} />
+        <Link to = "/" onClick = {() => setauthenticated(false)} >Logout {" "}
+        <i className = {logoutIcon} />
         </Link>
       </li>
     </ul>
@@ -29,27 +29,27 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to="/sign-up">Register</Link>
+        <Link to = "/sign-up">Register</Link>
       </li>
       <li>
-        <Link to="/" params={{setauthenticated:{setauthenticated}}} >Login</Link>
+        <Link to = "/" params={{ setauthenticated:{setauthenticated} }} >Login</Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to = "/about">About</Link>
       </li>
     </ul>
   );
 
   return (
-    <nav className="navbar">
-      <Link to="/">
+    <nav className = "navbar">
+      <Link to = "/">
       <h1>
-          <img src={Logo} alt=""/>
-          <ul className="sub-heading">
+          <img src = {Logo} alt = ""/>
+          <ul className = "sub-heading">
             <li>
               {title}
             </li>
-            <li className="small">
+            <li className = "small">
             {"Indian Institute of Technology, (Banaras Hindu University) Varanasi"}
             </li>
           </ul>

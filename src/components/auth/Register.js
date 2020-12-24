@@ -2,123 +2,136 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
-const Register = () => {
+const Register = ({ showAlert }) => {
+
   const history= useHistory();
   const [user, setUser] = useState({
-    name: "Aman Jain",
-    roll: "17173004",
-    email: "aman.jain.phy17@itbhu.ac.in",
-    password: "amanjain",
+    name: "",
+    roll: "",
+    email: "",
+    password: "",
   });
+
   function togglePass() {
     var a = document.getElementById('password');
-    if (a.type === "password") a.type = "text";
-    else a.type = "password";
+    if (a.type === "password") {
+      a.type = "text";
+    }
+    else {
+      a.type = "password";
+    }
   }
 
   const { name, roll, email, password } = user;
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (name === "" || roll === "" || email === "" || password === "") {
-      alert("Please fill in all fields");
+      showAlert("Please fill in all fields", "danger");
     }
     else if(!roll.match(/[0-9]{8}/)){
-      alert("Roll not correct")
+      showAlert("Roll not correct", "danger");
     }
     else if(!email.match(/[a-z0-9.]@i{1,2}tbhu\.ac\.in/)){
-      alert('Email not correct. Enter institute email address.')
+      showAlert('Email not correct. Enter institute email address.', "danger");
     }
      else {
-      let formdata=new FormData(e.target);
+      let formdata = new FormData(e.target);
       let object = {};
+
       formdata.forEach(function(value, key){
         object[key] = value;
       });
-      Axios.post('http://localhost:5000/api/register',object)
-      .then((res)=>{
-        console.log(res.data)
+
+      Axios.post('http://localhost:5000/api/register', object)
+      .then(() => {
+        // console.log(res.data)
+        showAlert("Registration successful", "danger");
         setUser({
           name: "",
           roll: "",
           email: "",
           password: "",
         });
-        history.push('./')
+        history.push('./');
         })
-      .catch((e,res)=>{console.log(e); console.log(res)})
+      .catch(() => {
+        // console.log(e); console.log(res)
+        showAlert("Error.", "danger");
+      })
     }
   };
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="form-container">
-        <h1 className="text-primary">
+      <form onSubmit = {onSubmit} className = "form-container">
+        <h1 className = "text-primary">
           {" "}
-          <span className="text-dark">Account</span> Register{" "}
+          <span className = "text-dark">Account</span> Register{" "}
         </h1>
 
-        <div className="form-group">
+        <div className = "form-group">
           <label>Full Name</label>
           <input
-            type="text"
-            name="name"
-            value={name}
-            placeholder="Enter name"
-            onChange={onChange}
-            autoComplete="off"
+            type = "text"
+            name = "name"
+            value = {name}
+            placeholder = "Enter name"
+            onChange = {onChange}
+            autoComplete = "off"
             required
           />
         </div>
 
-        <div className="form-group">
+        <div className = "form-group">
           <label>Roll No.</label>
           <input
-            type="text"
-            name="roll"
-            value={roll}
-            placeholder="Enter roll no."
-            onChange={onChange}
-            autoComplete="off"
+            type = "text"
+            name = "roll"
+            value = {roll}
+            placeholder = "Enter roll no."
+            onChange = {onChange}
+            autoComplete = "off"
             required
           />
         </div>
 
-        <div className="form-group">
+        <div className = "form-group">
           <label>Email Address</label>
           <input
-            type="text"
-            name="email"
-            value={email}
-            placeholder="Enter email"
-            onChange={onChange}
-            autoComplete="off"
+            type = "text"
+            name = "email"
+            value = {email}
+            placeholder = "Enter email"
+            onChange = {onChange}
+            autoComplete = "off"
             required
           />
         </div>
 
-        <div className="form-group">
+        <div className = "form-group">
           <label>Password</label>
-          <input id="password"
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Enter password"
-            onChange={onChange}
-            minLength="6"
-            maxLength="12"
-            autoComplete="off"
+          <input id = "password"
+            type = "password"
+            name = "password"
+            value = {password}
+            placeholder = "Enter password"
+            onChange = {onChange}
+            minLength = "6"
+            maxLength = "12"
+            autoComplete = "off"
             required
           />
         </div>
         <label>Show Password{"  "}</label>
-        <input type="checkbox" style={{width:"auto"}} onClick={()=>togglePass()}/>
+        <input type = "checkbox" style = {{ width:"auto" }} onClick={() => togglePass()}/>
 
         <input
-          type="submit"
-          value="Register"
-          className="btn btn-block btn-primary"
+          type = "submit"
+          value = "Register"
+          className = "btn btn-block btn-primary"
         />
       </form>
     </div>

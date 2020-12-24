@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import ListItem from "./ListItem";
 import Filters from "./Filters";
 import queryString from "query-string";
@@ -14,8 +14,12 @@ const List = ({location}) => {
     const [data1,setData1] = useState(null)
     useEffect(() => {
         Axios.get(`http://localhost:5000/api/apply/${localStorage.getItem('name')}?token=${localStorage.getItem('token')}`)
-        .then((res)=>{console.log(res.data); setData1(res.data)})
-        .catch((err)=>console.error(err));
+        .then((res)=>{
+            // console.log(res.data); 
+            setData1(res.data)})
+        .catch((err)=>
+        console.error(err)
+        );
     }, [])
     
     return (
@@ -69,4 +73,4 @@ const List = ({location}) => {
     )
 }
 
-export default List
+export default List;

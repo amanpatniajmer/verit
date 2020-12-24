@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import EventsListItem from "./EventsListItem";
 import EventsFilters from "./EventsFilters";
 import queryString from "query-string";
@@ -16,7 +16,9 @@ const EventsList = ({location}) => {
     const [data2,setData2] = useState(null);
     const fetchList = (organization) =>{
         Axios.get(`http://localhost:5000/api/internalevents?organization=${organization}&token=${localStorage.getItem('token')}`)
-        .then((res)=>{console.log(res.data); setData1(res.data)
+        .then((res)=>{
+            // console.log(res.data); 
+            setData1(res.data);
         })
         
     }
@@ -26,7 +28,9 @@ const EventsList = ({location}) => {
     }, [])
     useEffect(()=>{
         Axios.get(`http://localhost:5000/api/externalevents?token=${localStorage.getItem('token')}`)
-        .then((res)=>{console.log(res.data); setData2(res.data) })
+        .then((res)=>{
+            // console.log(res.data); 
+            setData2(res.data) })
     },[])
     
     return (
@@ -65,4 +69,4 @@ const EventsList = ({location}) => {
     )
 }
 
-export default EventsList
+export default EventsList;

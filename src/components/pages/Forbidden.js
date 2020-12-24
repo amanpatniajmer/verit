@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Forbidden = () => {
     return (
@@ -8,4 +8,4 @@ const Forbidden = () => {
     )
 }
 
-export default Forbidden
+export default Forbidden;

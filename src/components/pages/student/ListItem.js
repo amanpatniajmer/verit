@@ -13,11 +13,11 @@ const ListItem = ({data, type}) => {
             }}).then(result=>{
             if(result.status===200 && result.statusText==="OK")
             setNewStatus("Deleted");
-            console.log(result.data)
+            // console.log(result.data)
             setLoading(false);
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         })
     }

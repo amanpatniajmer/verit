@@ -2,62 +2,75 @@ import React, { useState } from 'react'
 import Axios from 'axios';
 import queryString from "query-string";
 
-const EnterPassword = ({ location }) => {
+const EnterPassword = ({ location, showAlert }) => {
+    
     let token = queryString.parse(location.search).token;
-    const [password,setPassword] = useState("");
+    const [password, setPassword] = useState("");
+
     function togglePass() {
         var a = document.getElementById('password');
-        if (a.type === "password") a.type = "text";
-        else a.type = "password";
+        if (a.type === "password") {
+            a.type = "text";
+        }
+        else {
+            a.type = "password";
+        }
     }
+
     const onSubmit = (e) => {
         e.preventDefault();
 
         if (password === "") {
-            alert("Fields can`t be empty.");
+            showAlert("Fields can`t be empty.", "danger");
         }
+
         else {
-            let object={};
-            object['password']=password;
-            Axios.post(`http://localhost:5000/api/forgotpassword/${token}`,object)
-            .then((res) => {
+            let object = {};
+            object['password'] = password;
+
+            Axios.post(`http://localhost:5000/api/forgotpassword/${token}`, object)
+            .then(() => {
                 setPassword("");
-                console.log(res.data);
+                showAlert("Password reset successful.", "success");
+                // console.log(res.data);
             })
-            .catch((e) => { console.log('Problem' + e); })
+            .catch(() => { 
+                showAlert("Error.", "danger")
+                // console.log('Problem' + e); 
+            })
         }
     };
     return (
-        <form onSubmit={onSubmit} className="form-container">
-            <h1 className="text-primary">
+        <form onSubmit = {onSubmit} className = "form-container">
+            <h1 className = "text-primary">
                 {" "}
-                <span className="text-dark">Forgot</span> Password{" "}
+                <span className = "text-dark">Forgot</span> Password{" "}
             </h1>
 
-            <div className="form-group">
+            <div className = "form-group">
                 <label>Enter new Password</label>
-                <input id="password"
-                    type="password"
-                    name="password"
-                    value={password}
-                    placeholder="Enter new password"
-                    onChange={(e)=>setPassword(e.target.value)}
-                    autoComplete="off"
+                <input id = "password"
+                    type = "password"
+                    name = "password"
+                    value = {password}
+                    placeholder = "Enter new password"
+                    onChange = {(e) => setPassword(e.target.value)}
+                    autoComplete = "off"
                     required
                 />
             </div>
             <label>Show Password{"  "}</label>
-            <input type="checkbox" style={{width:"auto"}} onClick={()=>togglePass()}/>
+            <input type = "checkbox" style = {{ width:"auto" }} onClick={() => togglePass()}/>
 
 
 
             <input
-                type="submit"
-                value="Set Password"
-                className="btn btn-block btn-primary"
+                type = "submit"
+                value = "Set Password"
+                className = "btn btn-block btn-primary"
             />
         </form>
     )
 }
 
-export default EnterPassword
+export default EnterPassword;
