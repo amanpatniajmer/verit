@@ -1,78 +1,88 @@
 import React, { useState } from 'react'
 import Axios from 'axios';
 
-const ResetPassword = ({ location }) => {
+const ResetPassword = ({ location, showAlert }) => {
     const onChange = (e) => setPassword(e.target.value);
+
     const [password, setPassword] = useState("");
     const [newpassword, setNewPassword] = useState("");
+
     function togglePass() {
         var a = document.getElementById('password');
-        if (a.type === "password") a.type = "text";
-        else a.type = "password";
+        if (a.type === "password") {
+            a.type = "text";
+        }
+        else {
+            a.type = "password";
+        }
       }
+
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (password === "" || newpassword==="") {
-            alert("Please fill in all fields");
+        if (password === "" || newpassword === "") {
+            showAlert("Please fill in all fields.", "danger");
         }
         else {
-            Axios.post(`http://localhost:5000/api/resetpassword/${localStorage.getItem('token')}`,{oldpassword:password, newpassword:newpassword},{
+            Axios.post(`http://localhost:5000/api/resetpassword/${localStorage.getItem('token')}`, {oldpassword:password, newpassword:newpassword},{
                 headers:{
                   'x-auth-token': localStorage.getItem('token')
                 }
             })
-                .then((res) => {
+                .then(() => {
                     setPassword("");
                     setNewPassword("");
-                    console.log(res.data);
+                    // console.log(res.data);
+                    showAlert("Password reset successful.", "success");
                 })
-                .catch((e) => { console.log('Problem' + e); })
+                .catch(() => { 
+                    // console.log('Problem' + e); 
+                    showAlert("Error.", "danger");
+                })
         }
     };
     return (
-        <form onSubmit={onSubmit} className="form-container">
-            <h1 className="text-primary">
+        <form onSubmit = {onSubmit} className = "form-container">
+            <h1 className = "text-primary">
                 {" "}
-                <span className="text-dark">Reset</span> Password{" "}
+                <span className = "text-dark">Reset</span> Password{" "}
             </h1>
 
-            <div className="form-group">
+            <div className = "form-group">
                 <label>Enter old password</label>
                 <input
-                    type="password"
-                    name="oldpassword"
-                    value={password}
-                    placeholder="Enter old password"
-                    onChange={onChange}
-                    autoComplete="off"
+                    type = "password"
+                    name = "oldpassword"
+                    value = {password}
+                    placeholder = "Enter old password"
+                    onChange = {onChange}
+                    autoComplete = "off"
                     required
                 />
             </div>
 
-            <div className="form-group">
+            <div className = "form-group">
                 <label>Enter new password</label>
-                <input id="password"
-                    type="password"
-                    name="newpassword"
-                    value={newpassword}
-                    placeholder="Enter old password"
-                    onChange={(e)=>{setNewPassword(e.target.value)}}
-                    autoComplete="off"
+                <input id = "password"
+                    type = "password"
+                    name = "newpassword"
+                    value = {newpassword}
+                    placeholder = "Enter old password"
+                    onChange = {(e) => { setNewPassword(e.target.value) }}
+                    autoComplete = "off"
                     required
                 />
             </div>
             <label>Show Password{"  "}</label>
-            <input type="checkbox" style={{width:"auto"}} onClick={()=>togglePass()}/>
-
+            <input type = "checkbox" style = {{ width:"auto" }} onClick={() => togglePass()}/>
 
             <input
-                type="submit"
-                value="Reset Password"
-                className="btn btn-block btn-primary"
+                type = "submit"
+                value = "Reset Password"
+                className = "btn btn-block btn-primary"
             />
         </form>
     )
 }
 
-export default ResetPassword
+export default ResetPassword;

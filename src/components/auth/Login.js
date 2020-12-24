@@ -4,19 +4,25 @@ import SVG from "../../img/2144242.png";
 import Axios from 'axios';
 import GoogleSignIn from "./GoogleSignIn";
 
-const Login = ({ setauthenticated, setAdmin }) => {
+const Login = ({ setauthenticated, setAdmin,showAlert }) => {
   console.log(window.gapi)
   useEffect(() => {
     localStorage.clear();
   }, [])
+
   const [user, setUser] = useState({
     email: "aman.jain.phy17@itbhu.ac.in",
-    password: "yobabe"
+    password: "amanjain"
   });
+
   function togglePass() {
     var a = document.getElementById('password');
-    if (a.type === "password") a.type = "text";
-    else a.type = "password";
+    if (a.type === "password") {
+      a.type = "text";
+    }
+    else {
+      a.type = "password";
+    }
   }
 
   const { email, password } = user;
@@ -25,33 +31,40 @@ const Login = ({ setauthenticated, setAdmin }) => {
     e.preventDefault();
 
     if (email === "" || password === "") {
-      alert("Please fill in all fields");
+      showAlert("Please fill in all fields", "danger");
     }
-    else if (!email.match(/[a-z0-9.]@i{1,2}tbhu\.ac\.in/)) {
-      alert('Email not correct. Enter institute email address.')
+    else if(!email.match(/[a-z0-9.]@i{1,2}tbhu\.ac\.in/)){
+      showAlert('Email not correct. Enter institute email address.', "danger");
     }
     else {
+
       let formdata = new FormData(e.target);
       let object = {};
-      formdata.forEach(function (value, key) {
+
+      formdata.forEach(function(value, key){
         object[key] = value;
       });
+
       Axios.post('http://localhost:5000/api/login', object)
-        .then((res) => {
-          localStorage.setItem("token", res.data.token);
-          res.data.admin === true ? localStorage.setItem("adminState", "true")
-            : localStorage.setItem("adminState", "false");
-          localStorage.setItem("name", res.data.name)
-          localStorage.setItem("email", res.data.email)
-          localStorage.setItem("roll", res.data.roll)
-          setUser({
-            email: "",
-            password: "",
-          });
-          setAdmin(res.data.admin)
-          setauthenticated(true);
-        })
-        .catch((e) => { console.log('Problem' + e); })
+      .then((res) => {
+        localStorage.setItem("token",res.data.token);
+        res.data.admin===true ? localStorage.setItem("adminState","true")
+        :localStorage.setItem("adminState","false");
+        localStorage.setItem("name",res.data.name);
+        localStorage.setItem("email",res.data.email);
+        localStorage.setItem("roll",res.data.roll);
+        setUser({
+          email: "",
+          password: "",
+        });
+        setAdmin(res.data.admin);
+        setauthenticated(true);
+        showAlert(`Welcome ${res.data.name}`, "success");
+        console.log(typeof(showAlert))
+      })
+      .catch(() => {
+        showAlert("Enter correct username/password", "danger");
+      })
     }
   };
 

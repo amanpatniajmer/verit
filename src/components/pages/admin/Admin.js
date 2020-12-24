@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import AddEvent from "./AddEvent";
 const Admin = () => {
     return (

@@ -14,10 +14,10 @@ const List = ({location}) => {
     useEffect(() => {
         Axios.get(`http://localhost:5000/api/apply?token=${localStorage.getItem("token")}`)
         .then((res)=>{
-            console.log(res.data); 
+            // console.log(res.data); 
             setData(res.data);
         })
-        .catch((e)=>{console.log('Problem'+e.response);})
+        .catch((e)=>{console.log('Problem '+e.response);})
     }, [])
     
     

@@ -1,42 +1,45 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import SubEvent from './SubEvent';
 import Axios from 'axios';
 
-const AddInternal = () => {
-  const history=useHistory();
-  const [keys,setKeys]=useState([]);
+const AddInternal = ({ showAlert }) => {
+
+  const history = useHistory();
+  const [keys, setKeys] = useState([]);
   const [loading, setLoading] = useState(false);
-  const delSubEvent = (key) =>{
-    let newKeys=[];
-    for(let i=0;i<keys.length;i++){
-      if(keys[i]!==key) newKeys.push(keys[i]);
+
+  const delSubEvent = (key) => {
+    let newKeys = [];
+    for(let i=0; i<keys.length; i++){
+      if(keys[i] !== key) newKeys.push(keys[i]);
     }
     setKeys(newKeys);
   }
-  const addSubEvents= ()=>{
-    setKeys([...keys,keys.length?keys[keys.length-1]+1:0]);
+  const addSubEvents= () => {
+    setKeys([...keys, keys.length ? keys[keys.length - 1] + 1 : 0]);
   }
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
-    let formdata=new FormData(e.target);
+
+    let formdata = new FormData(e.target);
     let object = {};
     formdata.forEach(function(value, key){
       object[key] = value;
     });
   
-    Axios.post('http://localhost:5000/api/internalevents',object,{
+    Axios.post('http://localhost:5000/api/internalevents', object, {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
-    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
+    .then(()=>{ showAlert("Internal event added.", "success"); setLoading(false); history.push('../'); })
+    .catch(()=>{ showAlert("Error.", "danger"); setLoading(false); })
     
   }
     return (
         <div>
-          <form className="form-container" onSubmit={(e)=>{add(e)}}>
+          <form className = "form-container" onSubmit={(e)=>{add(e)}}>
           <span className="close" onClick={()=>history.push('../')}><i className="fa fa-times-circle"/></span>
             <h1 className="text-primary">{" "}
             <span className="text-dark">Add an </span> Internal Event{" "}

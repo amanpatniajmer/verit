@@ -52,4 +52,4 @@ const EventsFilters = ({activeFilter, inactiveFilter,sessionFilter, internalFilt
     )
 }
 
-export default EventsFilters
+export default EventsFilters;

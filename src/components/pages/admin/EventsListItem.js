@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
 
 const EventsListItem = ({data,id,setdata, type}) => {
@@ -15,7 +15,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
             setLoading(false);
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         })
     }
@@ -29,7 +29,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
             setLoading(false);
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         })
     }
@@ -43,7 +43,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
             setLoading(false);
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         })
     }
@@ -57,7 +57,7 @@ const EventsListItem = ({data,id,setdata, type}) => {
             setLoading(false);
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         })
     }

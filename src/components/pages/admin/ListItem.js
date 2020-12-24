@@ -13,11 +13,11 @@ const ListItem = ({data,id,setdata,type}) => {
             type:type
         }).then(result=>{
             setNewStatus("Verified");
-            console.log(result.data)
+            // console.log(result.data)
             setLoading(false);
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         })
     }
@@ -29,11 +29,11 @@ const ListItem = ({data,id,setdata,type}) => {
             type:type
         }).then(result=>{
             setNewStatus("Unverified");
-            console.log(result.data)
+            // console.log(result.data)
             setLoading(false);
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         })
     }

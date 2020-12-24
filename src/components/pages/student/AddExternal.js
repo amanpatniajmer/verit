@@ -1,8 +1,8 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
-const AddExternal = () => {
+const AddExternal = ({ showAlert }) => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
   const [selections,setSelections]=useState({
@@ -22,27 +22,30 @@ const AddExternal = () => {
     formdata.forEach(function(value, key){
       object[key] = value;
     });
-    console.log(object)
+    // console.log(object)
     Axios.post(`http://localhost:5000/api/apply/${object.organization}/external`,object,{
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then((res)=>{console.log(res.data); setLoading(false); history.push('../');})
-    .catch((e)=>{console.log('Problem'+e.response);setLoading(false);})
+    .then(()=>{
+      showAlert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
+    .catch((e)=>{
+      showAlert("Error.", "danger");
+      setLoading(false);})
   }
   const fetchfields = (selections) => {
       Axios.get(`http://localhost:5000/api/externalevents/student?club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}
-        console.log(res)
+        // console.log(res)
         for (let i = 0; i < res.data.length; i++) {
           arr.push(res.data[i].institute+"_"+res.data[i].event);
           object[res.data[i].institute+"_"+res.data[i].event]=res.data[i].subevents;
         }
         setSelections((prev)=>({...prev,events:arr}))
         setSelections((prev)=>({...prev,events:arr,selectedEvent:arr[0],subevents:object}))
-        console.log(object)
+        // console.log(object)
       })
   }
   useEffect(()=>{
