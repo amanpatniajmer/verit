@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import Logo from "../../img/logo.png";
 
 const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
+  function signOut() {
+    var auth2 = window.gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+      setauthenticated(false);
+    });
+  }
 
   const authLinks = (
     <ul>
@@ -19,7 +26,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         </Link>
       </li>
       <li>
-        <Link to="/" onClick={()=>setauthenticated(false)} >Logout {" "}
+        <Link to="/" onClick={signOut} >Logout {" "}
         <i className={logoutIcon} />
         </Link>
       </li>
