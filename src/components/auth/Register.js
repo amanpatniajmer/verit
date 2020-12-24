@@ -2,64 +2,55 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
-const Register = ({ showAlert }) => {
+const Register = ({ showalert, setAuthenticated,setAdmin }) => {
 
   const history= useHistory();
   const [user, setUser] = useState({
-    name: "",
-    roll: "",
-    email: "",
-    password: "",
+    roll: ""
   });
 
-  function togglePass() {
-    var a = document.getElementById('password');
-    if (a.type === "password") {
-      a.type = "text";
-    }
-    else {
-      a.type = "password";
-    }
-  }
-
-  const { name, roll, email, password } = user;
+  const { roll } = user;
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (name === "" || roll === "" || email === "" || password === "") {
-      showAlert("Please fill in all fields", "danger");
+    if ( roll === "" ) {
+      showalert("Please fill in all fields", "danger");
     }
     else if(!roll.match(/[0-9]{8}/)){
-      showAlert("Roll not correct", "danger");
+      showalert("Roll not correct", "danger");
     }
-    else if(!email.match(/[a-z0-9.]@i{1,2}tbhu\.ac\.in/)){
-      showAlert('Email not correct. Enter institute email address.', "danger");
-    }
-     else {
-      let formdata = new FormData(e.target);
-      let object = {};
+    else {
+    let formdata = new FormData(e.target);
+    let object = {};
 
-      formdata.forEach(function(value, key){
-        object[key] = value;
+    formdata.forEach(function(value, key){
+      object[key] = value;
+    });
+    object['email']=localStorage.getItem('email');
+    object['idtoken']=localStorage.getItem('idtoken');
+    Axios.post('http://localhost:5000/api/register', object)
+    .then((res) => {
+      // console.log(res.data)
+      localStorage.setItem("token",res.data.token);
+      res.data.admin===true ? localStorage.setItem("adminState","true")
+      :localStorage.setItem("adminState","false");
+      localStorage.setItem("name",res.data.name);
+      localStorage.setItem("email",res.data.email);
+      localStorage.setItem("roll",res.data.roll);
+      localStorage.setItem("picture",res.data.picture);
+      setUser({
+        roll: "",
       });
-
-      Axios.post('http://localhost:5000/api/register', object)
-      .then(() => {
-        // console.log(res.data)
-        showAlert("Registration successful", "danger");
-        setUser({
-          name: "",
-          roll: "",
-          email: "",
-          password: "",
-        });
-        history.push('./');
-        })
-      .catch(() => {
-        // console.log(e); console.log(res)
-        showAlert("Error.", "danger");
+      showalert(`Welcome ${res.data.name}`, "success");
+      setAdmin(res.data.admin);
+      setAuthenticated(true);
+      history.push('../');
       })
+    .catch((e) => {
+      // console.log(e); console.log(res)
+      showalert(e.response.data, "danger");
+    })
     }
   };
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
@@ -72,7 +63,7 @@ const Register = ({ showAlert }) => {
           <span className = "text-dark">Account</span> Register{" "}
         </h1>
 
-        <div className = "form-group">
+        {/* <div className = "form-group">
           <label>Full Name</label>
           <input
             type = "text"
@@ -83,7 +74,7 @@ const Register = ({ showAlert }) => {
             autoComplete = "off"
             required
           />
-        </div>
+        </div> */}
 
         <div className = "form-group">
           <label>Roll No.</label>
@@ -98,7 +89,7 @@ const Register = ({ showAlert }) => {
           />
         </div>
 
-        <div className = "form-group">
+        {/* <div className = "form-group">
           <label>Email Address</label>
           <input
             type = "text"
@@ -109,9 +100,9 @@ const Register = ({ showAlert }) => {
             autoComplete = "off"
             required
           />
-        </div>
+        </div> */}
 
-        <div className = "form-group">
+        {/* <div className = "form-group">
           <label>Password</label>
           <input id = "password"
             type = "password"
@@ -126,7 +117,7 @@ const Register = ({ showAlert }) => {
           />
         </div>
         <label>Show Password{"  "}</label>
-        <input type = "checkbox" style = {{ width:"auto" }} onClick={() => togglePass()}/>
+        <input type = "checkbox" style = {{ width:"auto" }} onClick={() => togglePass()}/> */}
 
         <input
           type = "submit"

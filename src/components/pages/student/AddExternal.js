@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
-const AddExternal = ({ showAlert }) => {
+const AddExternal = ({ showalert }) => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
   const [selections,setSelections]=useState({
@@ -28,9 +28,9 @@ const AddExternal = ({ showAlert }) => {
       'x-auth-token': localStorage.getItem('token')
     }})
     .then(()=>{
-      showAlert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
+      showalert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
     .catch((e)=>{
-      showAlert("Error.", "danger");
+      showalert("Error.", "danger");
       setLoading(false);})
   }
   const fetchfields = (selections) => {

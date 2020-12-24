@@ -1,7 +1,12 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
+import Axios from 'axios';
+import { Redirect } from "react-router-dom";
+/* import Register from './Register'; */
 
-const GoogleSignIn = ({setAuthenticated}) => {
+const GoogleSignIn = ({setAuthenticated,showalert,setAdmin}) => {
+    const [register,showRegister]=useState(false);
     useEffect(() => {
+        if(window.gapi.signin2)
         window.gapi.signin2.render('my-signin2', {
             'scope': 'profile email',
             'width': 240,
@@ -14,12 +19,49 @@ const GoogleSignIn = ({setAuthenticated}) => {
         //eslint-disable-next-line
     }, [])
     function onSuccess(googleUser) {
-        setAuthenticated(true)
         var profile = googleUser.getBasicProfile();
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        let email=profile.getEmail();
+        if (email === "" ) {
+            showalert("Please fill in all fields", "danger");
+        }
+        /* else if(!email.match(/[a-z0-9.]@i{1,2}tbhu\.ac\.in/)){
+            showAlert('Email not correct. Enter institute email address.', "danger");
+        } */
+        else {
+            let object = {};
+            object['email']=email;
+            object['idtoken']=googleUser.getAuthResponse().id_token;
+            localStorage.setItem("idtoken",object['idtoken']);
+            localStorage.setItem("name",profile.getName());
+            localStorage.setItem("email",email);
+            Axios.post('http://localhost:5000/api/login', object)
+            .then((res) => {
+                console.log(res.data)
+                if(res.data==="Register"){
+                    showRegister(true);
+                }
+                else{
+                    localStorage.setItem("token",res.data.token);
+                    res.data.admin===true ? localStorage.setItem("adminState","true")
+                    :localStorage.setItem("adminState","false");
+                    localStorage.setItem("name",res.data.name);
+                    localStorage.setItem("email",res.data.email);
+                    localStorage.setItem("roll",res.data.roll);
+                    localStorage.setItem("picture",res.data.picture);
+                    showalert(`Welcome ${res.data.name}`, "success");
+                    setAdmin(res.data.admin);
+                    setAuthenticated(true);
+                }
+            })
+            .catch((e) => {
+                showalert(e.response.data, "danger");
+                setAuthenticated(false);
+            })
+        }
     }
     function onFailure(error) {
         setAuthenticated(false)
@@ -27,7 +69,10 @@ const GoogleSignIn = ({setAuthenticated}) => {
     }
 
     return (
+        <div>
         <div id="my-signin2"></div>
+        {register && <Redirect to='/sign-up'/>}
+        </div>
     )
 }
 

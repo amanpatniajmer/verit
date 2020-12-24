@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Logo from "../../img/logo.png";
 
 const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
-  function signOut() {
-    var auth2 = window.gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-      setauthenticated(false);
+  useEffect(() => {
+    if(window.gapi)
+    window.gapi.load('auth2', function() {
+      window.gapi.auth2.init();
     });
+  }, [])
+  function signOut() {
+    if(window.gapi && window.gapi.auth2){
+      var auth2 = window.gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+        setauthenticated(false);
+      });
+    }
   }
 
   const authLinks = (
@@ -22,10 +30,6 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         <Link to = "/student/list?verified=false&unverified=false&session=All&club=Cultural%20Council">List</Link>}
       </li>
       <li>
-        <Link to = "/resetpassword">ResetPassword {" "}
-        </Link>
-      </li>
-      <li>
         <Link to="/" onClick={signOut} >Logout {" "}
         <i className={logoutIcon} />
         </Link>
@@ -35,9 +39,6 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
 
   const guestLinks = (
     <ul>
-      <li>
-        <Link to = "/sign-up">Register</Link>
-      </li>
       <li>
         <Link to = "/" params={{ setauthenticated:{setauthenticated} }} >Login</Link>
       </li>

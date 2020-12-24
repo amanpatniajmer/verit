@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
-const AddInternal = ({ showAlert }) => {
+const AddInternal = ({ showalert }) => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
   const [selections,setSelections]=useState({
@@ -27,8 +27,8 @@ const AddInternal = ({ showAlert }) => {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then(()=>{showAlert("You have successfully applied for verification.", "success."); setLoading(false); history.push('../');})
-    .catch(()=>{showAlert("Error.", "danger"); setLoading(false);})
+    .then(()=>{showalert("You have successfully applied for verification.", "success."); setLoading(false); history.push('../');})
+    .catch(()=>{showalert("Error.", "danger"); setLoading(false);})
   }
   const fetchfields = (selections) => {
       Axios.get(`http://localhost:5000/api/internalevents/student?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)

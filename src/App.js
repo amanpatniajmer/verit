@@ -45,31 +45,31 @@ function App() {
             <Route exact path="/" component={Admin} />
             <Route exact path="/admin/list" component={AdminList} />
             <Route exact path="/admin/eventslist" component={EventsList} />
-            <Route exact path="/admin/addinternal" component={AdminAddInternal} showAlert={showAlert}/>
-            <Route exact path="/admin/addexternal" component={AdminAddExternal} showAlert={showAlert}/>
-            <Route exact path="/resetpassword" component={ResetPassword} showAlert={showAlert}/>
-            <Route exact path="/enterpassword" component={EnterPassword} showAlert={showAlert}/>
+            <Route exact path="/admin/addinternal" component={AdminAddInternal} showalert={showAlert}/>
+            <Route exact path="/admin/addexternal" component={AdminAddExternal} showalert={showAlert}/>
+            <Route exact path="/resetpassword" component={ResetPassword} showalert={showAlert}/>
+            <Route exact path="/enterpassword" component={EnterPassword} showalert={showAlert}/>
             <Route path='/' component={Forbidden}/>
 
             </Switch>
             :(authenticated?
               <Switch>
-              <Route exact path="/" component={Student} />
-            <Route exact path="/student/list" component={StudentList}/>
-            <Route exact path="/student/addinternal" component={StudentAddInternal} showAlert={showAlert}/>
-            <Route exact path="/student/addexternal" component={StudentAddExternal} showAlert={showAlert}/>
-            <Route exact path="/student/addpor" component={StudentAddPor} showAlert={showAlert}/>
-            <Route exact path="/resetpassword" component={ResetPassword} showAlert={showAlert}/>
-            <Route exact path="/enterpassword" component={EnterPassword} showAlert={showAlert}/>
+              <Route exact path="/" render={(props)=><Student {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
+            <Route exact path="/student/list" render={(props)=><StudentList {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
+            <Route exact path="/student/addinternal" render={(props)=><StudentAddInternal {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
+            <Route exact path="/student/addexternal" render={(props)=><StudentAddExternal {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
+            <Route exact path="/student/addpor" render={(props)=><StudentAddPor {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
+            {/* <Route exact path="/resetpassword" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
+            <Route exact path="/enterpassword" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> */}
             <Route path='/' component={Forbidden}/>
             </Switch>
             :
             <Switch>
-            <Route exact path="/" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showAlert={showAlert} />}/> 
+            <Route exact path="/" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> 
             <Route exact path="/about" component={About} />
-            <Route exact path="/forgotpassword" component={ForgotPassword} showAlert={showAlert}/>
-            <Route exact path="/enterpassword" component={EnterPassword} showAlert={showAlert}/>
-            <Route exact path="/sign-up" component={Register} showAlert={showAlert}/>
+            <Route exact path="/forgotpassword" component={ForgotPassword} showalert={showAlert}/>
+            <Route exact path="/enterpassword" component={EnterPassword} showalert={showAlert}/>
+            <Route exact path="/sign-up" render={(props)=><Register {...props} showalert={showAlert} setAuthenticated={setAuthenticated} setAdmin={setAdmin}/>}/>
             <Route path='/' component={Forbidden}/>
             </Switch>
             )

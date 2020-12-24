@@ -1,9 +1,9 @@
 import React from 'react';
 import AddEvent from "./AddEvent";
-const Student = () => {
+const Student = ({ showalert }) => {
     return (
         <div>
-            <AddEvent/>
+            <AddEvent showAlert={showalert}/>
         </div>
     )
 }

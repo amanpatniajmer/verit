@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
 
-const AddPor = ({ showAlert }) => {
+const AddPor = ({ showalert }) => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
   const [selections,setSelections]=useState({
@@ -88,8 +88,8 @@ const AddPor = ({ showAlert }) => {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then((res)=>{showAlert("You have successfully applied for verification.", "success."); setLoading(false); history.push('../');})
-    .catch((e)=>{showAlert("Error.", "danger");setLoading(false);})
+    .then((res)=>{showalert("You have successfully applied for verification.", "success."); setLoading(false); history.push('../');})
+    .catch((e)=>{showalert("Error.", "danger");setLoading(false);})
   }
     return (
         <div>
