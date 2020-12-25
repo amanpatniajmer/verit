@@ -27,7 +27,7 @@ const AddInternal = ({ showalert }) => {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then(()=>{showalert("You have successfully applied for verification.", "success."); setLoading(false); history.push('../');})
+    .then(()=>{showalert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
     .catch(()=>{showalert("Error.", "danger"); setLoading(false);})
   }
   const fetchfields = (selections) => {

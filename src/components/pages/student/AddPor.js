@@ -11,7 +11,7 @@ const AddPor = ({ showalert }) => {
     committees: {
         "Cultural Council":
         {
-          "Clubs": ["Dance Club", "Fine Arts Club", "Indian Music Club", "Literary Club", "Quiz Club", "Theatre Club", "Western Music Club"]
+          "Clubs": ["Cultural Council", "Dance Club", "Fine Arts Club", "Indian Music Club", "Literary Club", "Quiz Club", "Theatre Club", "Western Music Club"]
         },
     
         "Kashiyatra":
@@ -21,7 +21,7 @@ const AddPor = ({ showalert }) => {
     
         "Film and Media Council":
         {
-          "Clubs": ["Animation Club", "Cine Club", "Design Club", "Media Club", "Photography Club", "Social Outreach Club"]
+          "Clubs": ["Film and Media Council", "Animation Club", "Cine Club", "Design Club", "Media Club", "Photography Club", "Social Outreach Club"]
         },
     
         "FMC Weekend":
@@ -31,7 +31,7 @@ const AddPor = ({ showalert }) => {
     
         "Games and Sports Council":
         {
-          "Clubs": ["Aquatics", "Athletics", "Badminton", "Basketball", "Boxing", "Chess", "Cricket", "Football", "Handball", "Hockey", "Kabaddi", "Khokho", "Lawn Tennis", "Squash", "Table Tennis", "Taekwondo", "Volleyball", "Weightlifting"]
+          "Clubs": ["Games and Sports Council", "Aquatics", "Athletics", "Badminton", "Basketball", "Boxing", "Chess", "Cricket", "Football", "Handball", "Hockey", "Kabaddi", "Khokho", "Lawn Tennis", "Squash", "Table Tennis", "Taekwondo", "Volleyball", "Weightlifting"]
         },
     
         "Spardha":
@@ -41,7 +41,7 @@ const AddPor = ({ showalert }) => {
     
         "Social Service Council":
         {
-          "Clubs": ["Kashi Utkarsh", "Health and Hygiene Club", "Social Projects Club", "Sahyog"]
+          "Clubs": ["Social Service Council", "Kashi Utkarsh", "Health and Hygiene Club", "Social Projects Club", "Sahyog"]
         },
     
         "Jagriti":
@@ -51,7 +51,7 @@ const AddPor = ({ showalert }) => {
     
         "Science and Technology Council":
         {
-          "Clubs": ["Aero-Modelling Club", "Astronomy Club", "Business Club", "Club of Programmers", "Club of Sustainibility and Innovation", "Robotics Club", "Society of Automotive Engineers"]
+          "Clubs": [ "Science and Technology Council", "Aero-Modelling Club", "Astronomy Club", "Business Club", "Club of Programmers", "Club of Sustainibility and Innovation", "Robotics Club", "Society of Automotive Engineers"]
         },
     
         "Technex":
@@ -66,7 +66,7 @@ const AddPor = ({ showalert }) => {
     
         "E-Cell":
         {
-          "Clubs": ["Startup Weekend"]
+          "Clubs": ["E-Cell", "Startup Weekend"]
         },
     
         "Training and Placement Cell":
@@ -88,7 +88,7 @@ const AddPor = ({ showalert }) => {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then((res)=>{showalert("You have successfully applied for verification.", "success."); setLoading(false); history.push('../');})
+    .then((res)=>{showalert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
     .catch((e)=>{showalert("Error.", "danger");setLoading(false);})
   }
     return (
