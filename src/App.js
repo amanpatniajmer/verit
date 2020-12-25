@@ -17,9 +17,6 @@ import StudentAddExternal from "./components/pages/student/AddExternal";
 import StudentAddPor from "./components/pages/student/AddPor";
 import StudentList from "./components/pages/student/List";
 import EventsList from "./components/pages/admin/EventsList";
-import ForgotPassword from "./components/auth/ForgotPassword";
-import EnterPassword from "./components/auth/EnterPassword";
-import ResetPassword from "./components/auth/ResetPassword";
 import Alert from "./components/layout/Alert";
 
 function App() {
@@ -42,13 +39,11 @@ function App() {
           <Alert alert={alert} />
             {authenticated && admin ? <Switch>
             <Route exact path="/about" component={About} />
-            <Route exact path="/" component={Admin} />
-            <Route exact path="/admin/list" component={AdminList} />
-            <Route exact path="/admin/eventslist" component={EventsList} />
-            <Route exact path="/admin/addinternal" component={AdminAddInternal} showalert={showAlert}/>
-            <Route exact path="/admin/addexternal" component={AdminAddExternal} showalert={showAlert}/>
-            <Route exact path="/resetpassword" component={ResetPassword} showalert={showAlert}/>
-            <Route exact path="/enterpassword" component={EnterPassword} showalert={showAlert}/>
+            <Route exact path="/" render={(props)=><Admin {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> 
+            <Route exact path="/admin/list" render={(props)=><AdminList {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> 
+            <Route exact path="/admin/eventslist" render={(props)=><EventsList {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> 
+            <Route exact path="/admin/addinternal" render={(props)=><AdminAddInternal {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> 
+            <Route exact path="/admin/addexternal" render={(props)=><AdminAddExternal {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> 
             <Route path='/' component={Forbidden}/>
 
             </Switch>
@@ -59,16 +54,12 @@ function App() {
             <Route exact path="/student/addinternal" render={(props)=><StudentAddInternal {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
             <Route exact path="/student/addexternal" render={(props)=><StudentAddExternal {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
             <Route exact path="/student/addpor" render={(props)=><StudentAddPor {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
-            {/* <Route exact path="/resetpassword" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/>
-            <Route exact path="/enterpassword" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> */}
             <Route path='/' component={Forbidden}/>
             </Switch>
             :
             <Switch>
             <Route exact path="/" render={(props)=><Login {...props} setauthenticated={setAuthenticated} setAdmin={setAdmin} showalert={showAlert} />}/> 
             <Route exact path="/about" component={About} />
-            <Route exact path="/forgotpassword" component={ForgotPassword} showalert={showAlert}/>
-            <Route exact path="/enterpassword" component={EnterPassword} showalert={showAlert}/>
             <Route exact path="/sign-up" render={(props)=><Register {...props} showalert={showAlert} setAuthenticated={setAuthenticated} setAdmin={setAdmin}/>}/>
             <Route path='/' component={Forbidden}/>
             </Switch>

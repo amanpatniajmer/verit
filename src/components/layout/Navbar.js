@@ -5,19 +5,15 @@ import Logo from "../../img/logo.png";
 
 const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
   useEffect(() => {
-    if(window.gapi)
     window.gapi.load('auth2', function() {
       window.gapi.auth2.init();
     });
   }, [])
   function signOut() {
-    if(window.gapi && window.gapi.auth2){
       var auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
-        console.log('User signed out.');
         setauthenticated(false);
       });
-    }
   }
 
   const authLinks = (

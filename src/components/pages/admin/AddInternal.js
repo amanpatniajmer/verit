@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import SubEvent from './SubEvent';
 import Axios from 'axios';
 
-const AddInternal = ({ showAlert }) => {
+const AddInternal = ({ showalert }) => {
 
   const history = useHistory();
   const [keys, setKeys] = useState([]);
@@ -33,8 +33,8 @@ const AddInternal = ({ showAlert }) => {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then(()=>{ showAlert("Internal event added.", "success"); setLoading(false); history.push('../'); })
-    .catch(()=>{ showAlert("Error.", "danger"); setLoading(false); })
+    .then(()=>{ showalert("Internal event added.", "success"); setLoading(false); history.push('../'); })
+    .catch(()=>{ showalert("Error.", "danger"); setLoading(false); })
     
   }
     return (

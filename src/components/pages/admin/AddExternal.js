@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import SubEvent from "./SubEvent";
 import Axios from 'axios';
 
-const AddExternal = ({ showAlert }) => {
+const AddExternal = ({ showalert }) => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
@@ -37,8 +37,8 @@ const AddExternal = ({ showAlert }) => {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then(()=>{showAlert("External event added.", "success"); setLoading(false); history.push('../');})
-    .catch(()=>{showAlert("Error.", "danger"); setLoading(false);})
+    .then(()=>{showalert("External event added.", "success"); setLoading(false); history.push('../');})
+    .catch(()=>{showalert("Error.", "danger"); setLoading(false);})
     
   }
     return (
