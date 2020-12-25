@@ -33,12 +33,12 @@ const AddExternal = ({ showalert }) => {
       object[key] = value;
     });
   
-    Axios.post('http://localhost:5000/api/externalevents', object, {
+    Axios.post('http://localhost:5000/api/events/External', object, {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
     .then(()=>{showalert("External event added.", "success"); setLoading(false); history.push('../');})
-    .catch(()=>{showalert("Error.", "danger"); setLoading(false);})
+    .catch((e)=>{showalert((e.response && e.response.data) || "No connection established", "danger"); setLoading(false);})
     
   }
     return (

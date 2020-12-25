@@ -49,7 +49,7 @@ const Register = ({ showalert, setAuthenticated,setAdmin }) => {
       })
     .catch((e) => {
       // console.log(e); console.log(res)
-      showalert(e.response.data, "danger");
+      showalert((e.response && e.response.data) || "No connection established", "danger");
     })
     }
   };

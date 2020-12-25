@@ -52,7 +52,7 @@ const GoogleSignIn = ({setAuthenticated,showalert,setAdmin}) => {
                 }
             })
             .catch((e) => {
-                showalert(e.response.data, "danger");
+                showalert((e.response && e.response.data) || "No connection established", "danger");
                 setAuthenticated(false);
             })
         }

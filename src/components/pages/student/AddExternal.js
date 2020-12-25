@@ -30,11 +30,11 @@ const AddExternal = ({ showalert }) => {
     .then(()=>{
       showalert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
     .catch((e)=>{
-      showalert("Error.", "danger");
+      showalert((e.response && e.response.data) || "No connection established", "danger");
       setLoading(false);})
   }
   const fetchfields = (selections) => {
-      Axios.get(`http://localhost:5000/api/externalevents/student?club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
+      Axios.get(`http://localhost:5000/api/events/External?club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}

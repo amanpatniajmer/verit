@@ -29,12 +29,12 @@ const AddInternal = ({ showalert }) => {
       object[key] = value;
     });
   
-    Axios.post('http://localhost:5000/api/internalevents', object, {
+    Axios.post('http://localhost:5000/api/events/Internal', object, {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
     .then(()=>{ showalert("Internal event added.", "success"); setLoading(false); history.push('../'); })
-    .catch(()=>{ showalert("Error.", "danger"); setLoading(false); })
+    .catch((e)=>{ showalert((e.response && e.response.data) || "No connection established", "danger"); setLoading(false); })
     
   }
     return (

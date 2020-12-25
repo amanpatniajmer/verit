@@ -1,80 +1,23 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
-
+import committees from './committees.json' ;
 
 const AddPor = ({ showalert }) => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
   const [selections,setSelections]=useState({
-    selectedOrganization: "Cultural Council",
-    committees: {
-        "Cultural Council":
-        {
-          "Clubs": ["Cultural Council", "Dance Club", "Fine Arts Club", "Indian Music Club", "Literary Club", "Quiz Club", "Theatre Club", "Western Music Club"]
-        },
-    
-        "Kashiyatra":
-        {
-          "Clubs": ["KashiYatra"]
-        },
-    
-        "Film and Media Council":
-        {
-          "Clubs": ["Film and Media Council", "Animation Club", "Cine Club", "Design Club", "Media Club", "Photography Club", "Social Outreach Club"]
-        },
-    
-        "FMC Weekend":
-        {
-          "Clubs": ["FMC Weekend"]
-        },
-    
-        "Games and Sports Council":
-        {
-          "Clubs": ["Games and Sports Council", "Aquatics", "Athletics", "Badminton", "Basketball", "Boxing", "Chess", "Cricket", "Football", "Handball", "Hockey", "Kabaddi", "Khokho", "Lawn Tennis", "Squash", "Table Tennis", "Taekwondo", "Volleyball", "Weightlifting"]
-        },
-    
-        "Spardha":
-        {
-          "Clubs": ["Spardha"]
-        },
-    
-        "Social Service Council":
-        {
-          "Clubs": ["Social Service Council", "Kashi Utkarsh", "Health and Hygiene Club", "Social Projects Club", "Sahyog"]
-        },
-    
-        "Jagriti":
-        {
-          "Clubs": ["Jagriti"]
-        },
-    
-        "Science and Technology Council":
-        {
-          "Clubs": [ "Science and Technology Council", "Aero-Modelling Club", "Astronomy Club", "Business Club", "Club of Programmers", "Club of Sustainibility and Innovation", "Robotics Club", "Society of Automotive Engineers"]
-        },
-    
-        "Technex":
-        {
-          "Clubs": ["Technex"]
-        },
-    
-        "Students' Parliament":
-        {
-          "Clubs": ["Students' Parliament", "PG Affairs", "Web Committee", "Security Committee", "Festival Committee", "Training and Placement", "Grievance & Redressal Committee", "UG Affairs", "Hostel Affairs Committee", " Infrastructure Committee", "Public Relations Committee", " Finance Committee"]
-        },
-    
-        "E-Cell":
-        {
-          "Clubs": ["E-Cell", "Startup Weekend"]
-        },
-    
-        "Training and Placement Cell":
-        {
-          "Clubs": ["Training and Placement Cell"]
-        }
-    }
+    organizations:[],
+    selectedOrganization: "",
+    committees: committees
   })
+  useEffect(() => {
+    let tempArray=[];
+    for(let i in selections.committees)
+    tempArray.push(i);
+    setSelections((prev)=>({...prev,organizations:tempArray,selectedOrganization:tempArray[0]}))
+    //eslint-disable-next-line
+  }, [])
   const add = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -89,7 +32,7 @@ const AddPor = ({ showalert }) => {
       'x-auth-token': localStorage.getItem('token')
     }})
     .then((res)=>{showalert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
-    .catch((e)=>{showalert("Error.", "danger");setLoading(false);})
+    .catch((e)=>{showalert((e.response && e.response.data) || "No connection established", "danger"); setLoading(false);})
   }
     return (
         <div>
@@ -104,21 +47,15 @@ const AddPor = ({ showalert }) => {
                 const val=e.target.value;
                 setSelections((prev)=>({...prev,selectedOrganization:val}));
               }} name="organization">
-                <option value="Cultural Council">Cultural Council</option>
-                <option value="Film and Media Council">Film and Media Council</option>
-                <option value="Games and Sports Council">Games and Sports Council</option>
-                <option value="Social Service Council">Social Service Council</option>
-                <option value="Science and Technology Council">Science and Technology Council</option>
-                <option value="E-Cell">E-Cell</option>
-                <option value="Kashiyatra">Kashiyatra</option>
-                <option value="Technex">Technex</option>
-                <option value="Spardha">Spardha</option>
+                {selections.organizations && selections.organizations.map((i)=>
+                  <option value={i} key={i}>{i}</option>
+                )}
               </select>
             </div>
             <div className="form-group">
               <label>Committees</label>
               <select name="club" required={true}>
-                {selections.committees[selections.selectedOrganization]["Clubs"]
+                {selections.selectedOrganization && selections.committees[selections.selectedOrganization]["Clubs"]
                  && selections.committees[selections.selectedOrganization]["Clubs"].map((i)=> <option value={i} key={i} >{i}</option>)}
               </select>
             </div>

@@ -13,25 +13,12 @@ const EventsList = ({location}) => {
     let externalFilter=bool(query.external);
     let session=query.session;
     const [data1,setData1] = useState(null);
-    const [data2,setData2] = useState(null);
-    const fetchList = (organization) =>{
-        Axios.get(`http://localhost:5000/api/internalevents?organization=${organization}&token=${localStorage.getItem('token')}`)
+    useEffect(() => {
+        Axios.get(`http://localhost:5000/api/events?token=${localStorage.getItem('token')}`)
         .then((res)=>{
-            // console.log(res.data); 
             setData1(res.data);
         })
-        
-    }
-    useEffect(() => {
-        let organization="Cultural Council"
-        fetchList(organization);
     }, [])
-    useEffect(()=>{
-        Axios.get(`http://localhost:5000/api/externalevents?token=${localStorage.getItem('token')}`)
-        .then((res)=>{
-            // console.log(res.data); 
-            setData2(res.data) })
-    },[])
     
     return (
         <div style={{ display:"grid", placeContent: "center", marginBottom: "16px" }}>
@@ -47,7 +34,7 @@ const EventsList = ({location}) => {
                     <th className="text-center text-dark">Actions</th>
                 </tr></thead>
                 <tbody>
-                    {data1 && data1.map((i,index) => {
+                    {data1 && data1['internal'] && data1['internal'].map((i,index) => {
                         let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
                         let statusFilters=(activeFilter===inactiveFilter) || (activeFilter && i.status==="Active") || (inactiveFilter && i.status==="Inactive")
                         let internalFilters=(internalFilter===externalFilter) || (internalFilter)
@@ -55,7 +42,7 @@ const EventsList = ({location}) => {
                         return <EventsListItem data={i} id={index} type="Internal" setdata={setData1} key={i._id}/>
                         else return null;
                     })}
-                    {data2 && data2.map((i,index) => {
+                    {data1 && data1['external'] && data1['external'].map((i,index) => {
                         let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
                         let statusFilters=(activeFilter===inactiveFilter) || (activeFilter && i.status==="Active") || (inactiveFilter && i.status==="Inactive")
                         let externalFilters=(internalFilter===externalFilter) || (externalFilter)

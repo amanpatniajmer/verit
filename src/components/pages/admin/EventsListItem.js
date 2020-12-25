@@ -1,86 +1,83 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 
-const EventsListItem = ({data,id,setdata, type}) => {
-    const {event,subevents,session, status,_id} = data;
+const EventsListItem = ({ data, setdata, type }) => {
+    const { event, subevents, session, status, _id } = data;
     const [loading, setLoading] = useState(false)
+    const [deleteLoading, setDeleteLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);
-    const internalActivate = () =>{
+    const activate = () => {
         setLoading(true);
-        Axios.put(`http://localhost:5000/api/internalevents/activate?token=${localStorage.getItem('token')}`,{
-            id:_id
-        }).then(result=>{
-            if(result.status===200 && result.statusText==="OK")
-            setNewStatus("Active");
-            setLoading(false);
-        })
-        .catch(err=>{
-            // console.log(err)
-            setLoading(false);
-        })
+        Axios.put(`http://localhost:5000/api/events/${type}/${_id}/activate?token=${localStorage.getItem('token')}`)
+            .then(result => {
+                if (result.status === 200 && result.statusText === "OK")
+                    setNewStatus("Active");
+                setLoading(false);
+            })
+            .catch(err => {
+                // console.log(err)
+                setLoading(false);
+            })
     }
-    const externalActivate = () =>{
+    const inactivate = () => {
         setLoading(true);
-        Axios.put(`http://localhost:5000/api/externalevents/activate?token=${localStorage.getItem('token')}`,{
-            id:_id
-        }).then(result=>{
-            if(result.status===200 && result.statusText==="OK")
-            setNewStatus("Active");
-            setLoading(false);
-        })
-        .catch(err=>{
-            // console.log(err)
-            setLoading(false);
-        })
+        Axios.put(`http://localhost:5000/api/events/${type}/${_id}/inactivate?token=${localStorage.getItem('token')}`)
+            .then(result => {
+                if (result.status === 200 && result.statusText === "OK")
+                    setNewStatus("Inactive");
+                setLoading(false);
+            })
+            .catch(err => {
+                // console.log(err)
+                setLoading(false);
+            })
     }
-    const internalInactivate = () => {
-        setLoading(true);
-        Axios.put(`http://localhost:5000/api/internalevents/inactivate?token=${localStorage.getItem('token')}`,{
-            id:_id
-        }).then(result=>{
-            if(result.status===200 && result.statusText==="OK")
-            setNewStatus("Inactive");
-            setLoading(false);
+    const withdraw = () => {
+        setDeleteLoading(true);
+        Axios.delete(`http://localhost:5000/api/events/${type}/${_id}`, {
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        }).then(result => {
+            if (result.status === 200 && result.statusText === "OK")
+                setNewStatus("Deleted");
+            // console.log(result.data)
+            setDeleteLoading(false);
         })
-        .catch(err=>{
-            // console.log(err)
-            setLoading(false);
-        })
-    }
-    const externalInactivate = () => {
-        setLoading(true);
-        Axios.put(`http://localhost:5000/api/externalevents/inactivate?token=${localStorage.getItem('token')}`,{
-            id:_id
-        }).then(result=>{
-            if(result.status===200 && result.statusText==="OK")
-            setNewStatus("Inactive");
-            setLoading(false);
-        })
-        .catch(err=>{
-            // console.log(err)
-            setLoading(false);
-        })
+            .catch(err => {
+                // console.log(err)
+                setDeleteLoading(false);
+            })
     }
     return (
-        <tr>
+        <tr readOnly={newStatus === "Deleted"}>
             <td>{type}</td>
             <td>{event}</td>
             <td>{subevents.join(", ")}</td>
             <td>{session}</td>
-            <td>{newStatus === "Inactive"
-                ? <i className="fa fa-times-circle p text-danger"/>
-                : <i className="fa fa-check-circle p text-success"/>}
+            <td>{newStatus === "Inactive" || newStatus === "Deleted"
+                ? <i className="fa fa-times-circle p text-danger" />
+                : <i className="fa fa-check-circle p text-success" />}
                 {newStatus}</td>
             <td className="text-center">
                 {newStatus === "Inactive"
-                ?<button className="btn btn-success" onClick={
-                    () => {type==="Internal"?internalActivate():externalActivate()}
-                }>
-                {loading ? <i className="fa fa-spinner fa-spin p text-danger"/> : "Activate"}</button>
-                :<button className="btn btn-danger" onClick={
-                    () => {type==="Internal"?internalInactivate():externalInactivate()}
-                }>
-                {loading ? <i className="fa fa-spinner fa-spin"/> : "Inactivate"}</button>}</td>
+                    ? newStatus !== "Deleted" && <button className="btn btn-success" onClick={
+                        () => { activate() }
+                    }>
+                        {loading ? <i className="fa fa-spinner fa-spin p text-danger" /> : "Activate"}</button>
+                    : newStatus !== "Deleted" && <button className="btn btn-danger" onClick={
+                        () => { inactivate() }
+                    }>
+                        {loading ? <i className="fa fa-spinner fa-spin" /> : "Inactivate"}</button>}
+
+
+                {newStatus === "Inactive"
+                    ? <button className="btn btn-danger" onClick={() => { (!deleteLoading) && withdraw() }}>
+                        {deleteLoading ? <i className="fa fa-spinner fa-spin" /> : <i className="fa fa-trash text-dark" style={{ margin: "0" }} />}
+                    </button>
+                    : null}
+
+            </td>
         </tr>
     )
 }

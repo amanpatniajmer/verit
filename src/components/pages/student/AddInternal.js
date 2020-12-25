@@ -28,10 +28,10 @@ const AddInternal = ({ showalert }) => {
       'x-auth-token': localStorage.getItem('token')
     }})
     .then(()=>{showalert("You have successfully applied for verification.", "success"); setLoading(false); history.push('../');})
-    .catch(()=>{showalert("Error.", "danger"); setLoading(false);})
+    .catch((e)=>{showalert((e.response && e.response.data) || "No connection established", "danger"); setLoading(false);})
   }
   const fetchfields = (selections) => {
-      Axios.get(`http://localhost:5000/api/internalevents/student?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
+      Axios.get(`http://localhost:5000/api/events/Internal?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}
