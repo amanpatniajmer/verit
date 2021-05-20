@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
 
-const ListItem = ({data,id,setdata}) => {
+const ListItem = ({data,id,updates, setUpdates}) => {
     const {roll,name,club,event,session, status,_id,subevent,position, type} = data;
     const [loading, setLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);
@@ -13,6 +13,7 @@ const ListItem = ({data,id,setdata}) => {
             type:type
         }).then(result=>{
             setNewStatus("Verified");
+            setUpdates([...updates,{...data, status:"Verified"}]);
             setLoading(false);
         })
         .catch(err=>{
@@ -27,6 +28,7 @@ const ListItem = ({data,id,setdata}) => {
             type:type
         }).then(result=>{
             setNewStatus("Unverified");
+            setUpdates([...updates,{...data, status:"Unverified"}]);
             setLoading(false);
         })
         .catch(err=>{
