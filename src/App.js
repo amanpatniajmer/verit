@@ -1,6 +1,7 @@
 import React, { Fragment, useState} from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
+import { ContextProvider } from './context/Context';
 
 import Navbar from "./components/layout/Navbar";
 import Forbidden from "./components/pages/Forbidden";
@@ -34,6 +35,7 @@ function App() {
   return (
     <Fragment>
       <Router>
+        <ContextProvider>
         <Navbar isauthenticated={authenticated} setauthenticated={setAuthenticated} isadmin={admin} setadmin={setAdmin} />
         <div className="container">
           <Alert alert={alert} />
@@ -66,6 +68,7 @@ function App() {
             )
             }
         </div>
+        </ContextProvider>
       </Router>
     </Fragment>
   );

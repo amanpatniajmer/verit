@@ -14,7 +14,7 @@ const EventsList = ({location}) => {
     let session=query.session;
     const [data1,setData1] = useState(null);
     useEffect(() => {
-        Axios.get(`http://localhost:5000/api/events?token=${localStorage.getItem('token')}`)
+        Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
         .then((res)=>{
             setData1(res.data);
         })

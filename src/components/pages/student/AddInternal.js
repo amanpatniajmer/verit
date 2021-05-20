@@ -23,7 +23,7 @@ const AddInternal = ({ showalert }) => {
       object[key] = value;
     });
     console.log(object)
-    Axios.post(`http://localhost:5000/api/apply/${object.organization}/internal`,object,{
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/apply/${object.organization}/internal`,object,{
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
@@ -31,7 +31,7 @@ const AddInternal = ({ showalert }) => {
     .catch((e)=>{showalert((e.response && e.response.data) || "No connection established", "danger"); setLoading(false);})
   }
   const fetchfields = (selections) => {
-      Axios.get(`http://localhost:5000/api/events/Internal?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
+      Axios.get(`${process.env.REACT_APP_SERVER}/api/events/Internal?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}

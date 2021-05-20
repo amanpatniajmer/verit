@@ -1,74 +1,78 @@
-import React, { useEffect,useState } from 'react'
-import ListItem from "./ListItem";
+import React, { useEffect, useState, useContext } from 'react'
 import Filters from "./Filters";
 import Axios from 'axios';
 import queryString from "query-string";
-const List = ({location}) => {
-    function bool(val) { return val===true || val === "true" }
-    let query=queryString.parse(location.search)
-    let verifiedFilter=bool(query.verified);
-    let unverifiedFilter=bool(query.unverified);
-    let session=query.session;
-    let club=query.club;
-    const [data,setData]=useState(null);
+import { Context } from '../../../context/Context'
+import TableHeader from '../../common/TableHeader';
+import TableBody from '../../common/TableBody';
+import Pagination from '../../common/Pagination';
+import ListItem from './ListItem';
+
+const List = ({ location }) => {
+    const [, setloading] = useContext(Context);
+    let query = queryString.parse(location.search)
+    let verifiedFilter = bool(query.verified);
+    let unverifiedFilter = bool(query.unverified);
+    let {session,club}=query;
+    const [allData, setAllData] = useState([]);
+    const [data,setData]=useState([]);
+    const [state,setState]=useState({
+        curr:1,
+        size:4,
+        total: 0
+    })
+    const pageChange=(page)=>{
+        setState({...state,curr:page});
+        setData(paginate(allData,page, state.size));
+    }
+    const update=(v,u,s,c)=>{
+        const temp=filter(allData,v,u,s,c );
+        setState({...state, curr:1, total:temp.length});
+        setData(paginate(temp,1,state.size));
+    }
     useEffect(() => {
-        Axios.get(`http://localhost:5000/api/apply?token=${localStorage.getItem("token")}`)
-        .then((res)=>{
-            // console.log(res.data); 
-            setData(res.data);
-        })
-        .catch((e)=>{console.log('Problem '+e.response);})
-    }, [])
-    
-    
+        setloading(true);
+        Axios.get(`${process.env.REACT_APP_SERVER}/api/apply?token=${localStorage.getItem("token")}`)
+            .then((res) => {
+                console.log(res.data);
+                setAllData(res.data);
+                setloading(false);
+            })
+            .catch((e) => { console.log('Problem ' + e.response); })
+    }, []);
+
+    useEffect(() => {
+        update(verifiedFilter,unverifiedFilter, session,club);
+//eslint-disable-next-line
+    }, [allData,verifiedFilter,unverifiedFilter, session,club]);
+
     return (
-        <div style={{ display:"grid", placeContent: "center", marginBottom: "16px" }}>
-            <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter}/>
+        <div style={{ display: "grid", placeContent: "center", marginBottom: "16px" }}>
+            <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter} />
             <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Verification List</h2>
             <table >
-                <thead><tr>
-                    <th className="text-center text-dark">Type</th>
-                    <th className="text-center text-dark">Club</th>
-                    <th className="text-center text-dark">Event</th>
-                    <th className="text-center text-dark">Session</th>
-                    <th className="text-center text-dark">Applied on</th>
-                    <th className="text-center text-dark">Status</th>
-                    <th className="text-center text-dark">Action</th>
-                </tr></thead>
-                <tbody>
-                {data && data['internal'] && 
-                    data['internal'].map((i,index) => {
-                        let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
-                        let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
-                        let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
-                        if(statusFilters && sessionFilters && clubFilters)
-                        return <ListItem type="Internal" data={i} key={i._id}/>
-                        else return null;
-                })}
-                {data && data['external'] && 
-                data['external'].map((i,index) => {
-                    let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
-                    let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
-                    let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
-                    if(statusFilters && sessionFilters && clubFilters)
-                    return <ListItem type="External" data={i} key={i._id}/>
-                    else return null;
-                })}
-                {data && data['por'] && 
-                data['por'].map((i,index) => {
-                    let statusFilters=(verifiedFilter===unverifiedFilter) || (verifiedFilter && i.status==="Verified") || (unverifiedFilter && i.status==="Unverified")
-                    let sessionFilters=(session==="undefined" || session==="All" || session===i.session) 
-                    let clubFilters=(club==="undefined" || club==="Cultural Council" || club===i.club)
-                    if(statusFilters && sessionFilters && clubFilters)
-                    return <ListItem type="POR" data={i} key={i._id}/>
-                    else return null;
-                })}
-                    {/* {data && data['internal'] && data['internal'].map((i)=><ListItem data={i} type="Internal" key={i._id}/>)}
-                    {data && data['external'] && data['external'].map((i)=><ListItem data={i} type="External" key={i._id}/>)} */}
-                </tbody>
+                <TableHeader columns={columns} />
+                <TableBody data={data} setAllData={setAllData} content={(i)=><ListItem data={i} key={i._id}/>}/>
             </table>
+            <Pagination curr={state.curr} size={state.size} pageChange={pageChange} total={state.total}/>
         </div>
     )
 }
+
+const paginate=(items, curr, size)=>{
+    const start=(curr-1)*size;
+    let temp=items.slice(start);
+    while(temp.length>size) temp.pop();
+    return temp;
+}
+const filter = (array, verifiedFilter, unverifiedFilter, session, club) => {
+    return array.filter((item) => (
+        (verifiedFilter === unverifiedFilter) || (verifiedFilter && item.status === "Verified") || (unverifiedFilter && item.status === "Unverified")) &&
+        (session === "undefined" || session === "All" || session === item.session) && 
+        (club === "undefined" || club === "Cultural Council" || club === item.club)
+    );
+}
+function bool(val) { return val === true || val === "true" }
+const columns = ["Type", "Club", "Event_Position", "Session", "Applied on", "Status", "Action"];
 
 export default List

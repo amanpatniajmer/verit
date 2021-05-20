@@ -48,16 +48,15 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
     <nav className = "navbar">
       <Link to = "/">
       <h1>
-          <img src = {Logo} alt = ""/>
+          <img className="logo" src = {Logo} alt = ""/>
           <ul className = "sub-heading">
             <li>
               {title}
             </li>
-            <li className = "small">
-            {"Indian Institute of Technology, (Banaras Hindu University) Varanasi"}
-            </li>
+            <li className="small">{"Indian Institute of Technology, (Banaras Hindu University) Varanasi"}</li>
           </ul>
       </h1>
+      
       </Link>
       {isauthenticated ? authLinks : guestLinks}
     </nav>

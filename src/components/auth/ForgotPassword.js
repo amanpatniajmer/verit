@@ -19,7 +19,7 @@ const ForgotPassword = ({ location, showAlert }) => {
             showAlert('Email not correct. Enter institute email address.', "danger");
         }
         else {
-            Axios.get(`http://localhost:5000/api/forgotpassword?email=${email}`)
+            Axios.get(`${process.env.REACT_APP_SERVER}/api/forgotpassword?email=${email}`)
                 .then(() => {
                     setEmail("");
                     // console.log(res.data);

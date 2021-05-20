@@ -27,7 +27,7 @@ const AddPor = ({ showalert }) => {
       object[key] = value;
     });
     console.log(object)
-    Axios.post(`http://localhost:5000/api/apply/${object.organization}/por`,object,{
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/apply/${object.organization}/por`,object,{
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})

@@ -29,7 +29,7 @@ const Register = ({ showalert, setAuthenticated,setAdmin }) => {
     });
     object['email']=localStorage.getItem('email');
     object['idtoken']=localStorage.getItem('idtoken');
-    Axios.post('http://localhost:5000/api/register', object)
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/register`, object)
     .then((res) => {
       // console.log(res.data)
       localStorage.setItem("token",res.data.token);

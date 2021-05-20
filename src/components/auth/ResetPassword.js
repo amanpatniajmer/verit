@@ -24,7 +24,7 @@ const ResetPassword = ({ location, showAlert }) => {
             showAlert("Please fill in all fields.", "danger");
         }
         else {
-            Axios.post(`http://localhost:5000/api/resetpassword/${localStorage.getItem('token')}`, {oldpassword:password, newpassword:newpassword},{
+            Axios.post(`${process.env.REACT_APP_SERVER}/api/resetpassword/${localStorage.getItem('token')}`, {oldpassword:password, newpassword:newpassword},{
                 headers:{
                   'x-auth-token': localStorage.getItem('token')
                 }

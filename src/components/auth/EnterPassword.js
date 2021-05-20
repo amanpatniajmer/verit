@@ -28,7 +28,7 @@ const EnterPassword = ({ location, showAlert }) => {
             let object = {};
             object['password'] = password;
 
-            Axios.post(`http://localhost:5000/api/forgotpassword/${token}`, object)
+            Axios.post(`${process.env.REACT_APP_SERVER}/api/forgotpassword/${token}`, object)
             .then(() => {
                 setPassword("");
                 showAlert("Password reset successful.", "success");

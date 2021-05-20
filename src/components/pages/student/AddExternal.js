@@ -23,7 +23,7 @@ const AddExternal = ({ showalert }) => {
       object[key] = value;
     });
     // console.log(object)
-    Axios.post(`http://localhost:5000/api/apply/${object.organization}/external`,object,{
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/apply/${object.organization}/external`,object,{
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
@@ -34,7 +34,7 @@ const AddExternal = ({ showalert }) => {
       setLoading(false);})
   }
   const fetchfields = (selections) => {
-      Axios.get(`http://localhost:5000/api/events/External?club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
+      Axios.get(`${process.env.REACT_APP_SERVER}/api/events/External?club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}

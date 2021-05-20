@@ -33,7 +33,7 @@ const AddExternal = ({ showalert }) => {
       object[key] = value;
     });
   
-    Axios.post('http://localhost:5000/api/events/External', object, {
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/events/External`, object, {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})

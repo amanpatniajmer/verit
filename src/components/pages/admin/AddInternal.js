@@ -29,7 +29,7 @@ const AddInternal = ({ showalert }) => {
       object[key] = value;
     });
   
-    Axios.post('http://localhost:5000/api/events/Internal', object, {
+    Axios.post(`${process.env.REACT_APP_SERVER}/api/events/Internal`, object, {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})

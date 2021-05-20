@@ -33,7 +33,7 @@ const GoogleSignIn = ({setAuthenticated,showalert,setAdmin}) => {
             localStorage.setItem("idtoken",object['idtoken']);
             localStorage.setItem("name",profile.getName());
             localStorage.setItem("email",email);
-            Axios.post('http://localhost:5000/api/login', object)
+            Axios.post(`${process.env.REACT_APP_SERVER}/api/login`, object)
             .then((res) => {
                 if(res.data==="Register"){
                     showRegister(true);

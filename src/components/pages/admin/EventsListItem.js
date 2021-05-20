@@ -8,7 +8,7 @@ const EventsListItem = ({ data, setdata, type }) => {
     const [newStatus, setNewStatus] = useState(status);
     const activate = () => {
         setLoading(true);
-        Axios.put(`http://localhost:5000/api/events/${type}/${_id}/activate?token=${localStorage.getItem('token')}`)
+        Axios.put(`${process.env.REACT_APP_SERVER}/api/events/${type}/${_id}/activate?token=${localStorage.getItem('token')}`)
             .then(result => {
                 if (result.status === 200 && result.statusText === "OK")
                     setNewStatus("Active");
@@ -21,7 +21,7 @@ const EventsListItem = ({ data, setdata, type }) => {
     }
     const inactivate = () => {
         setLoading(true);
-        Axios.put(`http://localhost:5000/api/events/${type}/${_id}/inactivate?token=${localStorage.getItem('token')}`)
+        Axios.put(`${process.env.REACT_APP_SERVER}/api/events/${type}/${_id}/inactivate?token=${localStorage.getItem('token')}`)
             .then(result => {
                 if (result.status === 200 && result.statusText === "OK")
                     setNewStatus("Inactive");
@@ -34,7 +34,7 @@ const EventsListItem = ({ data, setdata, type }) => {
     }
     const withdraw = () => {
         setDeleteLoading(true);
-        Axios.delete(`http://localhost:5000/api/events/${type}/${_id}`, {
+        Axios.delete(`${process.env.REACT_APP_SERVER}/api/events/${type}/${_id}`, {
             headers: {
                 'x-auth-token': localStorage.getItem('token')
             }
