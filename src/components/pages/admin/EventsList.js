@@ -16,7 +16,7 @@ const EventsList = ({location}) => {
     useEffect(() => {
         Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
         .then((res)=>{
-            setData1(res.data);
+            setData1(res.data.reverse());
         })
     }, [])
     

@@ -50,7 +50,7 @@ const List = ({ location }) => {
         setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply?token=${localStorage.getItem("token")}`)
             .then((res) => {
-                setAllData(res.data);
+                setAllData(res.data.reverse());
                 setloading(false);
             })
             .catch((e) => { console.log('Problem ' + e.response); })
@@ -70,7 +70,7 @@ const List = ({ location }) => {
                 <TableBody data={data} setAllData={setAllData} content={(i)=><ListItem data={i} key={i._id} updates={updates} setUpdates={setUpdates}/>}/>
             </table>
             <Pagination curr={state.curr} size={state.size} pageChange={pageChange} total={state.total}/>
-            <button className="btn btn-success" onClick={downloadCSV}>Download</button>
+            <button className="btn btn-success" onClick={downloadCSV}>Download as CSV</button>
         </div>
     )
 }
