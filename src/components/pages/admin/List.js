@@ -8,7 +8,7 @@ import Axios from 'axios';
 import TableHeader from '../../common/TableHeader';
 import TableBody from '../../common/TableBody';
 import Pagination from '../../common/Pagination';
-
+import convert from '../../common/ToCSV';
 
 const List = ({location}) => {
     const [,setloading]=useContext(Context);
@@ -17,7 +17,7 @@ const List = ({location}) => {
     let unverifiedFilter=bool(query.unverified);
     let session=query.session;
     let club=query.club;
-    let page=query.page;
+    /* let page=query.page; */
     const [allData, setAllData] = useState([]);
     const [data,setData]=useState([]);
     const [state,setState]=useState({
@@ -25,6 +25,9 @@ const List = ({location}) => {
         size:4,
         total: 0
     })
+    const downloadCSV=()=>{
+        convert(filter(allData,verifiedFilter,unverifiedFilter,session,club ),localStorage.getItem('name')+'_'+session);
+    }
     const clearVisualUpdates=()=>{
         let tempx=allData;
         for(let i=0;i<updates.length;i++){
@@ -59,7 +62,7 @@ const List = ({location}) => {
             setloading(false);
         }
         );
-    }, [])
+    }, [setloading])
     
     useEffect(() => {
         update(verifiedFilter,unverifiedFilter, session,club);
@@ -75,6 +78,7 @@ const List = ({location}) => {
                 <TableBody data={data} content={(i)=><ListItem data={i} id={i._id} key={i._id} updates={updates} setUpdates={setUpdates}/>}/>
             </table>
             <Pagination curr={state.curr} total={state.total} size={state.size} pageChange={pageChange}/>
+            <button className="btn btn-success" onClick={downloadCSV}>Download as CSV</button>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 
-const ListItem = ({data}) => {
+const ListItem = ({data, updates, setUpdates}) => {
     const {club,event,session, status,_id,organization,date, type} = data;
     const [newStatus, setNewStatus] = useState(status)
     const [loading,setLoading]=useState(false)
@@ -13,11 +13,10 @@ const ListItem = ({data}) => {
             }}).then(result=>{
             if(result.status===200 && result.statusText==="OK")
             setNewStatus("Deleted");
-            // console.log(result.data)
+            setUpdates([...updates,data]);
             setLoading(false);
         })
         .catch(err=>{
-            // console.log(err)
             setLoading(false);
         })
     }

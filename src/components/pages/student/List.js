@@ -6,6 +6,7 @@ import { Context } from '../../../context/Context'
 import TableHeader from '../../common/TableHeader';
 import TableBody from '../../common/TableBody';
 import Pagination from '../../common/Pagination';
+import convert from '../../common/ToCSV';
 import ListItem from './ListItem';
 
 const List = ({ location }) => {
@@ -21,11 +22,26 @@ const List = ({ location }) => {
         size:4,
         total: 0
     })
+    const [updates,setUpdates]=useState([]);
+    const downloadCSV=()=>{
+        convert(filter(allData,verifiedFilter,unverifiedFilter,session,club ),localStorage.getItem('name')+'_'+session);
+    }
+    const clearVisualUpdates=()=>{
+        let tempx=allData;
+        for(let i=0;i<updates.length;i++){
+            let index=allData.findIndex((item)=>item._id===updates[i]._id);
+            tempx.splice(index,1);
+        }
+        setUpdates([]);
+        setAllData(tempx);
+    }
     const pageChange=(page)=>{
+        clearVisualUpdates();
         setState({...state,curr:page});
         setData(paginate(allData,page, state.size));
     }
     const update=(v,u,s,c)=>{
+        clearVisualUpdates();
         const temp=filter(allData,v,u,s,c );
         setState({...state, curr:1, total:temp.length});
         setData(paginate(temp,1,state.size));
@@ -34,12 +50,11 @@ const List = ({ location }) => {
         setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply?token=${localStorage.getItem("token")}`)
             .then((res) => {
-                console.log(res.data);
                 setAllData(res.data);
                 setloading(false);
             })
             .catch((e) => { console.log('Problem ' + e.response); })
-    }, []);
+    }, [setloading]);
 
     useEffect(() => {
         update(verifiedFilter,unverifiedFilter, session,club);
@@ -52,9 +67,10 @@ const List = ({ location }) => {
             <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Verification List</h2>
             <table >
                 <TableHeader columns={columns} />
-                <TableBody data={data} setAllData={setAllData} content={(i)=><ListItem data={i} key={i._id}/>}/>
+                <TableBody data={data} setAllData={setAllData} content={(i)=><ListItem data={i} key={i._id} updates={updates} setUpdates={setUpdates}/>}/>
             </table>
             <Pagination curr={state.curr} size={state.size} pageChange={pageChange} total={state.total}/>
+            <button className="btn btn-success" onClick={downloadCSV}>Download</button>
         </div>
     )
 }
