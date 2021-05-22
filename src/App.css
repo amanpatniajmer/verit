@@ -303,14 +303,17 @@ i {
   display: inline-block;
   background: var(--light-color);
   color: #333;
-  padding: 0.4rem 1.3rem;
+  padding: 0.4rem 0.8rem;
   font-size: 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+}
+
+.fa{
+  margin:0;
 }
 
 .nav-btn {

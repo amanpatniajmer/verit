@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 
-const EventsListItem = ({ data, setdata, type }) => {
-    const { event, subevents, session, status, _id } = data;
+const EventsListItem = ({ data }) => {
+    const { event, subevents, session, status, _id, type } = data;
     const [loading, setLoading] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
     const [newStatus, setNewStatus] = useState(status);

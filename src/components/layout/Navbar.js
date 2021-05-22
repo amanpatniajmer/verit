@@ -22,8 +22,8 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         <Link to = "/">Dashboard</Link>
       </li>
       <li>
-        {localStorage.getItem('adminState') === "true"? <Link to = "/admin/list?verified=false&unverified=false&session=All&club=Cultural%20Council&internal=false&external=false">List</Link>:
-        <Link to = "/student/list?verified=false&unverified=false&session=All&club=Cultural%20Council">List</Link>}
+        {localStorage.getItem('adminState') === "true"? <Link to = "/admin/list">List</Link>:
+        <Link to = "/student/list">List</Link>}
       </li>
       <li>
         <Link to="/" onClick={signOut} >Logout {" "}

@@ -13,12 +13,15 @@ import convert from '../../common/ToCSV';
 const List = ({location}) => {
     const [,setloading]=useContext(Context);
     let query=queryString.parse(location.search)
-    let verifiedFilter=bool(query.verified);
-    let unverifiedFilter=bool(query.unverified);
-    let session=query.session;
-    let club=query.club;
+    query=JSON.parse(JSON.stringify(query));
+    let verifiedFilter=bool(query.hasOwnProperty('verified')?query.verified:false);
+    let unverifiedFilter=bool(query.hasOwnProperty('unverified')?query.unverified:false);
+    let type=query.hasOwnProperty('type')?query.type:"-1";
+    let club=query.hasOwnProperty('club')?query.club:"-1";
+    let session=query.hasOwnProperty('session')?query.session:"-1";
     /* let page=query.page; */
     const [allData, setAllData] = useState([]);
+    const [filteredData, setFilteredData]=useState([]);
     const [data,setData]=useState([]);
     const [state,setState]=useState({
         curr:1,
@@ -26,7 +29,7 @@ const List = ({location}) => {
         total: 0
     })
     const downloadCSV=()=>{
-        convert(filter(allData,verifiedFilter,unverifiedFilter,session,club ),localStorage.getItem('name')+'_'+session);
+        convert(filter(allData,verifiedFilter,unverifiedFilter,session,club,type),localStorage.getItem('name')+'_'+session);
     }
     const clearVisualUpdates=()=>{
         let tempx=allData;
@@ -41,13 +44,14 @@ const List = ({location}) => {
     const pageChange=(page)=>{
         clearVisualUpdates();
         setState({...state,curr:page});
-        setData(paginate(allData,page, state.size));
+        setData(paginate(filteredData,page, state.size));
     }
     
-    const update=(v,u,s,c)=>{
+    const update=(v,u,s,c,t)=>{
         clearVisualUpdates();
-        const temp=filter(allData,v,u,s,c );
+        const temp=filter(allData,v,u,s,c,t);
         setState({...state, curr:1, total:temp.length});
+        setFilteredData(temp);
         setData(paginate(temp,1,state.size));
     }
 
@@ -55,6 +59,7 @@ const List = ({location}) => {
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply/${localStorage.getItem('name')}?token=${localStorage.getItem('token')}`)
         .then((res)=>{
             setAllData(res.data);
+            console.log(res.data);
             setloading(false);
         })
         .catch((err)=>{
@@ -65,13 +70,13 @@ const List = ({location}) => {
     }, [setloading])
     
     useEffect(() => {
-        update(verifiedFilter,unverifiedFilter, session,club);
+        update(verifiedFilter,unverifiedFilter, session,club, type);
 //eslint-disable-next-line
-    }, [allData,verifiedFilter,unverifiedFilter, session,club]);
+    }, [allData,verifiedFilter,unverifiedFilter, session,club, type]);
 
     return (
         <div style={{ display:"grid", placeContent: "center", marginBottom: "16px" }}>
-            <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter}/>
+            <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter} type={type}/>
             <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Verification List</h2>
             <table >
                 <TableHeader columns={columns}/>
@@ -83,17 +88,18 @@ const List = ({location}) => {
     )
 }
 
-const paginate=(items, curr, size)=>{
+const paginate=(items, curr, size, total)=>{
     const start=(curr-1)*size;
     let temp=items.slice(start);
     while(temp.length>size) temp.pop();
     return temp;
 }
-const filter = (array, verifiedFilter, unverifiedFilter, session, club) => {
+const filter = (array, verifiedFilter, unverifiedFilter, session, club, type) => {
     return array.filter((item) => (
         (verifiedFilter === unverifiedFilter) || (verifiedFilter && item.status === "Verified") || (unverifiedFilter && item.status === "Unverified")) &&
-        (session === "undefined" || session === "All" || session === item.session) && 
-        (club === "undefined" || club === "Cultural Council" || club === item.club)
+        (session==="-1" || session === "undefined" || session === "All" || session === item.session) && 
+        (club==="-1" || club === "undefined" || club === "Cultural Council" || club === item.club) &&
+        (type==="-1" || type==="undefined" || type===item.type)
     );
 }
 function bool(val) { return val === true || val === "true" }

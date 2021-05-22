@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 
-const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter}) => {
+const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter,type}) => {
     const history=useHistory();
     
     const [verified, setVerified] = useState(verifiedFilter)
@@ -14,12 +14,12 @@ const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter}) =>
             <div className="filter-container" style={{display:"flex", flexDirection:"column"}}>
                 <label style={{margin:"0"}}>Verified{" "}
                 <input type="checkbox" checked={verified} onChange={()=>{
-                    history.push({pathname: './list', search: `?verified=${!verified}&unverified=${unverified}&club=${club}&session=${session}`});
+                    history.push({pathname: './list', search: `?verified=${!verified}&unverified=${unverified}&club=${club}&session=${session}&type=${type}`});
                     setVerified(!verified);
                     }}/></label>
                 <label>Unverified{" "}
                 <input type="checkbox" checked={unverified} onChange={()=>{
-                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${!unverified}&club=${club}&session=${session}`});
+                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${!unverified}&club=${club}&session=${session}&type=${type}`});
                     setUnverified(!unverified);
                     }}/></label>
             </div>
@@ -27,7 +27,7 @@ const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter}) =>
                 <label style={{margin:"0"}}>Session{" "}</label>
                 <select required={true} value={session} onChange={(e)=>{
                     setSession(e.target.value)
-                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${club}&session=${e.target.value}`});
+                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${club}&session=${e.target.value}&type=${type}`});
                     }}>
                     <option value="All">All</option>
                     <option value="2020-21">2020-21</option>
@@ -39,7 +39,7 @@ const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter}) =>
               <label>Club/Council</label>
               <select required={true} value={club} onChange={(e)=>{
                     setClub(e.target.value)
-                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${e.target.value}&session=${session}`});
+                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${e.target.value}&session=${session}&type=${type}`});
                     }}>
                 <option value="Cultural Council">Cultural Council</option>
                 <option value="Indian Music Club">Indian Music Club</option>
