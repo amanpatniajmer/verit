@@ -177,17 +177,31 @@ i {
 }
 
 .filter-container {
-  margin: 2rem 1rem;
+  margin: 1rem 1rem 0 0;
   overflow: hidden;
   padding: 0rem 1rem;
 }
 
-.filter-container:hover {
-  box-shadow: 4px 4px 5px rgb(0 0 0 / 20%);
-}
-
 .filter-container label {
   font-size: medium;
+}
+
+.filters-container{
+  background-color: #eee;
+  color: black;
+  box-shadow: 4px 4px 5px rgb(0 0 0 / 20%);
+  width: 800px;
+  margin: auto;
+}
+
+.filter-container input, select{
+  padding: 1px !important;
+  font-size: medium !important;
+  color: #535353 !important;
+}
+
+.filter-container input[type="checkbox"] {
+  margin: 1rem 1rem 0 0;
 }
 
 .close {
@@ -310,6 +324,12 @@ i {
   cursor: pointer;
   transition: opacity 0.2s ease-in;
   outline: none;
+}
+
+.btn-none{
+  outline: none;
+  border: none;
+  background-color: transparent;
 }
 
 .fa{
@@ -495,13 +515,30 @@ h3 {
 
 table {
   border: 1px dotted var(--dark-color);
+  border-radius: 10px;
+  border-spacing: 1px;
+  min-width: 1025px;
+}
+
+.pagination{
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination .btn{
+  margin:3px;
+}
+
+.pagination input{
+  width: 50px;
 }
 
 table th,
 table td {
-  padding: 1rem;
+  padding: 0.5rem;
   text-align: left;
-  border: 1px dotted var(--dark-color);
+  border: 1px solid var(--light-color);
 }
 
 table tr:hover {
@@ -509,7 +546,13 @@ table tr:hover {
 }
 table th {
   background: var(--light-color);
-  border: 1px dotted var(--dark-color);
+  border: 1px solid var(--dark-color);
+}
+table th:first-child{
+  border-radius: 10px 0 0 0;
+}
+table th:last-child{
+  border-radius: 0 10px 0 0;
 }
 
 .close {

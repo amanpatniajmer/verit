@@ -1,6 +1,7 @@
 import React, { useState} from 'react'
 import { useHistory } from "react-router-dom";
 
+let timer;
 const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter,typeFilter, searchFilter}) => {
     const history=useHistory();
     
@@ -10,8 +11,14 @@ const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter,type
     const [club, setClub] = useState(clubFilter)
     const [type, setType] = useState(typeFilter)
     const [search, setSearch] = useState(searchFilter)
+    const searchDelayer=()=>{
+        clearTimeout(timer)
+        timer=setTimeout(() => {
+            history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${club}&session=${session}&type=${type}&search=${search}`});
+        }, 500);
+    }
     return (
-        <div>
+        <div className="filters-container">
         <div style={{display:"flex", justifyContent:"center"}}>
             <div className="filter-container" style={{display:"flex", flexDirection:"column"}}>
                 <label style={{margin:"0"}}>Verified{" "}
@@ -69,10 +76,11 @@ const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter,type
               </select>
             </div>
         </div>
+        <div className="filter-container">
         <input type="text" placeholder="Search..." value={search} onChange={(e)=>{
             setSearch(e.target.value);
-            history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${club}&session=${session}&type=${type}&search=${e.target.value}`});
-        }}/>
+        }} onKeyUp={searchDelayer}/>
+        </div>
         </div>
     )
 }

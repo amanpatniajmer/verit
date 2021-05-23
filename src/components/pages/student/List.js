@@ -52,6 +52,13 @@ const List = ({ location }) => {
         setState({ ...state, curr: page });
         setData(paginate(filteredData, page, state.size));
     }
+    const pageSizeChange=(size)=>{
+        if(size===undefined || size==="") return;
+        clearVisualUpdates();
+        console.log(size)
+        setState({ ...state, size, curr:1 });
+        setData(paginate(filteredData, 1, size));
+    }
     const update = (v, u, s, c, t, se,o) => {
         clearVisualUpdates();
         let temp = filter(allData, v, u, s, c, t, se);
@@ -84,13 +91,13 @@ const List = ({ location }) => {
 
     return (
         <div style={{ display: "grid", placeContent: "center", marginBottom: "16px" }}>
+            <h2 className="text-left text-dark" style={{ margin: "10px 0px" }}><i className="fa fa-check btn-success"/>{" "}Verification List</h2>
             <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter} typeFilter={type} searchFilter={search} />
-            <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Verification List</h2>
-            <table >
+            <table>
                 <TableHeader columns={columns} sort={order} setSort={setOrder} />
                 <TableBody data={data} setAllData={setAllData} content={(i) => <ListItem data={i} key={i._id} updates={updates} setUpdates={setUpdates} />} />
             </table>
-            <Pagination curr={state.curr} size={state.size} pageChange={pageChange} total={state.total} />
+            <Pagination curr={state.curr} size={state.size} pageChange={pageChange} total={state.total} sizeChange={pageSizeChange}/>
             <button className="btn btn-success" onClick={downloadCSV}>Download as CSV</button>
         </div>
     )
