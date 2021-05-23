@@ -1,16 +1,18 @@
 import React, { useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
+import committees from './committees.json' ;
 
 const AddInternal = ({ showalert }) => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
   const [selections,setSelections]=useState({
     organization:"Cultural Council",
-    club:"Cultural Council",
+    clubs:committees["Cultural Council"]["Clubs"],
     session:"2020-21",
     events:[],
     subevents:[],
+    selectedClub:committees["Cultural Council"]["Clubs"][0],
     selectedEvent:'',
     selectedSubevent:''
   })
@@ -31,7 +33,7 @@ const AddInternal = ({ showalert }) => {
     .catch((e)=>{showalert((e.response && e.response.data) || "No connection established", "danger"); setLoading(false);})
   }
   const fetchfields = (selections) => {
-      Axios.get(`${process.env.REACT_APP_SERVER}/api/events/Internal?organization=${selections.organization}&club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
+      Axios.get(`${process.env.REACT_APP_SERVER}/api/events/Internal?organization=${selections.organization}&club=${selections.selectedClub}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}
@@ -47,7 +49,7 @@ const AddInternal = ({ showalert }) => {
   useEffect(()=>{
     fetchfields(selections)
     //eslint-disable-next-line
-  },[selections.organization,selections.session,selections.club])
+  },[selections.organization,selections.session,selections.selectedClub])
     return (
         <div>
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
@@ -59,8 +61,7 @@ const AddInternal = ({ showalert }) => {
               <label>Organization</label>
               <select name="organization" value={selections.organization} onChange={(e)=>{
                 const val=e.target.value;
-                setSelections((prev)=>({...prev,"organization":val}));
-                /* fetchfields(selections); */
+                setSelections((prev)=>({...prev,"organization":val, clubs:committees[val]["Clubs"], selectedClub:committees[val]["Clubs"][0]}));
                 }} required={true}>
                 <option value="Cultural Council">Cultural Council</option>
                 <option value="Film and Media Council">Film and Media Council</option>
@@ -75,19 +76,11 @@ const AddInternal = ({ showalert }) => {
             </div>
             <div className="form-group">
               <label>Club/Council</label>
-              <select name="club" value={selections.club} onChange={(e)=>{
+              <select name="club" value={selections.selectedClub} onChange={(e)=>{
                 const val=e.target.value;
-                setSelections((prev)=>({...prev,"club":val}))
-                /* fetchfields(selections); */
+                setSelections((prev)=>({...prev,"selectedClub":val}))
                 }} required={true}>
-                <option value="Cultural Council">Cultural Council</option>
-                <option value="Indian Music Club">Indian Music Club</option>
-                <option value="Western Music Club">Western Music Club</option>
-                <option value="Fine Arts Club">Fine Arts Club</option>
-                <option value="Theatre Club">Theatre Club</option>
-                <option value="Dance Club">Dance Club</option>
-                <option value="The Literary Club">The Literary Club</option>
-                <option value="Quiz Club">Quiz Club</option>
+                {selections.clubs.map((item)=><option value={item}>{item}</option>)}
               </select>
             </div>
             <div className="form-group">
@@ -95,7 +88,6 @@ const AddInternal = ({ showalert }) => {
               <select name="session" value={selections.session} onChange={(e)=>{
                 const val=e.target.value;
                 setSelections((prev)=>({...prev,"session":val}));
-                /* fetchfields(selections); */
                 }} required={true}>
                     <option value="2020-21">2020-21</option>
                     <option value="2019-20">2019-20</option>

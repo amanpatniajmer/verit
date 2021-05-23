@@ -1,13 +1,15 @@
 import React, { useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
+import committees from './committees.json' ;
 
 const AddExternal = ({ showalert }) => {
   const history=useHistory();
   const [loading, setLoading] = useState(false);
   const [selections,setSelections]=useState({
     organization:"Cultural Council",
-    club:"Cultural Council",
+    clubs:committees["Cultural Council"]["Clubs"],
+    selectedClub:committees["Cultural Council"]["Clubs"][0],
     session:"2020-21",
     events:[],
     subevents:[],
@@ -34,7 +36,7 @@ const AddExternal = ({ showalert }) => {
       setLoading(false);})
   }
   const fetchfields = (selections) => {
-      Axios.get(`${process.env.REACT_APP_SERVER}/api/events/External?club=${selections.club}&session=${selections.session}&token=${localStorage.getItem('token')}`)
+      Axios.get(`${process.env.REACT_APP_SERVER}/api/events/External?club=${selections.selectedClub}&session=${selections.session}&token=${localStorage.getItem('token')}`)
       .then((res)=>{
         let arr=[]
         let object={}
@@ -51,7 +53,7 @@ const AddExternal = ({ showalert }) => {
   useEffect(()=>{
     fetchfields(selections)
     //eslint-disable-next-line
-  },[selections.club,selections.session])
+  },[selections.selectedClub,selections.session, selections.organization])
     return (
         <div>
           <form className="form-container" onSubmit={(e)=>{add(e)}}>
@@ -63,7 +65,7 @@ const AddExternal = ({ showalert }) => {
               <label>Council</label>
               <select name="organization" value={selections.organization} onChange={(e)=>{
                 const val=e.target.value;
-                setSelections((prev)=>({...prev,"organization":val}))
+                setSelections((prev)=>({...prev,"organization":val, "clubs":committees[val]["Clubs"], "selectedClub":committees[val]["Clubs"][0]}))
                 }} required={true}>
                 <option value="Cultural Council">Cultural Council</option>
                 <option value="Film and Media Council">Film and Media Council</option>
@@ -75,20 +77,13 @@ const AddExternal = ({ showalert }) => {
             </div>
             <div className="form-group">
               <label>Club/Council</label>
-              <select name="club" value={selections.club} onChange={(e)=>{
+              <select name="club" value={selections.selectedClub} onChange={(e)=>{
                 const val=e.target.value;
-                setSelections((prev)=>({...prev,"club":val}))
-                /* fetchfields(selections); */
+                setSelections((prev)=>({...prev,"selectedClub":val}))
                 }} required={true}>
-                <option value="Cultural Council">Cultural Council</option>
-                <option value="Indian Music Club">Indian Music Club</option>
-                <option value="Western Music Club">Western Music Club</option>
-                <option value="Fine Arts Club">Fine Arts Club</option>
-                <option value="Theatre Club">Theatre Club</option>
-                <option value="Dance Club">Dance Club</option>
-                <option value="The Literary Club">The Literary Club</option>
-                <option value="Quiz Club">Quiz Club</option>
+                {selections.clubs.map((item)=><option value={item}>{item}</option>)}
               </select>
+
             </div>
             <div className="form-group">
               <label>Session</label>
