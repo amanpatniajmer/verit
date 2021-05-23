@@ -32,7 +32,7 @@ const ListItem = ({data, updates, setUpdates}) => {
                 : <i className="fa fa-times-circle p text-danger"/>}
                 {newStatus}</td>
             <td>{newStatus === "Unverified"
-            ? <button className="btn btn-dark" onClick={()=>{(!loading)&&withdraw()}}>
+            ? <button className="btn" onClick={()=>{(!loading)&&withdraw()}}>
                 {loading ? <i className="fa fa-spinner fa-spin p text-danger"/> : ""}
                 <i className="fa fa-trash"/>
                 </button>

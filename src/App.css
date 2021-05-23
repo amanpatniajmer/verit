@@ -187,11 +187,12 @@ i {
 }
 
 .filters-container{
-  background-color: #eee;
+  background-color: #d4dce2;
   color: black;
   box-shadow: 4px 4px 5px rgb(0 0 0 / 20%);
   width: 800px;
   margin: auto;
+  margin-bottom: 12px;
 }
 
 .filter-container input, select{
