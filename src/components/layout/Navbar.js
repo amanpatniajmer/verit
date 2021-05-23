@@ -70,7 +70,7 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-  title: "Document Verification Portal",
+  title: "Verification Portal",
   logoutIcon: "fa fa-sign-out",
 };
 

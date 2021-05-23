@@ -9,7 +9,8 @@ import Pagination from '../../common/Pagination';
 import convert from '../../common/ToCSV';
 import ListItem from './ListItem';
 import {sort} from '../../common/Sort'
-import {searchData} from '../../common/Search';
+import {filter} from '../../common/Filter';
+import {paginate} from '../../common/Pagination';
 
 const List = ({ location }) => {
     const [, setloading] = useContext(Context);
@@ -55,7 +56,6 @@ const List = ({ location }) => {
     const pageSizeChange=(size)=>{
         if(size===undefined || size==="") return;
         clearVisualUpdates();
-        console.log(size)
         setState({ ...state, size, curr:1 });
         setData(paginate(filteredData, 1, size));
     }
@@ -103,21 +103,6 @@ const List = ({ location }) => {
     )
 }
 
-const paginate = (items, curr, size) => {
-    const start = (curr - 1) * size;
-    let temp = items.slice(start);
-    while (temp.length > size) temp.pop();
-    return temp;
-}
-const filter = (array, verifiedFilter, unverifiedFilter, session, club, type, search) => {
-    return array.filter((item) => (
-        (verifiedFilter === unverifiedFilter) || (verifiedFilter && item.status === "Verified") || (unverifiedFilter && item.status === "Unverified")) &&
-        (session === "-1" || session === "undefined" || session === "All" || session === item.session) &&
-        (club === "-1" || club === "undefined" || club === "Cultural Council" || club === item.club) &&
-        (type === "-1" || type === "undefined" || type === item.type) &&
-        (search === undefined || search === "" || searchData(search, item))
-    );
-}
 function bool(val) { return val === true || val === "true" }
 const columns = [{ name: "Type", type:"String" }, {name:"Club", type:"String"}, {name:"Event_Position",type:"String"}, {name:"Session",type:"String"}, {name:"Date", type:"Date"}, {name:"Status",type:"String"}, {name:""}];
 

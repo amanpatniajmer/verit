@@ -14,6 +14,10 @@ export const sort = (array, asc, field, type) => {
                 a = new Date(a[field]);
                 b = new Date(b[field]);
             }
+            else if(type==="Number"){
+                a=Number(a[field])
+                b=Number(b[field])
+            }
             else return array;
         }
         if (a < b) return asc ? -1 : 1;

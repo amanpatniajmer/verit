@@ -19,4 +19,11 @@ const Pagination = ({curr,size,total, pageChange, sizeChange}) => {
     )
 }
 
+export const paginate = (items, curr, size) => {
+    const start = (curr - 1) * size;
+    let temp = items.slice(start);
+    while (temp.length > size) temp.pop();
+    return temp;
+}
+
 export default Pagination
