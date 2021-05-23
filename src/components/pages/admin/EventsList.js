@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import EventsListItem from "./EventsListItem";
 import EventsFilters from "./EventsFilters";
 import queryString from "query-string";
 import Axios from 'axios';
+import { Context } from '../../../context/Context'
 import TableHeader from '../../common/TableHeader';
 import TableBody from '../../common/TableBody';
 import Pagination from '../../common/Pagination';
 
 const EventsList = ({location}) => {
+    const [,setloading]=useContext(Context);
     let query=queryString.parse(location.search)
     let activeFilter=bool(query.active);
     let inactiveFilter=bool(query.inactive);
@@ -48,14 +50,17 @@ const EventsList = ({location}) => {
     }
 
     useEffect(() => {
+        setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
         .then((res)=>{
             setAllData(res.data.reverse());
+            setloading(false);
         })
         .catch((err)=>{
             console.error(err);
+            setloading(false);
         })
-    }, [])
+    }, [setloading])
     useEffect(() => {
         update(activeFilter, inactiveFilter, internalFilter,externalFilter, session);
 //eslint-disable-next-line

@@ -71,6 +71,7 @@ const List = ({location}) => {
     }
 
     useEffect(() => {
+        setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply/${localStorage.getItem('name')}?token=${localStorage.getItem('token')}`)
         .then((res)=>{
             setAllData(res.data);
