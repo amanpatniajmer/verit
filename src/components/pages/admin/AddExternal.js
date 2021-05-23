@@ -2,13 +2,14 @@ import React, { useState} from 'react';
 import { useHistory } from "react-router-dom";
 import SubEvent from "./SubEvent";
 import Axios from 'axios';
+import committees from '../../common/committees.json'
 
 const AddExternal = ({ showalert }) => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
   const [keys, setKeys] = useState([]);
-
+  const [club,setClub]=useState(committees[localStorage.getItem('name')]["Clubs"][0]);
   const delSubEvent = (key) => {
     let newKeys = [];
     for(let i=0; i<keys.length; i++){
@@ -84,15 +85,11 @@ const AddExternal = ({ showalert }) => {
             </div>
             <div className = "form-group">
               <label>Club/Council</label>
-              <select name = "club" required = {true}>
-                <option value = "Cultural Council">Cultural Council</option>
-                <option value = "Indian Music Club">Indian Music Club</option>
-                <option value = "Western Music Club">Western Music Club</option>
-                <option value = "Fine Arts Club">Fine Arts Club</option>
-                <option value = "Theatre Club">Theatre Club</option>
-                <option value = "Dance Club">Dance Club</option>
-                <option value = "The Literary Club">The Literary Club</option>
-                <option value = "Quiz Club">Quiz Club</option>
+              <select name="club" value={club} onChange={(e)=>{
+                const val=e.target.value;
+                setClub(val);
+                }} required={true}>
+                {committees[localStorage.getItem('name')]["Clubs"].map((item)=><option value={item} key={item}>{item}</option>)}
               </select>
             </div>
             <button type = "submit" className = "btn btn-block btn-success">

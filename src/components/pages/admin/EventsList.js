@@ -7,21 +7,31 @@ import { Context } from '../../../context/Context'
 import TableHeader from '../../common/TableHeader';
 import TableBody from '../../common/TableBody';
 import Pagination from '../../common/Pagination';
+import {searchData} from '../../common/Search'
+import {sort} from '../../common/Sort'
+import {paginate} from '../../common/Pagination';
 
 const EventsList = ({location}) => {
     const [,setloading]=useContext(Context);
     let query=queryString.parse(location.search)
-    let activeFilter=bool(query.active);
-    let inactiveFilter=bool(query.inactive);
-    let internalFilter=bool(query.internal);
-    let externalFilter=bool(query.external);
-    let {session}=query;
+    query = JSON.parse(JSON.stringify(query));
+    let activeFilter=bool(query.hasOwnProperty('active') ? query.active : false);
+    let inactiveFilter=bool(query.hasOwnProperty('inactive') ? query.inactive : false);
+    let session = query.hasOwnProperty('session') ? query.session : "All";
+    let type = query.hasOwnProperty('type') ? query.type : "-1";
+    let search = query.hasOwnProperty('search') ? query.search : "";
     const [data,setData] = useState([]);
     const [allData,setAllData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
     const [state,setState]=useState({
         curr:1,
         size:4,
         total: 0
+    })
+    const [order, setOrder] = useState({
+        field: "Status",
+        asc: true, 
+        type:"String"
     })
     /*const downloadCSV=()=>{
         convert(filter(allData,verifiedFilter,unverifiedFilter,session,club ),localStorage.getItem('name')+'_'+session);
@@ -39,13 +49,20 @@ const EventsList = ({location}) => {
     const pageChange=(page)=>{
         clearVisualUpdates();
         setState({...state,curr:page});
-        setData(paginate(allData,page, state.size));
+        setData(paginate(filteredData,page, state.size));
     }
-    
-    const update=(v,u,s,c,session)=>{
+    const pageSizeChange=(size)=>{
+        if(size===undefined || size==="") return;
         clearVisualUpdates();
-        const temp=filter(allData,v,u,s,c,session );
+        setState({ ...state, size, curr:1 });
+        setData(paginate(filteredData, 1, size));
+    }
+    const update=(v,u,session,t,search,o)=>{
+        clearVisualUpdates();
+        let temp=filter(allData,v,u,session,t,search);
         setState({...state, curr:1, total:temp.length});
+        temp = sort(temp, o.asc, o.field, o.type);
+        setFilteredData(temp);
         setData(paginate(temp,1,state.size));
     }
 
@@ -57,43 +74,43 @@ const EventsList = ({location}) => {
             setloading(false);
         })
         .catch((err)=>{
+            if (err.response && err.response.status === 401) {
+                localStorage.removeItem('token');
+                const auth2 = window.gapi.auth2.getAuthInstance();
+                auth2.signOut().then(() => window.location.href = "/");
+            }
             console.error(err);
             setloading(false);
         })
     }, [setloading])
     useEffect(() => {
-        update(activeFilter, inactiveFilter, internalFilter,externalFilter, session);
+        update(activeFilter, inactiveFilter, session,type,search,order);
 //eslint-disable-next-line
-    }, [allData, activeFilter, inactiveFilter, internalFilter, externalFilter, session]);
+    }, [allData, activeFilter, inactiveFilter, type, session,search,order]);
     
     return (
         <div style={{ display:"grid", placeContent: "center", marginBottom: "16px" }}>
-            <EventsFilters sessionFilter={session} internalFilter={internalFilter} externalFilter={externalFilter} activeFilter={activeFilter} inactiveFilter={inactiveFilter}/>
+            <EventsFilters sessionFilter={session} activeFilter={activeFilter} inactiveFilter={inactiveFilter} typeFilter={type} searchFilter={search}/>
             <h2 className="text-center text-dark" style={{ margin: "10px 0px" }}>Events List</h2>
             <table >
-                <TableHeader columns={columns}/>
+                <TableHeader columns={columns}  sort={order} setSort={setOrder} />
                 <TableBody data={data} content={(i)=><EventsListItem data={i} id={i._id} key={i._id}/>}/>
             </table>
-            <Pagination  curr={state.curr} total={state.total} size={state.size} pageChange={pageChange}/>
+            <Pagination  curr={state.curr} total={state.total} size={state.size} pageChange={pageChange} sizeChange={pageSizeChange}/>
         </div>
     )
 }
 
-const paginate=(items, curr, size)=>{
-    const start=(curr-1)*size;
-    let temp=items.slice(start);
-    while(temp.length>size) temp.pop();
-    return temp;
-}
-const filter = (array, activeFilter,inactiveFilter,internalFilter, externalFilter, session) => {
+const filter = (array, activeFilter,inactiveFilter,session,type, search) => {
     return array.filter((item) => (
-        (session==="undefined" || session==="All" || session===item.session) &&
-        ((activeFilter===inactiveFilter) || (activeFilter && item.status==="Active") || (inactiveFilter && item.status==="Inactive")) &&
-        ((internalFilter===externalFilter) || (externalFilter))
+        ((activeFilter === inactiveFilter) || (activeFilter && item.status === "Active") || (inactiveFilter && item.status === "Inactive")) &&
+        (session === "undefined" || session === "All" || session === item.session) && 
+        (type==="-1" || type==="undefined" || type===item.type) &&
+        (search === undefined || search === "" || searchData(search, item))
     ));
 }
 function bool(val) { return val === true || val === "true" }
 
-const columns=["Type","Event","Sub-Events","Session","Status","Actions"];
+const columns=[{name:"Type", type:"String"},{name:"Event", type:"String"},{name:"SubEvents", type:"String"},{name:"Session", type:"String"},{name:"Status", type:"String"},{name:""}];
 
 export default EventsList;

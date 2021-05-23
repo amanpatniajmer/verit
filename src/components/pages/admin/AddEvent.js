@@ -14,7 +14,7 @@ const AddEvent = ({showalert}) => {
             <Link to = "../admin/addexternal" showalert={showalert}><button className = "event-btn">External <span>Event</span><span><i className = "fa fa-plus-circle" style = {{ marginTop:"5px" }}/></span></button></Link>
             </div>
             <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "20px 0px"}}>Event History:{" "}</h1>
-            <Link to = "../admin/eventslist?active=false&inactive=false&session=All&internal=false&external=false" showalert={showalert}><button className = "btn btn-success">Event History{" "}<i className = "fa fa-history" style = {{ marginTop:"5px" }}/></button></Link>
+            <Link to = "../admin/eventslist" showalert={showalert}><button className = "btn btn-success">Event History{" "}<i className = "fa fa-history" style = {{ marginTop:"5px" }}/></button></Link>
             
         </div>
     )

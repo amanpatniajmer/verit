@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
-
+import committees from '../../common/committees.json'
 let timer;
 const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter, typeFilter, searchFilter}) => {
     const history=useHistory();
@@ -47,19 +47,14 @@ const Filters = ({verifiedFilter, unverifiedFilter,sessionFilter,clubFilter, typ
             </div>
             <div className="filter-container">
               <label>Club/Council</label>
-              <select required={true} value={club} onChange={(e)=>{
-                    setClub(e.target.value)
-                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${e.target.value}&session=${session}&type=${type}&search=${search}`});
-                    }}>
-                <option value="Cultural Council">Cultural Council</option>
-                <option value="Indian Music Club">Indian Music Club</option>
-                <option value="Western Music Club">Western Music Club</option>
-                <option value="Fine Arts Club">Fine Arts Club</option>
-                <option value="Theatre Club">Theatre Club</option>
-                <option value="Dance Club">Dance Club</option>
-                <option value="The Literary Club">The Literary Club</option>
-                <option value="Quiz Club">Quiz Club</option>
+              <select name="club" value={club} onChange={(e)=>{
+                const val=e.target.value;
+                setClub(val);
+                history.push({pathname: './list', search: `?verified=${verified}&unverified=${unverified}&club=${e.target.value}&session=${session}&type=${type}&search=${search}`});
+                }} required={true}>
+                {committees[localStorage.getItem('name')]["Clubs"].map((item)=><option value={item} key={item}>{item}</option>)}
               </select>
+              
             </div>
             <div className="filter-container">
               <label>Type</label>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
-import committees from './committees.json' ;
+import committees from '../../common/committees.json' ;
 
 const AddInternal = ({ showalert }) => {
   const history=useHistory();
