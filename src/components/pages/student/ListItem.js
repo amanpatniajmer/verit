@@ -24,7 +24,7 @@ const ListItem = ({data, updates, setUpdates}) => {
         <tr readOnly={newStatus==="Deleted"}>
             <td>{type}</td>
             <td>{club}</td>
-            <td>{event || data.institute}{"_"}{data.position}</td>
+            <td>{event || data.institute}{"_"}{data.position}{"_"}{data.subevent?data.subevent:""}</td>
             <td>{session}</td>
             <td>{new Date(date).toUTCString()}</td>
             <td>{newStatus === "Verified"

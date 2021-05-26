@@ -46,8 +46,14 @@ const List = ({location}) => {
             let index=allData.findIndex((item)=>item._id===updates[i]._id);
             tempx[index]=updates[i];
         }
-        setUpdates([]);
         setAllData(tempx);
+        tempx=filteredData;
+        for(let i=0;i<updates.length;i++){
+            let index=filteredData.findIndex((item)=>item._id===updates[i]._id);
+            tempx[index]=updates[i];
+        }
+        setFilteredData(filteredData);
+        setUpdates([]);
     }
     const [updates,setUpdates]=useState([]);
     const pageChange=(page)=>{
