@@ -6,7 +6,10 @@
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
-  --success-color: #28a745;
+  --success-color: #238636;
+  --background-color: #0d1117;
+  --link-color: #58a6ff;
+  /* green - #28a745 */
 }
 
 * {
@@ -20,17 +23,19 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--background-color);
+  color: #6e7681;
 }
 
 a {
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
+  color: var(--link-color);
   text-decoration: none;
 }
 
 a:hover {
-  color: #666;
+  /* color: #666; */
+  color: var(--link-color);
 }
 
 ul {
@@ -40,6 +45,14 @@ ul {
 img {
   height: 80px;
   width: 80px;
+}
+
+#my-signin2 {
+  background-color: brown;
+}
+
+.abcRioButtonContentWrapper {
+  background-color: coral;
 }
 
 .center {
@@ -164,11 +177,21 @@ i {
 }
 
 /* Utilities */
-.container {
-  max-width: 1300px;
+.main-window {
+  /* max-width: 1300px; */
+  /* width: 308px; */
+  /* height: 229px; */
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
+  background-color: red;
+}
+
+.login-main {
+  background-color: cornflowerblue;
+  width: 308px;
+  height: 229px;
+  margin: auto;
 }
 
 .filter-container {
@@ -498,6 +521,7 @@ button {
   overflow: hidden;
   padding: 1rem 2rem;
   width: 100%;
+  background-color: blue;
 }
 
 .form-container:hover {
@@ -618,16 +642,19 @@ table th:last-child{
 }
 
 .navbar a {
-  color: #535353;
+  /* color: #535353; */
+  color: var(--link-color);
   padding: 0.45rem;
   margin: 0 0.25rem;
   margin-right: 0.75rem;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
+  font-size: 1rem;
 }
 
 .navbar a:hover {
   opacity: 0.9;
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
+  color: var(--link-color);
 }
 
 .navbar .welcome span {

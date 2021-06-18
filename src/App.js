@@ -37,7 +37,7 @@ function App() {
       <Router>
         <ContextProvider>
         <Navbar isauthenticated = {authenticated} setauthenticated = {setAuthenticated} isadmin = {admin} setadmin = {setAdmin} />
-        <div className = "container">
+        <div className = "main-window">
           <Alert alert = {alert} />
             {authenticated && admin ? <Switch>
             <Route exact path = "/about" component = {About} />
