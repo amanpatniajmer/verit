@@ -3,7 +3,7 @@ import AddEvent from "./AddEvent";
 const Admin = ({showalert}) => {
     return (
         <div>
-            <AddEvent showAlert={showalert}/>
+            <AddEvent showAlert = {showalert}/>
         </div>
     )
 }
