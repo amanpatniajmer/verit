@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-/* import { useHistory } from "react-router-dom"; */
-import { Context } from '../../../context/Context'
+import { Context } from '../../../context/Context';
 import ListItem from "./ListItem";
 import Filters from "./Filters";
 import queryString from "query-string";
@@ -9,65 +8,72 @@ import TableHeader from '../../common/TableHeader';
 import TableBody from '../../common/TableBody';
 import Pagination from '../../common/Pagination';
 import convert from '../../common/ToCSV';
-import {sort} from '../../common/Sort'
+import {sort} from '../../common/Sort';
 import {filter} from '../../common/Filter';
 import {paginate} from '../../common/Pagination';
 
 const List = ({location}) => {
-    const [,setloading]=useContext(Context);
-    let query=queryString.parse(location.search)
-    query=JSON.parse(JSON.stringify(query));
-    let verifiedFilter=bool(query.hasOwnProperty('verified')?query.verified:false);
-    let unverifiedFilter=bool(query.hasOwnProperty('unverified')?query.unverified:false);
-    let type=query.hasOwnProperty('type')?query.type:"-1";
-    let club=query.hasOwnProperty('club')?query.club:"-1";
-    let session=query.hasOwnProperty('session')?query.session:"-1";
+    const [, setloading] = useContext(Context);
+
+    let query = queryString.parse(location.search)
+        query = JSON.parse(JSON.stringify(query));
+    let verifiedFilter = bool(query.hasOwnProperty('verified') ? query.verified : false);
+    let unverifiedFilter = bool(query.hasOwnProperty('unverified') ? query.unverified : false);
+    let type = query.hasOwnProperty('type') ? query.type : "-1";
+    let club = query.hasOwnProperty('club') ? query.club : "-1";
+    let session = query.hasOwnProperty('session') ? query.session : "-1";
     let search = query.hasOwnProperty('search') ? query.search : "";
-    /* let page=query.page; */
+
     const [allData, setAllData] = useState([]);
-    const [filteredData, setFilteredData]=useState([]);
-    const [data,setData]=useState([]);
-    const [state,setState]=useState({
-        curr:1,
-        size:4,
+    const [filteredData, setFilteredData] = useState([]);
+    const [data, setData] = useState([]);
+    const [state, setState] = useState({
+        curr: 1,
+        size: 4,
         total: 0
     })
     const [order, setOrder] = useState({
         field: "Date",
         asc: true, 
-        type:"Date"
+        type: "Date"
     })
-    const downloadCSV=()=>{
-        convert(filter(allData,verifiedFilter,unverifiedFilter,session,club,type),localStorage.getItem('name')+'_'+session);
+    const downloadCSV = () => {
+        convert(filter(allData, verifiedFilter, unverifiedFilter, session, club, type), localStorage.getItem('name') + '_' + session);
     }
-    const clearVisualUpdates=()=>{
-        let tempx=allData;
-        for(let i=0;i<updates.length;i++){
-            let index=allData.findIndex((item)=>item._id===updates[i]._id);
-            tempx[index]=updates[i];
+    const clearVisualUpdates = () => {
+        let tempx = allData;
+
+        for(let i = 0; i < updates.length; i++){
+            let index = allData.findIndex((item) => item._id === updates[i]._id);
+            tempx[index] = updates[i];
         }
         setAllData(tempx);
-        tempx=filteredData;
-        for(let i=0;i<updates.length;i++){
-            let index=filteredData.findIndex((item)=>item._id===updates[i]._id);
-            tempx[index]=updates[i];
+        tempx = filteredData;
+
+        for(let i = 0; i < updates.length; i++){
+            let index = filteredData.findIndex((item) => item._id === updates[i]._id);
+            tempx[index] = updates[i];
         }
         setFilteredData(filteredData);
         setUpdates([]);
     }
-    const [updates,setUpdates]=useState([]);
-    const pageChange=(page)=>{
+    const [updates, setUpdates] = useState([]);
+    const pageChange = (page) => 
+    {
         clearVisualUpdates();
-        setState({...state,curr:page});
-        setData(paginate(filteredData,page, state.size));
+        setState({...state, curr: page});
+        setData(paginate(filteredData, page, state.size));
     }
-    const pageSizeChange=(size)=>{
-        if(size===undefined || size==="") return;
+    const pageSizeChange = (size) => 
+    {
+        if(size === undefined || size === "") 
+            return;
         clearVisualUpdates();
-        setState({ ...state, size, curr:1 });
+        setState({ ...state, size, curr: 1});
         setData(paginate(filteredData, 1, size));
     }
-    const update = (v, u, s, c, t, se,o) => {
+    const update = (v, u, s, c, t, se, o) => 
+    {
         clearVisualUpdates();
         let temp = filter(allData, v, u, s, c, t, se);
         setState({ ...state, curr: 1, total: temp.length });
@@ -79,43 +85,72 @@ const List = ({location}) => {
     useEffect(() => {
         setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply/${localStorage.getItem('name')}?token=${localStorage.getItem('token')}`)
-        .then((res)=>{
-            setAllData(res.data);
-            setloading(false);
+        .then((res) => {
+                        setAllData(res.data);
+                        setloading(false);
         })
-        .catch((err)=>{
+        .catch((err) => {
             if (err.response && err.response.status === 401) {
                 localStorage.removeItem('token');
                 const auth2 = window.gapi.auth2.getAuthInstance();
                 auth2.signOut().then(() => window.location.href = "/");
             }
-            console.error(err);
             setloading(false);
-        }
-        );
+        });
     }, [setloading])
     
     useEffect(() => {
-        update(verifiedFilter, unverifiedFilter, session, club, type, search,order);
+        update(verifiedFilter, unverifiedFilter, session, club, type, search, order);
         //eslint-disable-next-line
     }, [allData, verifiedFilter, unverifiedFilter, session, club, type, search, order]);
 
     return (
-        <div style={{ display:"grid", placeContent: "center", marginBottom: "16px" }}>
-            <h2 className="text-left text-dark" style={{ margin: "10px 0px" }}><i className="fa fa-check btn-success"/>{" "}Verification List</h2>
-            <Filters sessionFilter={session} clubFilter={club} verifiedFilter={verifiedFilter} unverifiedFilter={unverifiedFilter} typeFilter={type}searchFilter={search} />
-            <table >
-                <TableHeader columns={columns} sort={order} setSort={setOrder} />
-                <TableBody data={data} content={(i)=><ListItem data={i} id={i._id} key={i._id} updates={updates} setUpdates={setUpdates}/>}/>
+        <div style = {{ display: "grid", placeContent: "center", marginBottom: "16px" }}>
+            <h2 className = "text-left text-dark" style = {{ margin: "10px 0px" }}><i className = "fa fa-check btn-success"/>{" "}Verification List</h2>
+            <Filters 
+                    sessionFilter = {session} 
+                    clubFilter = {club} 
+                    verifiedFilter = {verifiedFilter} 
+                    unverifiedFilter = {unverifiedFilter} 
+                    typeFilter = {type} 
+                    searchFilter = {search} />
+            <table>
+                <TableHeader 
+                            columns = {columns} 
+                            sort = {order} 
+                            setSort = {setOrder} />
+                <TableBody data = {data} 
+                           content = {(i) => 
+                                            <ListItem 
+                                                     data = {i} 
+                                                     id = {i._id} 
+                                                     key = {i._id} 
+                                                     updates = {updates} 
+                                                     setUpdates = {setUpdates}/>}/>
             </table>
-            <Pagination curr={state.curr} total={state.total} size={state.size} pageChange={pageChange} sizeChange={pageSizeChange}/>
-            <button className="btn btn-success" onClick={downloadCSV}>Download as CSV</button>
+            <Pagination 
+                        curr = {state.curr} 
+                        total = {state.total} 
+                        size = {state.size} 
+                        pageChange = {pageChange} 
+                        sizeChange = {pageSizeChange} />
+            <button className = "btn btn-success" 
+                    onClick = {downloadCSV}>Download as CSV</button>
         </div>
     )
 }
 
 function bool(val) { return val === true || val === "true" }
 
-const columns = [{name:"Type", type:"String"}, {name:"Roll", type:"Number"}, {name:"Name", type:"String"}, {name:"Club", type:"String"}, {name:"Event", type:"String"},{name:"SubEvent", type:"String"},{name:"Position", type:"String"}, {name:"Session", type:"String"},{name:"Status", type:"String"}, {name:""}];
+const columns = [{name: "Type", type: "String"}, 
+                {name: "Roll", type: "Number"}, 
+                {name: "Name", type: "String"}, 
+                {name: "Club", type: "String"}, 
+                {name: "Event", type: "String"}, 
+                {name: "SubEvent", type: "String"}, 
+                {name: "Position", type: "String"}, 
+                {name: "Session", type: "String"}, 
+                {name: "Status", type: "String"}, 
+                {name: ""}];
 
 export default List;

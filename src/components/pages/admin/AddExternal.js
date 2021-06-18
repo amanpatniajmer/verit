@@ -1,25 +1,25 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import SubEvent from "./SubEvent";
 import Axios from 'axios';
-import committees from '../../common/committees.json'
+import committees from '../../common/committees.json';
 
 const AddExternal = ({ showalert }) => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
   const [keys, setKeys] = useState([]);
-  const [club,setClub]=useState(committees[localStorage.getItem('name')]["Clubs"][0]);
+  const [club, setClub] = useState(committees[localStorage.getItem('name')]["Clubs"][0]);
   const delSubEvent = (key) => {
     let newKeys = [];
-    for(let i=0; i<keys.length; i++){
+    for(let i = 0; i < keys.length; i++){
       if(keys[i] !== key) newKeys.push(keys[i]);
     }
     setKeys(newKeys);
   }
 
   const addSubEvents= () => {
-    setKeys([...keys, keys.length ? keys[keys.length - 1]+1 : 0]);
+    setKeys([...keys, keys.length ? keys[keys.length - 1] + 1 : 0]);
   }
 
   const add = (e) => {
@@ -38,8 +38,11 @@ const AddExternal = ({ showalert }) => {
     headers:{
       'x-auth-token': localStorage.getItem('token')
     }})
-    .then(()=>{showalert("External event added.", "success"); setLoading(false); history.push('../');})
-    .catch((e)=>{showalert((e.response && e.response.data) || "No connection established", "danger"); setLoading(false);})
+    .then(() => {showalert("External event added.", "success"); 
+                 setLoading(false); 
+                 history.push('../');})
+    .catch((e) => {showalert((e.response && e.response.data) || "No connection established", "danger"); 
+                   setLoading(false);})
     
   }
     return (
@@ -85,11 +88,13 @@ const AddExternal = ({ showalert }) => {
             </div>
             <div className = "form-group">
               <label>Club/Council</label>
-              <select name="club" value={club} onChange={(e)=>{
-                const val=e.target.value;
-                setClub(val);
-                }} required={true}>
-                {committees[localStorage.getItem('name')]["Clubs"].map((item)=><option value={item} key={item}>{item}</option>)}
+              <select name = "club" value = {club} 
+                      onChange = {(e) => {
+                                            const val = e.target.value;
+                                            setClub(val);}} 
+                      required = {true}>
+                {committees[localStorage.getItem('name')]["Clubs"].map((item) => 
+                                                                  <option value = {item} key = {item}>{item}</option>)}
               </select>
             </div>
             <button type = "submit" className = "btn btn-block btn-success">

@@ -9,6 +9,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
       window.gapi.auth2.init();
     });
   }, [])
+
   function signOut() {
       var auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
@@ -26,8 +27,8 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
         <Link to = "/student/list">List</Link>}
       </li>
       <li>
-        <Link to="/" onClick={signOut} >Logout {" "}
-        <i className={logoutIcon} />
+        <Link to="/" onClick = {signOut} >Logout {" "}
+        <i className = {logoutIcon} />
         </Link>
       </li>
     </ul>
@@ -36,7 +37,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to = "/" params={{ setauthenticated:{setauthenticated} }} >Login</Link>
+        <Link to = "/" params = {{ setauthenticated: {setauthenticated} }} >Login</Link>
       </li>
       <li>
         <Link to = "/about">About</Link>
@@ -48,12 +49,12 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
     <nav className = "navbar">
       <Link to = "/">
       <h1>
-          <img className="logo" src = {Logo} alt = ""/>
+          <img className = "logo" src = {Logo} alt = ""/>
           <ul className = "sub-heading">
             <li>
               {title}
             </li>
-            <li className="small">{"Indian Institute of Technology, (Banaras Hindu University) Varanasi"}</li>
+            <li className = "small">{"Indian Institute of Technology, (Banaras Hindu University) Varanasi"}</li>
           </ul>
       </h1>
       
@@ -66,11 +67,11 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   logoutIcon: PropTypes.string.isRequired,
-  setauthenticated:PropTypes.func.isRequired
+  setauthenticated: PropTypes.func.isRequired
 };
 
 Navbar.defaultProps = {
-  title: "Verification Portal",
+  title: "Document Verification Portal",
   logoutIcon: "fa fa-sign-out",
 };
 

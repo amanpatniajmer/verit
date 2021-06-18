@@ -22,11 +22,9 @@ const ForgotPassword = ({ location, showAlert }) => {
             Axios.get(`${process.env.REACT_APP_SERVER}/api/forgotpassword?email=${email}`)
                 .then(() => {
                     setEmail("");
-                    // console.log(res.data);
                     showAlert(`Password change successful.`, "success");
                 })
                 .catch(() => { 
-                    // console.log('Problem' + e); 
                     showAlert("Error.", "danger");
                 })
         }
