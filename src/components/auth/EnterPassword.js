@@ -32,14 +32,13 @@ const EnterPassword = ({ location, showAlert }) => {
             .then(() => {
                 setPassword("");
                 showAlert("Password reset successful.", "success");
-                // console.log(res.data);
             })
             .catch(() => { 
                 showAlert("Error.", "danger")
-                // console.log('Problem' + e); 
             })
         }
     };
+    
     return (
         <form onSubmit = {onSubmit} className = "form-container">
             <h1 className = "text-primary">

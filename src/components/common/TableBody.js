@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const TableBody = ({ data, content, sort, setAllData }) => {
     return (
@@ -10,4 +10,4 @@ const TableBody = ({ data, content, sort, setAllData }) => {
     )
 }
 
-export default TableBody
+export default TableBody;

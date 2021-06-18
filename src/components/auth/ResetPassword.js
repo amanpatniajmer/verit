@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Axios from 'axios';
 
 const ResetPassword = ({ location, showAlert }) => {
@@ -24,7 +24,7 @@ const ResetPassword = ({ location, showAlert }) => {
             showAlert("Please fill in all fields.", "danger");
         }
         else {
-            Axios.post(`${process.env.REACT_APP_SERVER}/api/resetpassword/${localStorage.getItem('token')}`, {oldpassword:password, newpassword:newpassword},{
+            Axios.post(`${process.env.REACT_APP_SERVER}/api/resetpassword/${localStorage.getItem('token')}`, {oldpassword: password, newpassword: newpassword},{
                 headers:{
                   'x-auth-token': localStorage.getItem('token')
                 }
@@ -32,15 +32,14 @@ const ResetPassword = ({ location, showAlert }) => {
                 .then(() => {
                     setPassword("");
                     setNewPassword("");
-                    // console.log(res.data);
                     showAlert("Password reset successful.", "success");
                 })
                 .catch(() => { 
-                    // console.log('Problem' + e); 
                     showAlert("Error.", "danger");
                 })
         }
     };
+
     return (
         <form onSubmit = {onSubmit} className = "form-container">
             <h1 className = "text-primary">
@@ -74,7 +73,7 @@ const ResetPassword = ({ location, showAlert }) => {
                 />
             </div>
             <label>Show Password{"  "}</label>
-            <input type = "checkbox" style = {{ width:"auto" }} onClick={() => togglePass()}/>
+            <input type = "checkbox" style = {{ width:"auto" }} onClick = {() => togglePass()}/>
 
             <input
                 type = "submit"
