@@ -36,9 +36,9 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
 
   const guestLinks = (
     <ul>
-      {/* <li>
+      <li>
         <Link to = "/" params = {{ setauthenticated: {setauthenticated} }} >Login</Link>
-      </li> */}
+      </li>
       <li>
         <Link to = "/about">About</Link>
       </li>
@@ -49,7 +49,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
     <nav className = "navbar">
       <Link to = "/">
       <h1>
-          <img className = "logo" src = {Logo} alt = ""/>
+          <img src = {Logo} alt = "iit-bhu-logo"/>
           <ul className = "sub-heading">
             <li>
               {title}

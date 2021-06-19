@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-// import SVG from "../../img/2144242.png";
+import Icon from "../../img/shield.png";
 import GoogleSignIn from "./GoogleSignIn";
 
 const Login = ({ setauthenticated, setAdmin, showalert }) => {
@@ -9,18 +9,17 @@ const Login = ({ setauthenticated, setAdmin, showalert }) => {
 
   return (
     <div 
-    // style = {{ display: "flex", marginTop: "56px", justifyItems: "center", alignItems: "center", placeItems: "center"}}
-    style = {{ display: 'flex', flexDirection: 'column'}}
+    style = {{ display: 'flex', flexDirection: 'column', placeItems: "center", marginTop: "6vh"}}
     className = "login-main"
     >
-      {/* <img src = {SVG} alt = "" className = "main-img" /> */}
-      <img src = {" "} alt = "logo"/>
-      <h1>Sign in to Verit</h1>
+      <img src = {Icon} alt = "logo" className = "login-img"/>
+      <h1 className = "login-header">Sign in to Verit</h1>
       <div className = "form-container">
         <div className = "center">
           <GoogleSignIn setAuthenticated = {setauthenticated} setAdmin = {setAdmin} showalert = {showalert}/>
         </div>
       </div>
+      <p className = "login-instruction">Use your official college ID for login.</p>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url('https://fonts.googleapis.com/css2?family=Chivo&display=swap');
 
 /* Global Styles */
 :root {
@@ -9,6 +10,7 @@
   --success-color: #238636;
   --background-color: #0d1117;
   --link-color: #58a6ff;
+  --border-color: #6e7681;
   /* green - #28a745 */
 }
 
@@ -28,13 +30,12 @@ body {
 }
 
 a {
-  /* color: var(--primary-color); */
   color: var(--link-color);
   text-decoration: none;
 }
 
 a:hover {
-  /* color: #666; */
+  opacity: 0.9;
   color: var(--link-color);
 }
 
@@ -42,29 +43,22 @@ ul {
   list-style: none;
 }
 
-img {
-  height: 80px;
-  width: 80px;
+.error {
+  color: var(--danger-color);
+  border-radius: 10px;
 }
 
-#my-signin2 {
-  background-color: brown;
+.success {
+  color: var(--success-color);
+  border-radius: 10px;
 }
 
-.abcRioButtonContentWrapper {
-  background-color: coral;
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
+/* Spinner */
 .loader {
   z-index: 500;
   position: absolute;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
   width: 35px;
   height: 35px;
   display: inline-block;
@@ -75,24 +69,202 @@ img {
   animation: rotate 1500ms infinite ease;
 }
 
-.main-img {
-  width: 50%;
-  height: 50%;
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  margin: 0 0 0.5rem 0;
+  z-index: 1;
+  width: 100%;
+  border-bottom: solid 3px var(--primary-color);
+  opacity: 0.9;
+  line-height: 1.2;
+  box-shadow: 10px 5px 15px 5px rgba(177, 177, 177, 0.3);
 }
 
-.error {
+.navbar img {
+  height: 80px;
+  width: 80px;
+}
+
+.navbar h1 {
+  display: flex;
+  font-size: 2.35rem;
+  font-weight: 600;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar .sub-heading {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  color: var(--primary-color);
+}
+
+.navbar a {
+  color: var(--link-color);
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+  margin-right: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.navbar a:hover {
+  opacity: 0.9;
+  color: var(--link-color);
+}
+
+.navbar .welcome span {
+  margin-right: 0.6rem;
+}
+
+/* Login */
+.login-main {
+  padding: 20px 20px 0px 20px;
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.login-img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.login-header {
+  font-weight: 300;
+  font-size: 2.1rem;
+  color: var(--border-color);
+}
+
+.login-instruction {
+  color: var(--link-color);
+  font-size: small;
+}
+
+/* Form */
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  overflow: hidden;
+  padding: 1rem 2rem;
+  width: 100%;
+}
+
+.form-container h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+.form-group {
+  margin: 1.2rem 0;
+}
+
+.form-group input {
+  margin: 0.2rem 0;
+}
+
+/* Google OAuth */
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.abcRioButtonContentWrapper {
+  background-color: var(--success-color);
+}
+
+/* Forbidden */
+.forbidden-main {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3.5vh;
+}
+
+.forbidden-img {
+  width: 700px;
+  height: 400px;
+  margin-bottom: 2rem;
+}
+
+.forbidden-main h2 {
   color: var(--danger-color);
+  font-weight: 300;
+}
+
+/* About */
+.about {
+  margin: 6vh 0 4vh 0;
+}
+
+.about-info {
+  color: white;
+  width: 900px;
+  margin: auto;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.about-info span {
+  font-size: 1.3rem;
+}
+
+.credits-info {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  color: var(--primary-color);
+}
+
+.about-main {
+  padding: 20px 20px 0px 20px;
+  width: 400px;
+  height: 380px;
+  margin: auto;
+  border: 2px solid var(--border-color);
   border-radius: 10px;
 }
 
-.success {
-  color: var(--success-color);
-  font-weight: bold;
-  border-radius: 10px;
+.about-main img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  margin: 0.7rem 0;
+}
+
+.about-main h3 {
+  color: var(--light-color);
+}
+
+.about-main h4 {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.about-main span {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.about-instruction {
+  color: var(--link-color);
+  font-size: 1rem;
 }
 
 /* Add Event */
-
 .add-event {
   display: flex;
   flex-direction: column;
@@ -173,25 +345,14 @@ img {
 }
 
 i {
-  margin-right: 8px;
+  padding-right: 8px;
 }
 
 /* Utilities */
 .main-window {
-  /* max-width: 1300px; */
-  /* width: 308px; */
-  /* height: 229px; */
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-  background-color: red;
-}
-
-.login-main {
-  background-color: cornflowerblue;
-  width: 308px;
-  height: 229px;
-  margin: auto;
 }
 
 .filter-container {
@@ -507,33 +668,6 @@ button {
   font: inherit;
 }
 
-.form-group {
-  margin: 1.2rem 0;
-}
-
-.form-group input {
-  margin: 0.2rem 0;
-}
-
-.form-container {
-  max-width: 500px;
-  margin: 2rem auto;
-  overflow: hidden;
-  padding: 1rem 2rem;
-  width: 100%;
-  background-color: blue;
-}
-
-.form-container:hover {
-  box-shadow: 4px 4px 5px rgb(0 0 0 / 20%);
-}
-
-.form-container h1,
-h2,
-h3 {
-  text-align: center;
-}
-
 table {
   border: 1px dotted var(--dark-color);
   border-radius: 10px;
@@ -607,58 +741,6 @@ table th:last-child{
   bottom: 0;
   left: 0;
   position: fixed;
-}
-
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  padding-bottom: 0.5rem;
-  margin: 0 0 0.5rem 0;
-  z-index: 1;
-  width: 100%;
-  border-bottom: solid 4px var(--primary-color);
-  opacity: 0.9;
-  line-height: 1.2;
-  box-shadow: 10px 5px 15px 5px rgb(177, 177, 177);
-}
-
-.navbar h1 {
-  font-size: 2.1rem;
-  display: flex;
-}
-
-.navbar ul {
-  display: flex;
-}
-
-.navbar .sub-heading {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  color: var(--primary-color);
-}
-
-.navbar a {
-  /* color: #535353; */
-  color: var(--link-color);
-  padding: 0.45rem;
-  margin: 0 0.25rem;
-  margin-right: 0.75rem;
-  /* font-size: 1.2rem; */
-  font-size: 1rem;
-}
-
-.navbar a:hover {
-  opacity: 0.9;
-  /* color: var(--primary-color); */
-  color: var(--link-color);
-}
-
-.navbar .welcome span {
-  margin-right: 0.6rem;
 }
 
 /* Animation (Add After) */
