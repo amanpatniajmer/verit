@@ -9,7 +9,7 @@ const Login = ({ setauthenticated, setAdmin, showalert }) => {
 
   return (
     <div 
-    style = {{ display: 'flex', flexDirection: 'column', placeItems: "center", marginTop: "6vh"}}
+    style = {{ display: 'flex', flexDirection: 'column', placeItems: "center"}}
     className = "login-main"
     >
       <img src = {Icon} alt = "logo" className = "login-img"/>

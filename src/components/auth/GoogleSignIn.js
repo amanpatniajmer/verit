@@ -64,7 +64,7 @@ const GoogleSignIn = ({setAuthenticated, showalert, setAdmin}) => {
 
     return (
         <>
-            <div className="center" id = "my-signin2" style={{maxWidth:"292px"}}></div>
+            <div className = "center" id = "my-signin2" style = {{maxWidth: "292px"}}></div>
             {register && <Redirect to = '/sign-up'/>}
         </>
     )
