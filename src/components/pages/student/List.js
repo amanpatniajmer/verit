@@ -109,7 +109,7 @@ const List = ({ location }) =>
     }, [allData, verifiedFilter, unverifiedFilter, session, club, type, search, order]);
 
     return (
-        <div style = {{ display: "grid", placeContent: "center", margin: "8vh 0" }}>
+        <div style = {{ display: "grid", placeContent: "center", margin: "8vh 0"}}>
             <Filters 
                     sessionFilter = {session} 
                     clubFilter = {club} 
@@ -117,27 +117,28 @@ const List = ({ location }) =>
                     unverifiedFilter = {unverifiedFilter} 
                     typeFilter = {type} 
                     searchFilter = {search} />
-            <table>
-                <TableHeader 
-                            columns = {columns} 
-                            sort = {order} 
-                            setSort = {setOrder} />
-                <TableBody 
-                            data = {data} 
-                            setAllData = {setAllData} 
-                            content = {(i) => <ListItem 
-                                                        data = {i} 
-                                                        key = {i._id} 
-                                                        updates = {updates} 
-                                                        setUpdates = {setUpdates} />} />
-            </table>
-            <Pagination 
-                        curr = {state.curr} 
-                        size = {state.size} 
-                        pageChange = {pageChange} 
-                        total = {state.total} 
-                        sizeChange = {pageSizeChange}/>
-
+            <div className = "tables" style = {{ overflowX: 'auto' }} >
+                <table>
+                    <TableHeader 
+                                columns = {columns} 
+                                sort = {order} 
+                                setSort = {setOrder} />
+                    <TableBody 
+                                data = {data} 
+                                setAllData = {setAllData} 
+                                content = {(i) => <ListItem 
+                                                            data = {i} 
+                                                            key = {i._id} 
+                                                            updates = {updates} 
+                                                            setUpdates = {setUpdates} />} />
+                </table>
+                <Pagination 
+                            curr = {state.curr} 
+                            size = {state.size} 
+                            pageChange = {pageChange} 
+                            total = {state.total} 
+                            sizeChange = {pageSizeChange}/>
+            </div>
             <button className = "btn btn-success" onClick = {downloadCSV}>Download as CSV</button>
         </div>
     )

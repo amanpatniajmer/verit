@@ -11,7 +11,7 @@ const AddEvent = ({showalert}) =>
             
             <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "5vh 0 20px 0"}}>Add an event:{" "}</h1>
 
-            <div>
+            <div className = 'diff-events'>
                 <Link 
                     to = "../student/addinternal" 
                     showalert = {showalert}>

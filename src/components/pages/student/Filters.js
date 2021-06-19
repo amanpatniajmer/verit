@@ -31,7 +31,7 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                         onChange = {(e) => {setSearch(e.target.value);}} 
                 onKeyUp = {searchDelayer}/>
             </div>
-            <div style = {{display: "flex", justifyContent: "center", margin: '1rem 0'}}>
+            <div style = {{display: "flex", justifyContent: "center", margin: '1rem 0'}} className = "filters">
                 <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
                     <label style = {{margin: "0"}}>Verified{" "}
                         <input 

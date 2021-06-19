@@ -114,26 +114,28 @@ const List = ({location}) => {
                     unverifiedFilter = {unverifiedFilter} 
                     typeFilter = {type} 
                     searchFilter = {search} />
-            <table>
-                <TableHeader 
-                            columns = {columns} 
-                            sort = {order} 
-                            setSort = {setOrder} />
-                <TableBody data = {data} 
-                           content = {(i) => 
-                                            <ListItem 
-                                                     data = {i} 
-                                                     id = {i._id} 
-                                                     key = {i._id} 
-                                                     updates = {updates} 
-                                                     setUpdates = {setUpdates}/>}/>
-            </table>
-            <Pagination 
-                        curr = {state.curr} 
-                        total = {state.total} 
-                        size = {state.size} 
-                        pageChange = {pageChange} 
-                        sizeChange = {pageSizeChange} />
+            <div className = "tables" style = {{ overflowX: 'auto' }} >
+                <table>
+                    <TableHeader 
+                                columns = {columns} 
+                                sort = {order} 
+                                setSort = {setOrder} />
+                    <TableBody data = {data} 
+                            content = {(i) => 
+                                                <ListItem 
+                                                        data = {i} 
+                                                        id = {i._id} 
+                                                        key = {i._id} 
+                                                        updates = {updates} 
+                                                        setUpdates = {setUpdates}/>}/>
+                </table>
+                <Pagination 
+                            curr = {state.curr} 
+                            total = {state.total} 
+                            size = {state.size} 
+                            pageChange = {pageChange} 
+                            sizeChange = {pageSizeChange} />
+            </div>
             <button className = "btn btn-success" 
                     onClick = {downloadCSV}>Download as CSV</button>
         </div>
