@@ -6,9 +6,9 @@ const AddEvent = ({showalert}) => {
     const a = (
         <div className = "add-event">
             <img src = {cultLogo} alt = "" style = {{ height: "120px", width: "120px" }} />
-            <h1 className = "large text-primary text-center">{localStorage.getItem("name")}</h1>
+            <h1 className = "large text-primary text-center" style = {{marginBottom: "0"}}>{localStorage.getItem("name")}</h1>
             
-            <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "20px 0px"}}>Add an event:{" "}</h1>
+            <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "5vh 0 20px 0"}}>Add an event:{" "}</h1>
             <div>
                 <Link 
                     to ="../admin/addinternal" 

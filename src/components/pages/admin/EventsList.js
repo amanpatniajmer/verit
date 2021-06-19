@@ -95,7 +95,7 @@ const EventsList = ({location}) => {
     }, [allData, activeFilter, inactiveFilter, type, session, search, order]);
     
     return (
-        <div style = {{ display: "grid", placeContent: "center", marginBottom: "16px" }}>
+        <div style = {{ display: "grid", placeContent: "center", margin: "8vh 0" }}>
             <EventsFilters 
                             sessionFilter = {session} 
                             activeFilter = {activeFilter} 

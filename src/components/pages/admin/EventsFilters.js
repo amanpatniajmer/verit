@@ -20,7 +20,15 @@ const EventsFilters = ({activeFilter, inactiveFilter, sessionFilter, typeFilter,
     //Send Request to backend for updated data, then update state of all data
     return (
         <div className = "filters-container">
-            <div style = {{display: "flex", justifyContent: "center"}}>
+            <div className = "search-container" style = {{ display: 'flex' }}>
+                <input 
+                        type = "text" 
+                        placeholder = "Search..." 
+                        value = {search} 
+                        onChange = {(e) => {setSearch(e.target.value);}} 
+                onKeyUp = {searchDelayer}/>
+            </div>
+            <div style = {{display: "flex", justifyContent: "center", margin: '1rem 0'}}>
                 <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
                     <label style = {{margin: "0"}}>Active{" "}
                         <input 
@@ -67,16 +75,6 @@ const EventsFilters = ({activeFilter, inactiveFilter, sessionFilter, typeFilter,
                         <option value = "2019-20">2019-20</option>
                         <option value = "2018-19">2018-19</option>
                     </select>
-                </div>
-
-                <div className = "filter-container">
-                    <input 
-                            type = "text" 
-                            placeholder = "Search..." 
-                            value = {search} 
-                            onChange = {(e) => {
-                                                setSearch(e.target.value);}} 
-                            onKeyUp = {searchDelayer}/>
                 </div>
             </div>
         </div>

@@ -23,7 +23,15 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
 
     return (
         <div className = "filters-container">
-            <div style = {{display: "flex", justifyContent: "center"}}>
+            <div className = "search-container" style = {{ display: 'flex' }}>
+                <input 
+                        type = "text" 
+                        placeholder = "Search..." 
+                        value = {search} 
+                        onChange = {(e) => {setSearch(e.target.value);}} 
+                onKeyUp = {searchDelayer}/>
+            </div>
+            <div style = {{display: "flex", justifyContent: "center", margin: '1rem 0'}}>
                 <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
                     <label style = {{margin: "0"}}>Verified{" "}
                         <input 
@@ -45,7 +53,7 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                     </label>
                 </div>
 
-                <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
+                <div className = "filter-container">
                     <label style = {{margin: "0"}}>Session{" "}</label>
                     <select 
                             required = {true} 
@@ -96,15 +104,6 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                         <option value = "POR">POR</option>
                     </select>
                 </div>
-            </div>
-
-            <div className = "filter-container">
-                <input 
-                        type = "text" 
-                        placeholder = "Search..." 
-                        value = {search} 
-                        onChange = {(e) => {setSearch(e.target.value);}} 
-                onKeyUp = {searchDelayer}/>
             </div>
         </div>
     )
