@@ -9,8 +9,8 @@ const GoogleSignIn = ({setAuthenticated, showalert, setAdmin}) => {
     useEffect(() => {
         window.gapi.signin2.render('my-signin2', {
             'scope': 'profile email',
-            'width': 240,
-            'height': 50,
+            'width': 292,
+            'height': 45,
             'longtitle': true,
             'theme': 'dark',
             'onsuccess': onSuccess,
