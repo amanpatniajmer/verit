@@ -10,7 +10,7 @@ const About = () => {
       </p>
       <p className = 'credits-info'>Credits</p>
         <div 
-            style = {{ display: 'flex', placeItems: "center", margin: "10px 10px 15px 10px"}}
+            style = {{ display: 'flex', flexWrap:"wrap", justifyContent:'center', margin: "10px 10px 15px 10px"}}
         >
           <div className = "about-main">
               <img src = {aman} alt = "Aman-logo"/>

@@ -15,9 +15,7 @@ const Login = ({ setauthenticated, setAdmin, showalert }) => {
       <img src = {Icon} alt = "logo" className = "login-img"/>
       <h1 className = "login-header">Sign in to Verit</h1>
       <div className = "form-container">
-        <div className = "center">
           <GoogleSignIn setAuthenticated = {setauthenticated} setAdmin = {setAdmin} showalert = {showalert}/>
-        </div>
       </div>
       <p className = "login-instruction">Use your official college ID for login.</p>
     </div>

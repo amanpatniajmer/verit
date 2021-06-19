@@ -9,7 +9,7 @@ const GoogleSignIn = ({setAuthenticated, showalert, setAdmin}) => {
     useEffect(() => {
         window.gapi.signin2.render('my-signin2', {
             'scope': 'profile email',
-            'width': 292,
+            'width': 'auto',
             'height': 45,
             'longtitle': true,
             'theme': 'dark',
@@ -63,10 +63,10 @@ const GoogleSignIn = ({setAuthenticated, showalert, setAdmin}) => {
     }
 
     return (
-        <div>
-            <div id = "my-signin2"></div>
+        <>
+            <div className="center" id = "my-signin2" style={{maxWidth:"292px"}}></div>
             {register && <Redirect to = '/sign-up'/>}
-        </div>
+        </>
     )
 }
 
