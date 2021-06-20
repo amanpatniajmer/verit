@@ -15,10 +15,10 @@ const About = () => {
           <div className = "about-main">
               <img src = {aman} alt = "Aman-logo"/>
               <h3>Aman Jain</h3>
-              <h4><span style = {{ fontStyle: 'italic'}}>(Backend Developer)</span></h4>
-              <h4>17075001</h4>
+              <h4><span style = {{ fontStyle: 'italic'}}>(Fullstack Developer)</span></h4>
+              <h4>17173004</h4>
               <h4>Engineering Physics</h4>
-              <h4>aman.jain.phy17@iitbhu.ac.in</h4>
+              <h4>aman.jain.phy17@itbhu.ac.in</h4>
           </div>
           <div className = "about-main">
               <img src = {shreyash} alt = "Shreyash-logo"/>

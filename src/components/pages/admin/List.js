@@ -113,7 +113,7 @@ const List = ({location}) => {
                     unverifiedFilter = {unverifiedFilter} 
                     typeFilter = {type} 
                     searchFilter = {search} />
-            <div className = "tables" style = {{ overflowX: 'auto' }} >
+            <div className = "table">
                 <table>
                     <TableHeader 
                                 columns = {columns} 
@@ -128,13 +128,13 @@ const List = ({location}) => {
                                                         updates = {updates} 
                                                         setUpdates = {setUpdates}/>}/>
                 </table>
+                </div>
                 <Pagination 
                             curr = {state.curr} 
                             total = {state.total} 
                             size = {state.size} 
                             pageChange = {pageChange} 
                             sizeChange = {pageSizeChange} />
-            </div>
             <button className = "btn btn-success" 
                     onClick = {downloadCSV}>Download as CSV</button>
         </div>

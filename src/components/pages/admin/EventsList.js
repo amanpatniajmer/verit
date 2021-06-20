@@ -102,7 +102,8 @@ const EventsList = ({location}) => {
                             inactiveFilter = {inactiveFilter} 
                             typeFilter = {type} 
                             searchFilter = {search}/>
-            <h2 className = "text-center text-dark" style = {{ margin: "10px 0px" }}>Events List</h2>
+            <h2 className = "text-center" style = {{ margin: "10px 0px", color:"white" }}>Events List</h2>
+            <div className='table'>
             <table>
                 <TableHeader 
                             columns = {columns}  
@@ -115,6 +116,7 @@ const EventsList = ({location}) => {
                                                                 id = {i._id} 
                                                                 key = {i._id}/>} />
             </table>
+            </div>
             <Pagination  
                         curr = {state.curr} 
                         total = {state.total} 

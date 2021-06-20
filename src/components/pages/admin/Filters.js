@@ -9,6 +9,7 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
     
     const [verified, setVerified] = useState(verifiedFilter)
     const [unverified, setUnverified] = useState(unverifiedFilter)
+    const[verificationStatus, setVerificationStatus]= useState("All");
     const [session, setSession] = useState(sessionFilter)
     const [club, setClub] = useState(clubFilter)
     const [type, setType] = useState(typeFilter)
@@ -25,17 +26,41 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
     //Send Request to backend for updated data, then update state of all data
     return (
         <div className = "filters-container">
-            <div className = "search-container" style = {{ display: 'flex' }}>
+            <div className='filter-container'>
+            <label>Search{" "}
                 <input 
                         type = "text" 
                         placeholder = "Search..." 
                         value = {search} 
                         onChange = {(e) => {setSearch(e.target.value);}} 
                 onKeyUp = {searchDelayer}/>
+                </label>
             </div>
-            <div style = {{display: "flex", justifyContent: "center", margin: '1rem 0'}} className = "filters">
                 <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
-                    <label style = {{margin: "0"}}>Verified{" "}
+                    <label> Verification Status</label>
+                <select 
+                                required = {true} 
+                                value = {verificationStatus} 
+                                onChange = {(e) => {
+                                    setVerificationStatus(e.target.value);
+                                    if(e.target.value==='Verified') {
+                                        setVerified(true); setUnverified(false);
+                                        history.push({pathname: './list', search: `?verified=${true}&unverified=${false}&club=${club}&session=${session}&type=${type}&search=${search}`});
+                                    }
+                                    else if(e.target.value==='Unverified') {
+                                        setVerified(false); setUnverified(true);
+                                        history.push({pathname: './list', search: `?verified=${false}&unverified=${true}&club=${club}&session=${session}&type=${type}&search=${search}`});
+                                    }
+                                    else {
+                                        setVerified(true); setUnverified(true);
+                                        history.push({pathname: './list', search: `?verified=${true}&unverified=${true}&club=${club}&session=${session}&type=${type}&search=${search}`});
+                                    }
+                                    }}>
+                            <option value = "All">All</option>
+                            <option value = "Verified">Verified</option>
+                            <option value = "Unverified">Unverified</option>
+                        </select>
+                    {/* <label>Verified{" "}
                         <input 
                                 type = "checkbox" 
                                 checked = {verified} 
@@ -50,7 +75,8 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                                 onChange = {() => {
                                                     history.push({pathname: './list', search: `?verified=${verified}&unverified=${!unverified}&club=${club}&session=${session}&type=${type}&search=${search}`});
                                                     setUnverified(!unverified);}}/>
-                    </label>
+                    </label> */}
+                    
                 </div>
 
                 <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
@@ -98,7 +124,6 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                     </select>
                 </div>
             </div>
-        </div>
     )
 }
 

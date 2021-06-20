@@ -98,7 +98,7 @@ const AddExternal = ({ showalert }) =>
                                           setSelections((prev)=>({...prev, "selectedClub": val}))
                                       }} 
                       required = {true}>
-                {selections.clubs.map((item) => <option value = {item}>{item}</option>)}
+                {selections.clubs.map((item) => <option value = {item} key={item}>{item}</option>)}
               </select>
             </div>
 
