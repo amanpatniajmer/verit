@@ -4,12 +4,12 @@ import cultLogo from "../../../img/small-logo.jpg";
 
 const AddEvent = ({showalert}) => {
     const a = (
-        <div className = "add-event" style = {{ margin: '10vh 0' }}>
+        <div className = "add-event">
             <img src = {cultLogo} alt = "" style = {{ height: "120px", width: "120px", borderRadius: '50%', marginBottom: '5vh' }} />
             <h1 className = "large text-primary text-center" style = {{marginBottom: "0"}}>{localStorage.getItem("name")}</h1>
             
-            <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "5vh 0 20px 0"}}>Add an event:{" "}</h1>
-            <div>
+            <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "3vh 0 20px 0"}}>Add an event:{" "}</h1>
+            <div className = "diff-events">
                 <Link 
                     to ="../admin/addinternal" 
                     showalert = {showalert}>
@@ -21,7 +21,7 @@ const AddEvent = ({showalert}) => {
                         <button className = "event-btn">External <span>Event</span><span><i className = "fa fa-plus-circle" style = {{ marginTop:"5px" }}/></span></button>
                 </Link>
             </div>
-            <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "20px 0px"}}>Event History:{" "}</h1>
+            <h1 className = "text-center event-history" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "20px 0px"}}>Event History:{" "}</h1>
             <Link 
                 to = "../admin/eventslist" 
                 showalert = {showalert}>

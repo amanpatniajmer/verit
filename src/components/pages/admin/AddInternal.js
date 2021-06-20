@@ -47,7 +47,7 @@ const AddInternal = ({ showalert }) => {
     return (
         <div>
           <form className = "form-container" onSubmit = {(e) => {add(e)}}>
-          <span className = "close" onClick = {() => history.push('../')}><i className = "fa fa-times-circle"/></span>
+            <span className = "close" onClick = {() => history.push('../')}><i className = "fa fa-times-circle"/></span>
             <h1 className = "text-primary">{" "}
             <span className = "text-dark">Add an </span> Internal Event{" "}
             </h1>

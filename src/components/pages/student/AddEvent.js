@@ -9,7 +9,7 @@ const AddEvent = ({showalert}) =>
             
             {localStorage.getItem('email')}
             
-            <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "5vh 0 20px 0"}}>Add an event:{" "}</h1>
+            <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "3vh 0 20px 0"}}>Add an event:{" "}</h1>
 
             <div className = 'diff-events'>
                 <Link 

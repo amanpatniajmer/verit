@@ -105,8 +105,7 @@ const List = ({location}) => {
     }, [allData, verifiedFilter, unverifiedFilter, session, club, type, search, order]);
 
     return (
-        <div style = {{ display: "grid", placeContent: "center", marginBottom: "16px" }}>
-            <h2 className = "text-left text-dark" style = {{ margin: "10px 0px" }}><i className = "fa fa-check btn-success"/>{" "}Verification List</h2>
+        <div style = {{ display: "grid", placeContent: "center", margin: "8vh 0" }}>
             <Filters 
                     sessionFilter = {session} 
                     clubFilter = {club} 

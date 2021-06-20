@@ -18,7 +18,7 @@ const Pagination = ({curr, size, total, pageChange, sizeChange}) => {
             </span>
 
             <span>
-            Rows per page: <input type = "number" min = {1} value = {size} onChange = {(e) => sizeChange(e.target.value)}/>
+                Rows: <input type = "number" min = {1} value = {size} onChange = {(e) => sizeChange(e.target.value)}/>
             </span>
         </div>
     )

@@ -14,7 +14,7 @@ const SubEvent = ({id, delSubEvent}) => {
                   style = {{width: "95%"}}
                   required
                 />
-                <i style = {{fontSize: "1.5rem", marginTop: "1rem", marginLeft: "0.5rem", cursor: "pointer"}}            className = "fa fa-times-circle" 
+                <i style = {{fontSize: "1.5rem", marginTop: "0.7rem", marginLeft: "0.5rem", cursor: "pointer"}}            className = "fa fa-times-circle" 
                              onClick = {() => delSubEvent(id)}/>
               </div>
             </div>
