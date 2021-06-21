@@ -100,6 +100,7 @@ ul {
 
 .navbar h1 {
   display: flex;
+  align-items: center;
   font-size: 2.35rem;
   font-weight: 600;
 }
@@ -384,7 +385,7 @@ button {
 
 /* Filters */
 .filters-container{
-  background-color: white;
+  background-color: #e5e5e5;
   color: black;
   box-shadow: 4px 4px 5px rgb(255 255 255 / 20%);
   width: 95vw;
@@ -393,7 +394,7 @@ button {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 10px 0;
+  padding: 0px 0 20px;
   margin-bottom: 5vh;
   border: 1px solid var(--border-color);
   border-radius: 20px;  
@@ -420,10 +421,10 @@ button {
 }
 
 .filter-container input, select{
-  padding: 1px !important;
+  padding: 2px !important;
   font-size: 14px !important;
-  color: #535353 !important;
-  border-radius: 7px;
+  color: black !important;
+  border-radius: 5px;
   background-color: var(--light-color);
   outline: none;
 }
@@ -467,6 +468,10 @@ table td {
   text-align: center;
   color: rgb(255 255 255 / 60%);
   font-weight: 330;
+}
+
+tbody td > i{
+  padding-right: 3px !important;
 }
 
 table th {
@@ -754,8 +759,12 @@ td i {
     padding-right: 4px;
   }
 
-  button {
-    padding: 0.2rem 0.4rem !important;
+  .btn {
+    padding: 0.2rem 0.6rem !important;
+  }
+
+  .btn-pagination{
+    padding: 0.2rem 0.6rem !important;
   }
 }
 
@@ -964,7 +973,7 @@ td i {
 
   /* Event Button */
   .event-btn {
-    padding: 1rem 1.5rem;
+    padding: 2rem 1.5rem;
     font-size: 1.1rem;
   }
 

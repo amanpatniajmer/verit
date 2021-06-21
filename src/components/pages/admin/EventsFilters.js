@@ -25,7 +25,6 @@ const EventsFilters = ({activeFilter, inactiveFilter, sessionFilter, typeFilter,
                 <label>Search</label>
                 <input 
                         type = "text" 
-                        placeholder = "Search..." 
                         value = {search} 
                         onChange = {(e) => {setSearch(e.target.value);}} 
                 onKeyUp = {searchDelayer}/>

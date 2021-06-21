@@ -48,17 +48,18 @@ const EventsList = ({location}) => {
         tempx = filteredData;
 
         for(let i = 0; i < updates.length; i++){
-            let index = filteredData.findIndex((item) => item._id === updates[i]._id);
-            tempx[index] = updates[i];
+            let index = tempx.findIndex((item) => item._id === updates[i]._id);
+            if(updates[i]['status']==="Deleted") tempx.splice(index,1);
+            else tempx[index] = updates[i];
         }
-        setFilteredData(filteredData);
+        setFilteredData(tempx);
         setUpdates([]);
     }
     const [updates, setUpdates] = useState([]);
     const pageChange = (page) =>
     {
         clearVisualUpdates();
-        setState({...state, curr: page});
+        setState({...state, curr: page, total: filteredData.length});
         setData(paginate(filteredData, page, state.size));
     }
     const pageSizeChange = (size) => 

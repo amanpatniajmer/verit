@@ -30,7 +30,6 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
             <label>Search{" "}
                 <input 
                         type = "text" 
-                        placeholder = "Search..." 
                         value = {search} 
                         onChange = {(e) => {setSearch(e.target.value);}} 
                 onKeyUp = {searchDelayer}/>
