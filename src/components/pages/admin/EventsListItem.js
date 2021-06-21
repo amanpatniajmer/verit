@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 
-const EventsListItem = ({ data }) => {
+const EventsListItem = ({ data, updates, setUpdates }) => {
     const { event, subevents, session, status, _id, type } = data;
     const [loading, setLoading] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
@@ -10,8 +10,11 @@ const EventsListItem = ({ data }) => {
                             setLoading(true);
                             Axios.put(`${process.env.REACT_APP_SERVER}/api/events/${type}/${_id}/activate?token=${localStorage.getItem('token')}`)
                                 .then(result => {
-                                    if (result.status === 200 && result.statusText === "OK")
+                                    if (result.status === 200 && result.statusText === "OK"){
+                                        setUpdates([...updates, {...data, status: "Active"}]);
                                         setNewStatus("Active");
+                                    }
+                                        
                                     setLoading(false);
                                 })
                                 .catch(err => {
@@ -22,8 +25,10 @@ const EventsListItem = ({ data }) => {
                               setLoading(true);
                               Axios.put(`${process.env.REACT_APP_SERVER}/api/events/${type}/${_id}/inactivate?token=${localStorage.getItem('token')}`)
                                     .then(result => {
-                                        if (result.status === 200 && result.statusText === "OK")
+                                        if (result.status === 200 && result.statusText === "OK"){
+                                            setUpdates([...updates, {...data, status: "Inactive"}]);
                                             setNewStatus("Inactive");
+                                        }
                                         setLoading(false);
                                     })
                                     .catch(err => {
@@ -37,8 +42,10 @@ const EventsListItem = ({ data }) => {
                                     'x-auth-token': localStorage.getItem('token')
                                 }
                             }).then(result => {
-                                if (result.status === 200 && result.statusText === "OK")
+                                if (result.status === 200 && result.statusText === "OK"){
+                                    setUpdates([...updates, {...data, status: "Deleted"}]);
                                     setNewStatus("Deleted");
+                                }
                                 setDeleteLoading(false);
                             })
                                 .catch(err => {

@@ -41,10 +41,18 @@ const EventsList = ({location}) => {
         let tempx = allData;
         for(let i = 0; i < updates.length; i++){
             let index = allData.findIndex((item) => item._id === updates[i]._id);
+            if(updates[i]['status']==="Deleted") tempx.splice(index,1);
+            else tempx[index] = updates[i];
+        }
+        setAllData(tempx);
+        tempx = filteredData;
+
+        for(let i = 0; i < updates.length; i++){
+            let index = filteredData.findIndex((item) => item._id === updates[i]._id);
             tempx[index] = updates[i];
         }
+        setFilteredData(filteredData);
         setUpdates([]);
-        setAllData(tempx);
     }
     const [updates, setUpdates] = useState([]);
     const pageChange = (page) =>
@@ -111,10 +119,14 @@ const EventsList = ({location}) => {
                             setSort = {setOrder} />
                 <TableBody 
                             data = {data} 
+                            setAllData = {setAllData}
                             content = {(i) => <EventsListItem 
                                                                 data = {i} 
                                                                 id = {i._id} 
-                                                                key = {i._id}/>} />
+                                                                key = {i._id}
+                                                                updates={updates}
+                                                                setUpdates={setUpdates}
+                                                                />} />
             </table>
             </div>
             <Pagination  
