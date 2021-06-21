@@ -34,7 +34,7 @@ const AddInternal = ({ showalert }) =>
     .then(() => {showalert("You have successfully applied for verification.", "success"); 
                  setLoading(false); 
                  history.push('../');})
-    .catch((e) => {showalert((e.response && e.response.data) || "No connection established", "danger"); 
+    .catch((e) => {showalert((e.response && e.response.data)? String(e.response.data) : "No connection established", "danger"); 
                    setLoading(false);})
   }
   const fetchfields = (selections) => 

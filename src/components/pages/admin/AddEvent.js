@@ -1,11 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import cultLogo from "../../../img/small-logo.jpg";
 
 const AddEvent = ({showalert}) => {
     const a = (
         <div className = "add-event">
-            <img src = {localStorage.getItem("picture")} alt = "" style = {{ height: "120px", width: "120px", borderRadius: '50%', marginBottom: '5vh' }} />
+            <img src = {localStorage.getItem("picture")} alt = "Logo" style = {{ height: "120px", width: "120px", borderRadius: '50%', marginBottom: '5vh' }} />
             <h1 className = "large text-primary text-center" style = {{marginBottom: "0"}}>{localStorage.getItem("name")}</h1>
             
             <h1 className = "text-center" style = {{ fontFamily: "Arial, Helvetica, sans-serif", margin: "3vh 0 20px 0"}}>Add an event:{" "}</h1>

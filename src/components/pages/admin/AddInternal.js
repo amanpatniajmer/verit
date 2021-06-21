@@ -40,7 +40,7 @@ const AddInternal = ({ showalert }) => {
     .then(() =>{showalert("Internal event added.", "success"); 
                 setLoading(false); 
                 history.push('../'); })
-    .catch((e) => {showalert((e.response && e.response.data) || "No connection established", "danger"); 
+    .catch((e) => {showalert((String(e.response) && String(e.response.data)) || "No connection established", "danger"); 
                    setLoading(false); })
     
   }
