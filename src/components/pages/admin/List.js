@@ -12,7 +12,7 @@ import {sort} from '../../common/Sort';
 import {filter} from '../../common/Filter';
 import {paginate} from '../../common/Pagination';
 
-const List = ({location}) => {
+const List = ({location, setActive}) => {
     const [, setloading] = useContext(Context);
 
     let query = queryString.parse(location.search)
@@ -83,11 +83,14 @@ const List = ({location}) => {
     }
 
     useEffect(() => {
+        let componentMounted=true;
         setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply/${localStorage.getItem('name')}?token=${localStorage.getItem('token')}`)
         .then((res) => {
-                        setAllData(res.data);
-                        setloading(false);
+            if(componentMounted){
+                setAllData(res.data);
+            }
+            setloading(false);
         })
         .catch((err) => {
             if (err.response && err.response.status === 401) {
@@ -97,9 +100,11 @@ const List = ({location}) => {
             }
             setloading(false);
         });
+        return ()=>componentMounted=false;
     }, [setloading])
     
     useEffect(() => {
+        setActive("List");
         update(verifiedFilter, unverifiedFilter, session, club, type, search, order);
         //eslint-disable-next-line
     }, [allData, verifiedFilter, unverifiedFilter, session, club, type, search, order]);

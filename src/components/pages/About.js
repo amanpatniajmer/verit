@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import aman from '../../img/aman.jpg';
 import shreyash from '../../img/shreyash.jpg'
 
-const About = () => {
+const About = ({setActive}) => {
+  useEffect(() => {
+    setActive("About");
+    //eslint-disable-next-line
+  }, [])
   return (
     <div className = "about text-center">
       <p className = 'about-info'>

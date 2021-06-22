@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import Icon from "../../img/shield.png";
 import GoogleSignIn from "./GoogleSignIn";
 
-const Login = ({ setauthenticated, setAdmin, showalert }) => {
+const Login = ({ setauthenticated, setAdmin, showalert, setActive }) => {
   useEffect(() => {
+    setActive("Login");
     localStorage.clear();
+    //eslint-disable-next-line
   }, [])
 
   return (

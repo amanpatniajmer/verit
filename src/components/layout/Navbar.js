@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 import Logo from "../../img/logo.png";
 
 const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
+  const toggleNavbar = () => {
+    if (document.getElementsByClassName('nav-links')[0] && document.getElementsByClassName('navbar')[0]) {
+        document.getElementsByClassName('nav-links')[0].style = "width:250px; visibility:visible; opacity:1"
+        /* window.addEventListener('click', listener2) */
+    }
+}
   useEffect(() => {
     window.gapi.load('auth2', function() {
       window.gapi.auth2.init();
@@ -18,7 +24,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
   }
 
   const authLinks = (
-    <ul>
+    <ul className="nav-links">
       <li>
         <Link to = "/">Dashboard</Link>
       </li>
@@ -35,7 +41,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
   );
 
   const guestLinks = (
-    <ul>
+    <ul className="nav-links">
       <li>
         <Link to = "/" params = {{ setauthenticated: {setauthenticated} }} >Login</Link>
       </li>
@@ -59,6 +65,7 @@ const Navbar = ({ title, logoutIcon, isauthenticated, setauthenticated  }) => {
       </h1>
       
       </Link>
+      <i className="fa fa-bars" onClick={toggleNavbar}/>
       {isauthenticated ? authLinks : guestLinks}
     </nav>
   );

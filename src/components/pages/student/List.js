@@ -12,7 +12,7 @@ import {sort} from '../../common/Sort';
 import {filter} from '../../common/Filter';
 import {paginate} from '../../common/Pagination';
 
-const List = ({ location }) => 
+const List = ({ location,setActive }) => 
 {
     const [, setloading] = useContext(Context);
 
@@ -86,10 +86,13 @@ const List = ({ location }) =>
 
     useEffect(() => 
     {
+        let componentMounted=true;
         setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply?token=${localStorage.getItem("token")}`)
             .then((res) => {
-                setAllData(res.data.reverse());
+                if(componentMounted){
+                    setAllData(res.data.reverse());
+                }
                 setloading(false);
             })
             .catch((e) => {
@@ -100,10 +103,12 @@ const List = ({ location }) =>
                 }
                 console.log("Problem ", e);
             })
+            return ()=>componentMounted=false;
     }, [setloading]);
 
     useEffect(() => 
     {
+        setActive("List");
         update(verifiedFilter, unverifiedFilter, session, club, type, search, order);
         //eslint-disable-next-line
     }, [allData, verifiedFilter, unverifiedFilter, session, club, type, search, order]);

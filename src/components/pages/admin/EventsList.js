@@ -81,21 +81,25 @@ const EventsList = ({location}) => {
     }
 
     useEffect(() => {
-                    setloading(true);
-                    Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
-                    .then((res) => {
-                        setAllData(res.data.reverse());
-                        setloading(false);
-                    })
-                    .catch((err) => {
-                        if (err.response && err.response.status === 401) {
-                            localStorage.removeItem('token');
-                            const auth2 = window.gapi.auth2.getAuthInstance();
-                            auth2.signOut().then(() => window.location.href = "/");
-                        }
-                        console.error(err);
-                        setloading(false);
-                    })
+        let componentMounted=true;
+        setloading(true);
+        Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
+        .then((res) => {
+            if(componentMounted){
+                setAllData(res.data.reverse());
+            }
+            setloading(false);
+        })
+        .catch((err) => {
+            if (err.response && err.response.status === 401) {
+                localStorage.removeItem('token');
+                const auth2 = window.gapi.auth2.getAuthInstance();
+                auth2.signOut().then(() => window.location.href = "/");
+            }
+            console.error(err);
+            setloading(false);
+        })
+        return ()=>componentMounted=false;
     }, [setloading])
 
     useEffect(() => {
