@@ -61,7 +61,7 @@ const Register = ({ showalert, setAuthenticated, setAdmin }) => {
       <form onSubmit = {onSubmit} className = "form-container">
         <h1 className = "text-primary">
           {" "}
-          <span className = "text-dark">Account</span> Register{" "}
+          <span className = "text-light">Account</span> Register{" "}
         </h1>
         <div className = "form-group">
           <label>Roll No.</label>
@@ -79,7 +79,7 @@ const Register = ({ showalert, setAuthenticated, setAdmin }) => {
         <input
           type = "submit"
           value = "Register"
-          className = "btn btn-block btn-primary"
+          className = "btn btn-block btn-success"
         />
       </form>
     </div>

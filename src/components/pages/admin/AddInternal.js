@@ -49,7 +49,7 @@ const AddInternal = ({ showalert }) => {
           <form className = "form-container" onSubmit = {(e) => {add(e)}}>
             <span className = "close" onClick = {() => history.push('../')}><i className = "fa fa-times-circle"/></span>
             <h1 className = "text-primary">{" "}
-            <span className = "text-dark">Add an </span> Internal Event{" "}
+            <span className = "text-light">Add an </span> Internal Event{" "}
             </h1>
             <div className = "form-group">
               <label>Organization</label>
