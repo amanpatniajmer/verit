@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 
-const Register = ({ showalert, setAuthenticated, setAdmin }) => {
+const Register = ({ showalert, setauthenticated, setAdmin }) => {
 
   const history = useHistory();
   const [user, setUser] = useState({
@@ -45,7 +45,7 @@ const Register = ({ showalert, setAuthenticated, setAdmin }) => {
 
       showalert(`Welcome ${res.data.name}`, "success");
       setAdmin(res.data.admin);
-      setAuthenticated(true);
+      setauthenticated(true);
       history.push('../');
       })
     .catch((e) => {
@@ -81,6 +81,7 @@ const Register = ({ showalert, setAuthenticated, setAdmin }) => {
           value = "Register"
           className = "btn btn-block btn-success"
         />
+        <p className='login-instruction text-center' style={{marginTop:"25px"}}>Please enter your roll number correctly. This action cannot be averted. </p>
       </form>
     </div>
   );

@@ -128,6 +128,7 @@ const List = ({ location,setActive }) =>
                     unverifiedFilter = {unverifiedFilter} 
                     typeFilter = {type} 
                     searchFilter = {search} />
+            <h2 className = "text-center" style = {{ margin: "10px 0px", color: "#f190dd" }}>Verification Requests</h2>
             <div className = "table">
                 <table>
                     <TableHeader 
