@@ -33,18 +33,22 @@ const List = ({ location,setActive }) =>
         curr: 1,
         size: 4,
         total: 0
-    })
+    });
+
     const [order, setOrder] = useState(
     {
         field: "Date",
         asc: true, 
         type: "Date"
-    })
+    });
+
     const [updates, setUpdates] = useState([]);
+
     const downloadCSV = () => 
     {
         convert(filter(allData, verifiedFilter, unverifiedFilter, session, club, type), localStorage.getItem('name') + '_' + session);
     }
+
     const clearVisualUpdates = () => 
     {
         let tempx = allData;
@@ -62,11 +66,13 @@ const List = ({ location,setActive }) =>
         setFilteredData(tempx);
         setUpdates([]);
     }
+
     const pageChange = (page) => {
         clearVisualUpdates();
         setState({...state, curr: page, total: filteredData.length});
         setData(paginate(filteredData, page, state.size));
     }
+
     const pageSizeChange = (size) => {
         if(size === undefined || size === "") 
             return;
@@ -75,6 +81,7 @@ const List = ({ location,setActive }) =>
         setState({...state, size, curr:1});
         setData(paginate(filteredData, 1, size));
     }
+    
     const update = (v, u, s, c, t, se, o) => {
         clearVisualUpdates();
         let temp = filter(allData, v, u, s, c, t, se);

@@ -70,7 +70,7 @@ const AddInternal = ({ showalert }) => {
               return <SubEvent key = {i} id = {i} delSubEvent = {delSubEvent}/>
               })}
             <div className = "form-group text-center">
-            <button type = "button" className = "btn" onClick = {() => addSubEvents()}>Add Sub Event{" "}<span><i className = "fa fa-plus-circle" style = {{marginTop:"5px"}}/></span></button>
+              <button type = "button" className = "btn" onClick = {() => addSubEvents()}>Add Sub Event{" "}<span><i className = "fa fa-plus-circle"/></span></button>
             </div>
             <div className = "form-group">
               <label>Session</label>

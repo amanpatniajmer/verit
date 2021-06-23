@@ -3,6 +3,7 @@ import Icon from "../../img/shield.png";
 import GoogleSignIn from "./GoogleSignIn";
 
 const Login = ({ setauthenticated, setAdmin, showalert, setActive }) => {
+
   useEffect(() => {
     setActive("Login");
     localStorage.clear();
@@ -10,10 +11,7 @@ const Login = ({ setauthenticated, setAdmin, showalert, setActive }) => {
   }, [])
 
   return (
-    <div 
-    style = {{ display: 'flex', flexDirection: 'column', placeItems: "center"}}
-    className = "login-main"
-    >
+    <div className = "login-main">
       <img src = {Icon} alt = "logo" className = "login-img"/>
       <h1 className = "login-header">Sign in to Verit</h1>
       <div className = "google-form-container">

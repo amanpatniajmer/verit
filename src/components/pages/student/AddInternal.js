@@ -142,7 +142,7 @@ const AddInternal = ({ showalert }) =>
                                           setSelections((prev) => ({...prev, selectedSubevent: val}))
                                         }}
                       required = {true}>
-                <option value = "NONE" key = "NONE" >NONE</option>
+                <option value = "NONE" key = "NONE" >None</option>
                 {selections.subevents[selections.selectedEvent] && selections.subevents[selections.selectedEvent].map((i) => <option value = {i} key = {i} >{i}</option>)}
               </select>
             </div>

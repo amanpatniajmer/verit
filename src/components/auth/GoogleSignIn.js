@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
 import { Redirect } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const GoogleSignIn = ({setAuthenticated, showalert, setAdmin}) => {
     function onSuccess(googleUser) {
         var profile = googleUser.getBasicProfile();
         let email = profile.getEmail();
-        if (email === "" ) {
+        if (email === "") {
             showalert("Please fill in all fields", "danger");
         }
         else {

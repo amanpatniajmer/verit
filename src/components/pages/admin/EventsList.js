@@ -29,13 +29,15 @@ const EventsList = ({location}) => {
         curr: 1,
         size: 4,
         total: 0
-    })
+    });
+
     const [order, setOrder] = useState(
     {
         field: "Status",
         asc: true, 
         type: "String"
-    })
+    });
+
     const clearVisualUpdates = () => 
     {
         let tempx = allData;
@@ -55,13 +57,16 @@ const EventsList = ({location}) => {
         setFilteredData(tempx);
         setUpdates([]);
     }
+
     const [updates, setUpdates] = useState([]);
+    
     const pageChange = (page) =>
     {
         clearVisualUpdates();
         setState({...state, curr: page, total: filteredData.length});
         setData(paginate(filteredData, page, state.size));
     }
+    
     const pageSizeChange = (size) => 
     {
         if(size === undefined || size === "") 
@@ -70,6 +75,7 @@ const EventsList = ({location}) => {
         setState({...state, size, curr: 1});
         setData(paginate(filteredData, 1, size));
     }
+    
     const update = (v, u, session, t, search, o) => 
     {
         clearVisualUpdates();
@@ -115,7 +121,7 @@ const EventsList = ({location}) => {
                             inactiveFilter = {inactiveFilter} 
                             typeFilter = {type} 
                             searchFilter = {search}/>
-            <h2 className = "text-center" style = {{ margin: "10px 0px", color:"white" }}>Events List</h2>
+            <h2 className = "text-center" style = {{ margin: "10px 0px", color: "#f190dd" }}>Events List</h2>
             <div className='table'>
             <table>
                 <TableHeader 

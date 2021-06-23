@@ -5,17 +5,15 @@ const SubEvent = ({id, delSubEvent}) => {
          <div>
             <div className = "form-group">
               <label>Sub-Event</label>
-              <div style = {{display: "flex", justifyContent: "stretch"}}>
+              <div className = "sub-event-list">
                 <input
                   type = "text"
                   name = {"sub_event" + id}
                   placeholder = "Enter name"
                   autoComplete = "off"
-                  style = {{width: "95%"}}
                   required
                 />
-                <i style = {{fontSize: "1.5rem", marginTop: "0.7rem", marginLeft: "0.5rem", cursor: "pointer"}}            className = "fa fa-times-circle" 
-                             onClick = {() => delSubEvent(id)}/>
+                <i className = "fa fa-times-circle" onClick = {() => delSubEvent(id)}/>
               </div>
             </div>
         </div>

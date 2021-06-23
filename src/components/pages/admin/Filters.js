@@ -35,7 +35,7 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                 onKeyUp = {searchDelayer}/>
                 </label>
             </div>
-                <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
+                <div className = "filter-container">
                     <label> Verification Status</label>
                 <select 
                                 required = {true} 
@@ -59,27 +59,10 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                             <option value = "Verified">Verified</option>
                             <option value = "Unverified">Unverified</option>
                         </select>
-                    {/* <label>Verified{" "}
-                        <input 
-                                type = "checkbox" 
-                                checked = {verified} 
-                                onChange = {() => {
-                                                    history.push({pathname: './list', search: `?verified=${!verified}&unverified=${unverified}&club=${club}&session=${session}&type=${type}&search=${search}`});
-                                                    setVerified(!verified);}}/>
-                    </label>
-                    <label>Unverified{" "}
-                        <input 
-                                type = "checkbox" 
-                                checked = {unverified} 
-                                onChange = {() => {
-                                                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${!unverified}&club=${club}&session=${session}&type=${type}&search=${search}`});
-                                                    setUnverified(!unverified);}}/>
-                    </label> */}
-                    
                 </div>
 
-                <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
-                    <label style = {{margin: "0"}}>Session{" "}</label>
+                <div className = "filter-container">
+                    <label>Session{" "}</label>
                         <select 
                                 required = {true} 
                                 value = {session} 

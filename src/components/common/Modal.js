@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Modal = ({content, heading}) => {
     return (
@@ -14,4 +14,4 @@ const Modal = ({content, heading}) => {
     )
 }
 
-export default Modal
+export default Modal;

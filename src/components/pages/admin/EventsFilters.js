@@ -37,15 +37,18 @@ const EventsFilters = ({activeFilter, inactiveFilter, sessionFilter, typeFilter,
                                 onChange = {(e) => {
                                     setVerificationStatus(e.target.value);
                                     if(e.target.value==='Active') {
-                                        setVerified(true); setUnverified(false);
+                                        setVerified(true); 
+                                        setUnverified(false);
                                         history.push({pathname: './eventslist', search: `?active=${true}&inactive=${false}&session=${session}&type=${type}&search=${search}`});
                                     }
                                     else if(e.target.value==='Inactive') {
-                                        setVerified(false); setUnverified(true);
+                                        setVerified(false); 
+                                        setUnverified(true);
                                         history.push({pathname: './eventslist', search: `?active=${false}&inactive=${true}&session=${session}&type=${type}&search=${search}`});
                                     }
                                     else {
-                                        setVerified(true); setUnverified(true);
+                                        setVerified(true); 
+                                        setUnverified(true);
                                         history.push({pathname: './eventslist', search: `?active=${true}&inactive=${true}&session=${session}&type=${type}&search=${search}`});
                                     }
                                     }}>
@@ -53,22 +56,6 @@ const EventsFilters = ({activeFilter, inactiveFilter, sessionFilter, typeFilter,
                             <option value = "Active">Active</option>
                             <option value = "Inactive">Inactive</option>
                         </select>
-                    {/* <label style = {{margin: "0"}}>Active{" "}
-                        <input 
-                                type = "checkbox" 
-                                checked = {verified} 
-                                onChange = {() => {
-                                                    history.push({pathname: './eventslist', search: `?active=${!verified}&inactive=${unverified}&session=${session}&type=${type}&search=${search}`});
-                                                    setVerified(!verified);}}/>
-                    </label>
-                    <label>Inactive{" "}
-                        <input 
-                                type = "checkbox" 
-                                checked = {unverified} 
-                                onChange = {() => {
-                                                    history.push({pathname: './eventslist', search: `?active=${verified}&inactive=${!unverified}&session=${session}&type=${type}&search=${search}`});
-                                                    setUnverified(!unverified);}}/>
-                    </label> */}
                 </div>
                 
                 <div className = "filter-container">
@@ -77,7 +64,7 @@ const EventsFilters = ({activeFilter, inactiveFilter, sessionFilter, typeFilter,
                                 required = {true} 
                                 value = {type} 
                                 onChange = {(e) => {
-                                                    setType(e.target.value)
+                                                    setType(e.target.value);
                                                     history.push({pathname: './eventslist', search: `?active=${verified}&inactive=${unverified}&session=${session}&type=${e.target.value}&search=${search}`});}}>
                         <option value = "-1">All</option>
                         <option value = "Internal">Internal</option>
@@ -91,7 +78,7 @@ const EventsFilters = ({activeFilter, inactiveFilter, sessionFilter, typeFilter,
                             required = {true} 
                             value = {session} 
                             onChange = {(e) => {
-                                                setSession(e.target.value)
+                                                setSession(e.target.value);
                                                 history.push({pathname: './eventslist', search: `?active=${verified}&inactive=${unverified}&session=${e.target.value}&type=${type}&search=${search}`});}}>
                         <option value = "All">All</option>
                         <option value = "2020-21">2020-21</option>
