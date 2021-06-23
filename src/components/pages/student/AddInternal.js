@@ -34,7 +34,7 @@ const AddInternal = ({ showalert }) =>
     .then(() => {showalert("You have successfully applied for verification.", "success"); 
                  setLoading(false); 
                  history.push('../');})
-    .catch((e) => {showalert((e.response && e.response.data) || "No connection established", "danger"); 
+    .catch((e) => {showalert((e.response && e.response.data)? String(e.response.data) : "No connection established", "danger"); 
                    setLoading(false);})
   }
   const fetchfields = (selections) => 
@@ -98,7 +98,7 @@ const AddInternal = ({ showalert }) =>
                                           setSelections((prev) => ({...prev, "selectedClub": val}))
                                           }} 
                       required = {true}>
-                {selections.clubs.map((item) => <option value = {item}>{item}</option>)}
+                {selections.clubs.map((item) => <option value = {item} key={item}>{item}</option>)}
               </select>
             </div>
 
@@ -142,7 +142,7 @@ const AddInternal = ({ showalert }) =>
                                           setSelections((prev) => ({...prev, selectedSubevent: val}))
                                         }}
                       required = {true}>
-                <option value = "NONE" key = "NONE" >NONE</option>
+                <option value = "NONE" key = "NONE" >None</option>
                 {selections.subevents[selections.selectedEvent] && selections.subevents[selections.selectedEvent].map((i) => <option value = {i} key = {i} >{i}</option>)}
               </select>
             </div>

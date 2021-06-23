@@ -40,14 +40,14 @@ const AddInternal = ({ showalert }) => {
     .then(() =>{showalert("Internal event added.", "success"); 
                 setLoading(false); 
                 history.push('../'); })
-    .catch((e) => {showalert((e.response && e.response.data) || "No connection established", "danger"); 
+    .catch((e) => {showalert((String(e.response) && String(e.response.data)) || "No connection established", "danger"); 
                    setLoading(false); })
     
   }
     return (
         <div>
           <form className = "form-container" onSubmit = {(e) => {add(e)}}>
-          <span className = "close" onClick = {() => history.push('../')}><i className = "fa fa-times-circle"/></span>
+            <span className = "close" onClick = {() => history.push('../')}><i className = "fa fa-times-circle"/></span>
             <h1 className = "text-primary">{" "}
             <span className = "text-dark">Add an </span> Internal Event{" "}
             </h1>
@@ -70,7 +70,7 @@ const AddInternal = ({ showalert }) => {
               return <SubEvent key = {i} id = {i} delSubEvent = {delSubEvent}/>
               })}
             <div className = "form-group text-center">
-            <button type = "button" className = "btn" onClick = {() => addSubEvents()}>Add Sub Event{" "}<span><i className = "fa fa-plus-circle" style = {{marginTop:"5px"}}/></span></button>
+              <button type = "button" className = "btn" onClick = {() => addSubEvents()}>Add Sub Event{" "}<span><i className = "fa fa-plus-circle"/></span></button>
             </div>
             <div className = "form-group">
               <label>Session</label>

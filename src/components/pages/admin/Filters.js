@@ -9,6 +9,7 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
     
     const [verified, setVerified] = useState(verifiedFilter)
     const [unverified, setUnverified] = useState(unverifiedFilter)
+    const[verificationStatus, setVerificationStatus]= useState("All");
     const [session, setSession] = useState(sessionFilter)
     const [club, setClub] = useState(clubFilter)
     const [type, setType] = useState(typeFilter)
@@ -25,28 +26,43 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
     //Send Request to backend for updated data, then update state of all data
     return (
         <div className = "filters-container">
-            <div style = {{display: "flex", justifyContent: "center"}}>
-                <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
-                    <label style = {{margin: "0"}}>Verified{" "}
-                        <input 
-                                type = "checkbox" 
-                                checked = {verified} 
-                                onChange = {() => {
-                                                    history.push({pathname: './list', search: `?verified=${!verified}&unverified=${unverified}&club=${club}&session=${session}&type=${type}&search=${search}`});
-                                                    setVerified(!verified);}}/>
-                    </label>
-                    <label>Unverified{" "}
-                        <input 
-                                type = "checkbox" 
-                                checked = {unverified} 
-                                onChange = {() => {
-                                                    history.push({pathname: './list', search: `?verified=${verified}&unverified=${!unverified}&club=${club}&session=${session}&type=${type}&search=${search}`});
-                                                    setUnverified(!unverified);}}/>
-                    </label>
+            <div className='filter-container'>
+            <label>Search{" "}
+                <input 
+                        type = "text" 
+                        value = {search} 
+                        onChange = {(e) => {setSearch(e.target.value);}} 
+                onKeyUp = {searchDelayer}/>
+                </label>
+            </div>
+                <div className = "filter-container">
+                    <label> Verification Status</label>
+                <select 
+                                required = {true} 
+                                value = {verificationStatus} 
+                                onChange = {(e) => {
+                                    setVerificationStatus(e.target.value);
+                                    if(e.target.value==='Verified') {
+                                        setVerified(true); setUnverified(false);
+                                        history.push({pathname: './list', search: `?verified=${true}&unverified=${false}&club=${club}&session=${session}&type=${type}&search=${search}`});
+                                    }
+                                    else if(e.target.value==='Unverified') {
+                                        setVerified(false); setUnverified(true);
+                                        history.push({pathname: './list', search: `?verified=${false}&unverified=${true}&club=${club}&session=${session}&type=${type}&search=${search}`});
+                                    }
+                                    else {
+                                        setVerified(true); setUnverified(true);
+                                        history.push({pathname: './list', search: `?verified=${true}&unverified=${true}&club=${club}&session=${session}&type=${type}&search=${search}`});
+                                    }
+                                    }}>
+                            <option value = "All">All</option>
+                            <option value = "Verified">Verified</option>
+                            <option value = "Unverified">Unverified</option>
+                        </select>
                 </div>
 
-                <div className = "filter-container" style = {{display: "flex", flexDirection: "column"}}>
-                    <label style = {{margin: "0"}}>Session{" "}</label>
+                <div className = "filter-container">
+                    <label>Session{" "}</label>
                         <select 
                                 required = {true} 
                                 value = {session} 
@@ -90,16 +106,6 @@ const Filters = ({verifiedFilter, unverifiedFilter, sessionFilter, clubFilter, t
                     </select>
                 </div>
             </div>
-
-            <div className = "filter-container">
-                <input 
-                        type = "text" 
-                        placeholder = "Search..." 
-                        value = {search} 
-                        onChange = {(e) => {setSearch(e.target.value);}} 
-                        onKeyUp = {searchDelayer}/>
-            </div>
-        </div>
     )
 }
 

@@ -12,7 +12,7 @@ import {sort} from '../../common/Sort';
 import {filter} from '../../common/Filter';
 import {paginate} from '../../common/Pagination';
 
-const List = ({location}) => {
+const List = ({location, setActive}) => {
     const [, setloading] = useContext(Context);
 
     let query = queryString.parse(location.search)
@@ -31,15 +31,18 @@ const List = ({location}) => {
         curr: 1,
         size: 4,
         total: 0
-    })
+    });
+
     const [order, setOrder] = useState({
         field: "Date",
         asc: true, 
         type: "Date"
-    })
+    });
+
     const downloadCSV = () => {
         convert(filter(allData, verifiedFilter, unverifiedFilter, session, club, type), localStorage.getItem('name') + '_' + session);
     }
+
     const clearVisualUpdates = () => {
         let tempx = allData;
 
@@ -57,7 +60,9 @@ const List = ({location}) => {
         setFilteredData(filteredData);
         setUpdates([]);
     }
+
     const [updates, setUpdates] = useState([]);
+
     const pageChange = (page) => 
     {
         clearVisualUpdates();
@@ -83,11 +88,14 @@ const List = ({location}) => {
     }
 
     useEffect(() => {
+        let componentMounted=true;
         setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/apply/${localStorage.getItem('name')}?token=${localStorage.getItem('token')}`)
         .then((res) => {
-                        setAllData(res.data);
-                        setloading(false);
+            if(componentMounted){
+                setAllData(res.data);
+            }
+            setloading(false);
         })
         .catch((err) => {
             if (err.response && err.response.status === 401) {
@@ -97,16 +105,17 @@ const List = ({location}) => {
             }
             setloading(false);
         });
+        return ()=>componentMounted=false;
     }, [setloading])
     
     useEffect(() => {
+        setActive("List");
         update(verifiedFilter, unverifiedFilter, session, club, type, search, order);
         //eslint-disable-next-line
     }, [allData, verifiedFilter, unverifiedFilter, session, club, type, search, order]);
 
     return (
-        <div style = {{ display: "grid", placeContent: "center", marginBottom: "16px" }}>
-            <h2 className = "text-left text-dark" style = {{ margin: "10px 0px" }}><i className = "fa fa-check btn-success"/>{" "}Verification List</h2>
+        <div style = {{ display: "grid", placeContent: "center", margin: "8vh 0" }}>
             <Filters 
                     sessionFilter = {session} 
                     clubFilter = {club} 
@@ -114,26 +123,29 @@ const List = ({location}) => {
                     unverifiedFilter = {unverifiedFilter} 
                     typeFilter = {type} 
                     searchFilter = {search} />
-            <table>
-                <TableHeader 
-                            columns = {columns} 
-                            sort = {order} 
-                            setSort = {setOrder} />
-                <TableBody data = {data} 
-                           content = {(i) => 
-                                            <ListItem 
-                                                     data = {i} 
-                                                     id = {i._id} 
-                                                     key = {i._id} 
-                                                     updates = {updates} 
-                                                     setUpdates = {setUpdates}/>}/>
-            </table>
-            <Pagination 
-                        curr = {state.curr} 
-                        total = {state.total} 
-                        size = {state.size} 
-                        pageChange = {pageChange} 
-                        sizeChange = {pageSizeChange} />
+            <h2 className = "text-center" style = {{ margin: "10px 0px", color: "#f190dd" }}>Verification Requests</h2>
+            <div className = "table">
+                <table>
+                    <TableHeader 
+                                columns = {columns} 
+                                sort = {order} 
+                                setSort = {setOrder} />
+                    <TableBody data = {data} 
+                            content = {(i) => 
+                                                <ListItem 
+                                                        data = {i} 
+                                                        id = {i._id} 
+                                                        key = {i._id} 
+                                                        updates = {updates} 
+                                                        setUpdates = {setUpdates}/>}/>
+                </table>
+                </div>
+                <Pagination 
+                            curr = {state.curr} 
+                            total = {state.total} 
+                            size = {state.size} 
+                            pageChange = {pageChange} 
+                            sizeChange = {pageSizeChange} />
             <button className = "btn btn-success" 
                     onClick = {downloadCSV}>Download as CSV</button>
         </div>

@@ -39,8 +39,7 @@ const ListItem = ({data, updates, setUpdates}) =>
             <td>{newStatus === "Unverified"
             ? <button className = "btn" 
                       onClick = {() => {(!loading) && withdraw()}}>
-                      {loading ? <i className = "fa fa-spinner fa-spin p text-danger"/> : ""}
-                      <i className = "fa fa-trash"/>
+                      {loading ? <i className = "fa fa-spinner fa-spin p text-danger" /> : <i className = "fa fa-trash"/>}
               </button>
             : null}
             </td>

@@ -11,7 +11,7 @@ import {searchData} from '../../common/Search';
 import {sort} from '../../common/Sort';
 import {paginate} from '../../common/Pagination';
 
-const EventsList = ({location}) => {
+const EventsList = ({location, setActive}) => {
     const [, setloading] = useContext(Context);
     let query = queryString.parse(location.search)
         query = JSON.parse(JSON.stringify(query));
@@ -29,30 +29,44 @@ const EventsList = ({location}) => {
         curr: 1,
         size: 4,
         total: 0
-    })
+    });
+
     const [order, setOrder] = useState(
     {
         field: "Status",
         asc: true, 
         type: "String"
-    })
+    });
+
     const clearVisualUpdates = () => 
     {
         let tempx = allData;
         for(let i = 0; i < updates.length; i++){
             let index = allData.findIndex((item) => item._id === updates[i]._id);
-            tempx[index] = updates[i];
+            if(updates[i]['status']==="Deleted") tempx.splice(index,1);
+            else tempx[index] = updates[i];
         }
-        setUpdates([]);
         setAllData(tempx);
+        tempx = filteredData;
+
+        for(let i = 0; i < updates.length; i++){
+            let index = tempx.findIndex((item) => item._id === updates[i]._id);
+            if(updates[i]['status']==="Deleted") tempx.splice(index,1);
+            else tempx[index] = updates[i];
+        }
+        setFilteredData(tempx);
+        setUpdates([]);
     }
+
     const [updates, setUpdates] = useState([]);
+    
     const pageChange = (page) =>
     {
         clearVisualUpdates();
-        setState({...state, curr: page});
+        setState({...state, curr: page, total: filteredData.length});
         setData(paginate(filteredData, page, state.size));
     }
+    
     const pageSizeChange = (size) => 
     {
         if(size === undefined || size === "") 
@@ -61,6 +75,7 @@ const EventsList = ({location}) => {
         setState({...state, size, curr: 1});
         setData(paginate(filteredData, 1, size));
     }
+    
     const update = (v, u, session, t, search, o) => 
     {
         clearVisualUpdates();
@@ -72,21 +87,27 @@ const EventsList = ({location}) => {
     }
 
     useEffect(() => {
-                    setloading(true);
-                    Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
-                    .then((res) => {
-                        setAllData(res.data.reverse());
-                        setloading(false);
-                    })
-                    .catch((err) => {
-                        if (err.response && err.response.status === 401) {
-                            localStorage.removeItem('token');
-                            const auth2 = window.gapi.auth2.getAuthInstance();
-                            auth2.signOut().then(() => window.location.href = "/");
-                        }
-                        console.error(err);
-                        setloading(false);
-                    })
+        setActive("Events");
+        let componentMounted=true;
+        setloading(true);
+        Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
+        .then((res) => {
+            if(componentMounted){
+                setAllData(res.data.reverse());
+            }
+            setloading(false);
+        })
+        .catch((err) => {
+            if (err.response && err.response.status === 401) {
+                localStorage.removeItem('token');
+                const auth2 = window.gapi.auth2.getAuthInstance();
+                auth2.signOut().then(() => window.location.href = "/");
+            }
+            console.error(err);
+            setloading(false);
+        })
+        return ()=>componentMounted=false;
+        //eslint-disable-next-line
     }, [setloading])
 
     useEffect(() => {
@@ -95,14 +116,15 @@ const EventsList = ({location}) => {
     }, [allData, activeFilter, inactiveFilter, type, session, search, order]);
     
     return (
-        <div style = {{ display: "grid", placeContent: "center", marginBottom: "16px" }}>
+        <div style = {{ display: "grid", placeContent: "center", margin: "8vh 0" }}>
             <EventsFilters 
                             sessionFilter = {session} 
                             activeFilter = {activeFilter} 
                             inactiveFilter = {inactiveFilter} 
                             typeFilter = {type} 
                             searchFilter = {search}/>
-            <h2 className = "text-center text-dark" style = {{ margin: "10px 0px" }}>Events List</h2>
+            <h2 className = "text-center" style = {{ margin: "10px 0px", color: "#f190dd" }}>Events List</h2>
+            <div className='table'>
             <table>
                 <TableHeader 
                             columns = {columns}  
@@ -110,11 +132,16 @@ const EventsList = ({location}) => {
                             setSort = {setOrder} />
                 <TableBody 
                             data = {data} 
+                            setAllData = {setAllData}
                             content = {(i) => <EventsListItem 
                                                                 data = {i} 
                                                                 id = {i._id} 
-                                                                key = {i._id}/>} />
+                                                                key = {i._id}
+                                                                updates={updates}
+                                                                setUpdates={setUpdates}
+                                                                />} />
             </table>
+            </div>
             <Pagination  
                         curr = {state.curr} 
                         total = {state.total} 

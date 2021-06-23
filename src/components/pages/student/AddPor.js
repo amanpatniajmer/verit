@@ -95,6 +95,7 @@ const AddPor = ({ showalert }) =>
                 name = "event"
                 placeholder = "Enter name"
                 autoComplete = "off"
+                style = {{ fontSize: '1rem' }}
               />
             </div>
 
@@ -105,6 +106,7 @@ const AddPor = ({ showalert }) =>
                 name = "sub_event"
                 placeholder = "Enter name"
                 autoComplete = "off"
+                style = {{ fontSize: '1rem' }}
               />
             </div>
 
@@ -116,6 +118,7 @@ const AddPor = ({ showalert }) =>
                 placeholder = "Enter name"
                 autoComplete = "off"
                 required = {true}
+                style = {{ fontSize: '1rem' }}
               />
             </div>
 

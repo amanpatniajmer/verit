@@ -8,7 +8,7 @@ const Pagination = ({curr, size, total, pageChange, sizeChange}) => {
         pages.push(i);
     
     const getActiveClass = (item) => {
-        return item === curr ? "btn btn-primary":"btn";
+        return item === curr ? "btn btn-primary" : "btn-pagination";
     }
 
     return (
@@ -18,7 +18,7 @@ const Pagination = ({curr, size, total, pageChange, sizeChange}) => {
             </span>
 
             <span>
-            Rows/page:<input type = "number" min = {1} value = {size} onChange = {(e) => sizeChange(e.target.value)}/>
+                Rows: <input type = "number" min = {1} value = {size} onChange = {(e) => sizeChange(e.target.value)}/>
             </span>
         </div>
     )
