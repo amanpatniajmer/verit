@@ -11,7 +11,7 @@ import {searchData} from '../../common/Search';
 import {sort} from '../../common/Sort';
 import {paginate} from '../../common/Pagination';
 
-const EventsList = ({location}) => {
+const EventsList = ({location, setActive}) => {
     const [, setloading] = useContext(Context);
     let query = queryString.parse(location.search)
         query = JSON.parse(JSON.stringify(query));
@@ -87,6 +87,7 @@ const EventsList = ({location}) => {
     }
 
     useEffect(() => {
+        setActive("Events");
         let componentMounted=true;
         setloading(true);
         Axios.get(`${process.env.REACT_APP_SERVER}/api/events?token=${localStorage.getItem('token')}`)
@@ -106,6 +107,7 @@ const EventsList = ({location}) => {
             setloading(false);
         })
         return ()=>componentMounted=false;
+        //eslint-disable-next-line
     }, [setloading])
 
     useEffect(() => {

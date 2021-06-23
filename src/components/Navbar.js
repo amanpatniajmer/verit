@@ -22,13 +22,9 @@ const Navbar = ({ active, isauthenticated, setauthenticated}) => {
         <li>
           <Link to = "/" name = "Dashboard">Dashboard</Link>
         </li>
-        <li>
-          {localStorage.getItem('adminState') === "true" ? <Link to = "/admin/list" name = "List">Requests</Link> :
-          <Link to = "/student/list" name = "List">Requests</Link>}         
-        </li>
-        <li>
-          {localStorage.getItem('adminState') === "true" ? <Link to = "/admin/eventslist" name = "Events">Events</Link> : ""}
-        </li>
+          {localStorage.getItem('adminState') === "true" ? <li><Link to = "/admin/list" name = "List">Requests</Link></li> :
+          <li><Link to = "/student/list" name = "List">Requests</Link></li>}
+          {localStorage.getItem('adminState') === "true" ? <li><Link to = "/admin/eventslist" name = "Events">Events</Link></li> : ""}
         <li>
           <Link to = "/about" name = "About">About</Link>
         </li>

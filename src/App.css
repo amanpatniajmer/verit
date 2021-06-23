@@ -357,11 +357,10 @@ ul {
   font-style: italic;
 }
 
-.form-group input[type = "text"] {
+.form-group select, .form-group input[type = "text"] {
   display: block;
   width: 100%;
   height: 2rem;
-  padding: 1rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -394,18 +393,6 @@ ul {
   cursor: pointer;
 }
 
-.form-group select {
-  display: block;
-  width: 100%;
-  height: 2rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-  margin-top: 0.4rem;
-  background-color: rgba(255, 255, 255, 0.9);
-  font-family: 'Chivo', sans-serif;
-}
 
 .form-group input[type = "submit"], 
 button {

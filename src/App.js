@@ -44,7 +44,7 @@ function App() {
             <Route exact path = "/about" render = {(props)=> <About setActive = {setActive}/>} />
             <Route exact path = "/" render = {(props) => <Admin {...props} setActive = {setActive} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route exact path = "/admin/list" render = {(props) => <AdminList {...props} setActive = {setActive} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
-            <Route exact path = "/admin/eventslist" render = {(props) => <EventsList {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
+            <Route exact path = "/admin/eventslist" render = {(props) => <EventsList {...props} setActive = {setActive} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route exact path = "/admin/addinternal" render = {(props) => <AdminAddInternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route exact path = "/admin/addexternal" render = {(props) => <AdminAddExternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route path = '/' component = {Forbidden}/>
@@ -53,6 +53,7 @@ function App() {
             :(authenticated ? 
               <Switch>
               <Route exact path = "/" render = {(props) => <Student {...props} setActive = {setActive} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/>
+              <Route exact path = "/about" render = {(props)=> <About setActive = {setActive}/>} />
             <Route exact path = "/student/list" render = {(props) => <StudentList {...props} setActive = {setActive} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/>
             <Route exact path = "/student/addinternal" render = {(props) => <StudentAddInternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/>
             <Route exact path = "/student/addexternal" render = {(props) => <StudentAddExternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/>
