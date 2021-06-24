@@ -15,7 +15,7 @@ const TableHeader = ({columns, sort, setSort}) => {
                     {
                         columns.map(column => 
                         <th key = {column.name} className = "text-center text-dark" 
-                            onClick = {() => {order(column.name, column.type)}}>{column.name} {sort.field === column.name ? (sort.asc ? <i className = "fa fa-caret-down"/> : <i className="fa fa-caret-up"/>) : null}
+                            onClick = {() => {order(column.name, column.type)}}>{column.name} {sort.field === column.name ? (sort.asc ? <i className = "fa fa-caret-down"/> : <i className="fa fa-caret-up"/>) : <i className = "fa fa-sort"/>}
                         </th>
                         )
                     }

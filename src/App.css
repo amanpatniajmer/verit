@@ -506,6 +506,11 @@ table th {
   background-color: var(--light-color);
   padding: 0.5rem;
   text-align: left;
+  white-space:nowrap;
+}
+
+table th:last-child .fa{
+  display: none;
 }
 
 table tr th:first-child {

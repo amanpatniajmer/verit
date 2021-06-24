@@ -146,7 +146,7 @@ const List = ({location, setActive}) => {
                             size = {state.size} 
                             pageChange = {pageChange} 
                             sizeChange = {pageSizeChange} />
-            <button className = "btn btn-success" 
+            <button className = "btn btn-success" style={{margin:"auto", maxWidth:"100%"}}
                     onClick = {downloadCSV}>Download as CSV</button>
         </div>
     )
