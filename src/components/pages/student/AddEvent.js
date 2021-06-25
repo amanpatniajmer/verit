@@ -5,6 +5,7 @@ const AddEvent = ({showalert}) =>
 {
     const a = (
         <div className = "add-event">
+            <img src = {localStorage.getItem("picture")} alt = "UserImage"/>
             <h1 className = "large text-primary text-center">{localStorage.getItem('roll')} : {localStorage.getItem('name')}</h1>
             
             {localStorage.getItem('email')}
