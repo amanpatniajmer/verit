@@ -19,6 +19,7 @@ import StudentAddPor from "./components/pages/student/AddPor";
 import StudentList from "./components/pages/student/List";
 import EventsList from "./components/pages/admin/EventsList";
 import Alert from "./components/layout/Alert";
+import CertificateGenerator from "./components/pages/admin/CertificateGenerator";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("token"));
@@ -47,6 +48,7 @@ function App() {
             <Route exact path = "/admin/eventslist" render = {(props) => <EventsList {...props} setActive = {setActive} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route exact path = "/admin/addinternal" render = {(props) => <AdminAddInternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route exact path = "/admin/addexternal" render = {(props) => <AdminAddExternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
+            <Route exact path = "/admin/certificate" render = {(props) => <CertificateGenerator {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route path = '/' component = {Forbidden}/>
 
             </Switch>
