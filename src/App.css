@@ -1066,3 +1066,52 @@ table tr th:last-child {
     max-height: 30px;
   }
 }
+
+.modal{
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 500;
+  position: fixed;
+  top:0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalBox{
+  background-color: white;
+  color: #000;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.modalBox .heading{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+  font-size: 1.5rem;
+}
+.modalBox .heading .fa-close{
+  cursor: pointer;
+}
+.modalBox .content{
+  padding: 5px 2px;
+}
+.certificateGenerator input{
+  width: 50px;
+}
+.certificateGenerator label{
+  margin-right: 5px;
+}
+.certificateGenerator #fields{
+  display: flex;
+  justify-content: space-between;
+}
+.certificateGenerator #fields button{
+  padding: 0 20px;
+}

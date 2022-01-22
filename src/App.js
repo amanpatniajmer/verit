@@ -20,13 +20,14 @@ import StudentList from "./components/pages/student/List";
 import EventsList from "./components/pages/admin/EventsList";
 import Alert from "./components/layout/Alert";
 import CertificateGenerator from "./components/pages/admin/CertificateGenerator";
+import Modal from "./components/common/Modal";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("token"));
   const [admin, setAdmin] = useState(localStorage.getItem("adminState") === "true");
   const [active,setActive] = useState(authenticated ? "Dashboard" : "Login");
   const [alert, setAlert] = useState(null);
-
+  const [modal, setModal] = useState(null);
   const showAlert = (msg, type) => {
       setAlert({ msg, type });
       setTimeout(() => {
@@ -39,6 +40,7 @@ function App() {
       <Router>
         <ContextProvider>
         <Navbar isauthenticated = {authenticated} setauthenticated = {setAuthenticated} isadmin = {admin} setadmin = {setAdmin} active={active}/>
+        {modal ? <Modal content={modal.content} heading={modal.heading} setModal={setModal}/> : ''}
         <div className = "main-window">
           <Alert alert = {alert} />
             {authenticated && admin ? <Switch>
@@ -48,7 +50,7 @@ function App() {
             <Route exact path = "/admin/eventslist" render = {(props) => <EventsList {...props} setActive = {setActive} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route exact path = "/admin/addinternal" render = {(props) => <AdminAddInternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
             <Route exact path = "/admin/addexternal" render = {(props) => <AdminAddExternal {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
-            <Route exact path = "/admin/certificate" render = {(props) => <CertificateGenerator {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} />}/> 
+            <Route exact path = "/admin/certificate" render = {(props) => <CertificateGenerator {...props} setauthenticated = {setAuthenticated} setAdmin = {setAdmin} showalert = {showAlert} setModal = {setModal}/>}/> 
             <Route path = '/' component = {Forbidden}/>
 
             </Switch>
